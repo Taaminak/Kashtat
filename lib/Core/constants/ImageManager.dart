@@ -1,0 +1,83 @@
+class ImageManager {
+  static String iconPath = "assets/icons";
+  static String imagePath = "assets/images";
+
+  // icons
+  static String logo = "$iconPath/Group 26@3x.png";
+  static String logoHalfGrey = "$iconPath/Intersection 1@3x.png";
+  static String logoWithTitleV = "$iconPath/Group 28@3x.png";
+  static String logoWithTitleHWhite = "$iconPath/Group 6332@3x.png";
+  static String logoWithTitleHColored = "$iconPath/Group 6332 (2).png";
+  static String list = "$iconPath/Action Bar@3x.png";
+  static String marker = "$iconPath/akar-iconslocation@3x.png";
+  static String linkedIn = "$iconPath/Asset 9@3x.png";
+  static String verified = "$iconPath/bipatch-check-fill@3x.png";
+  static String backIcon = "$iconPath/Chevron@3x.png";
+  static String buildings = "$iconPath/claritybuilding-line@3x.png";
+  static String ksaLogo = "$iconPath/Group 6334@3x.png";
+  static String camp = "$iconPath/Group 6341@3x.png";
+  static String campWithOrangeBg = "$iconPath/Group 6392@3x.png";
+  static String markerWithBlueBg = "$iconPath/Group 6390@3x.png";
+  static String usersWithGreyBg = "$iconPath/Group 6391@3x.png";
+  static String users = "$iconPath/UI icon-group-light@3x.png";
+  static String lockWithOrangeBg = "$iconPath/Group 6393@3x.png";
+  static String gridList = "$iconPath/ic_view_module_24px@3x.png";
+  static String envelopeWithGreenBg = "$iconPath/icon@3x.png";
+  static String envelopeWithWhiteBg = "$iconPath/Message@3x.png";
+  static String rectangleBgWithMixedColor = "$iconPath/Rectangle 9@3x.png";
+  static String finger = "$iconPath/UI icon-hand cursor-light@3x.png";
+  static String earth = "$iconPath/UI icon-internet-light@3x.png";
+  static String logOut = "$iconPath/UI icon-logout-light@3x.png";
+  static String logIn = "$iconPath/UI icon-login-light@3x.png";
+  static String messages = "$iconPath/UI icon-messages-light@3x.png";
+  static String listV = "$iconPath/UI icon-more_vertical-filled@3x.png";
+  static String user = "$iconPath/UI icon-person-light@3x.png";
+  static String privacy = "$iconPath/UI icon-shield-light@3x.png";
+  static String warning = "$iconPath/UI icon-warning-light@3x.png";
+  static String usersBottom = "$iconPath/Vector@3x.png";
+  static String aboutUs = "$iconPath/Group 6385@3x.png";
+  static String pay = "$iconPath/payment_method_icons/UI icon-payment-light@3x.png";
+  static String masterCard = "$iconPath/payment_method_icons/Icon_MasterCard@3x.png";
+  static String applePay = "$iconPath/payment_method_icons/Artwork 3@3x.png";
+  static String coupon = "$iconPath/payment_method_icons/ic_confirmation_number_24px@3x.png";
+  static String cash = "$iconPath/payment_method_icons/Group 951@3x.png";
+  static String credit = "$iconPath/payment_method_icons/Icon_Credit Card@3x.png";
+  static String wallet = "$iconPath/payment_method_icons/Saved Card@3x.png";
+  static String accountSummary = "$iconPath/UI icon-document-light@3x.png";
+  static String pricing = "$iconPath/UI icon-dollar-light@3x.png";
+  static String moneyTransactions = "$iconPath/Group 6701@3x.png";
+  static String calenderSP = "$iconPath/calender.png";
+  static String map = "$imagePath/map.png";
+  static String spTree = "$iconPath/sp1.png";
+  static String spUser = "$iconPath/sp2.png";
+  static String spCar = "$iconPath/sp3.png";
+  static String spLocation = "$iconPath/sp4.png";
+  static String spCooker = "$iconPath/sp5.png";
+  static String spKashta = "$iconPath/sp6.png";
+  static String spCHome = "$iconPath/sp7.png";
+  static String indor = "$iconPath/indor.png";
+  static String outdor = "$iconPath/outdor.png";
+  static String share = "$iconPath/share.png";
+  static String cat1 = "$iconPath/cat1.png";
+  // static String cat2 = "$iconPath/cat2.png";
+  static String cat3 = "$iconPath/cat3.png";
+  static String cat4 = "$iconPath/cat4.png";
+  static String loc = "$iconPath/loc.png";
+  static String info = "$iconPath/info.png";
+  static String phone = "$iconPath/phone.png";
+  static String question = "$iconPath/question.png";
+  static String trueCircle = "$iconPath/trueCircle.png";
+  static String x = "$iconPath/x.png";
+  static String settings = "$iconPath/UI icon-settings-light@3x.png";
+
+  // images
+  static String person = "$imagePath/person.jpg";
+  static String onBoarding1 = "$imagePath/onboarding1.png";
+  static String onBoarding2 = "$imagePath/onboarding2.png";
+  static String onBoarding3 = "$imagePath/onboarding3.png";
+  static  String arrowBack = '$imagePath/Chevron@3x.png';
+  static  String logo2 = '$imagePath/logo.png';
+  static  String dropButton = '$imagePath/dropButton.png';
+  static  String location = '$imagePath/location.png';
+
+}
