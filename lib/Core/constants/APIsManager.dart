@@ -4,6 +4,9 @@ class APIsManager{
   static String baseURL = 'http://137.184.154.60';
   // static String baseURL = 'http://167.71.17.49';
 
+  static String loginApi = "/api/login";
+  static String otpApi = "/api/validate-otp";
+  static String registerApi = "/api/register";
   static String getAllCategories = "/api/categories?page=home";
   static String createNewUnit = "/api/units";
   static String updateUnit = "/api/units";

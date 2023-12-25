@@ -6,8 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kashtat/Core/Cubit/AppCubit.dart';
-import 'package:kashtat/Core/constants/RoutesManager.dart';
-import 'package:kashtat/Core/models/PaymentMethodModel.dart';
 import 'package:kashtat/Core/models/UnitModel.dart';
 import 'package:kashtat/Features/Dashboard%20Screen/DashboardScreen.dart';
 import 'package:kashtat/Features/Request%20Details/Widgets/RequestDetailsWidget.dart';
@@ -39,6 +37,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
   TextEditingController controller = TextEditingController();
   int discountPercentage = 0;
   double subtotalPrice = 0.0;
+  double walletDiscount = 0.0 ;
   @override
   void initState() {
     buildPayments();
@@ -118,36 +117,36 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
             ),
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              width: 60,
-              height: 30,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5), border: Border.all()),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
-                child: Image.asset(
-                  ImageManager.wallet,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
-            Padding(
-              padding: const EdgeInsets.only(top: 5.0),
-              child: Text(
-                'Wallet',
-                style: TextStyle(
-                  fontSize: FontSize.s18,
-                  fontWeight: FontWeightManager.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.start,
+        //   crossAxisAlignment: CrossAxisAlignment.center,
+        //   children: [
+        //     Container(
+        //       width: 60,
+        //       height: 30,
+        //       decoration: BoxDecoration(
+        //           borderRadius: BorderRadius.circular(5), border: Border.all()),
+        //       child: Padding(
+        //         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
+        //         child: Image.asset(
+        //           ImageManager.wallet,
+        //           fit: BoxFit.contain,
+        //         ),
+        //       ),
+        //     ),
+        //     SizedBox(width: 10),
+        //     Padding(
+        //       padding: const EdgeInsets.only(top: 5.0),
+        //       child: Text(
+        //         'Wallet',
+        //         style: TextStyle(
+        //           fontSize: FontSize.s18,
+        //           fontWeight: FontWeightManager.bold,
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
       ];
       selectedTypeView =  [
         Row(
@@ -210,36 +209,36 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
             ),
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 5.0),
-              child: Text(
-                'Wallet',
-                style: TextStyle(
-                  fontSize: FontSize.s18,
-                  fontWeight: FontWeightManager.bold,
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
-            Container(
-              width: 60,
-              height: 30,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5), border: Border.all()),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
-                child: Image.asset(
-                  ImageManager.wallet,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-          ],
-        ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.start,
+        //   crossAxisAlignment: CrossAxisAlignment.center,
+        //   children: [
+        //     Padding(
+        //       padding: const EdgeInsets.only(top: 5.0),
+        //       child: Text(
+        //         'Wallet',
+        //         style: TextStyle(
+        //           fontSize: FontSize.s18,
+        //           fontWeight: FontWeightManager.bold,
+        //         ),
+        //       ),
+        //     ),
+        //     SizedBox(width: 10),
+        //     Container(
+        //       width: 60,
+        //       height: 30,
+        //       decoration: BoxDecoration(
+        //           borderRadius: BorderRadius.circular(5), border: Border.all()),
+        //       child: Padding(
+        //         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
+        //         child: Image.asset(
+        //           ImageManager.wallet,
+        //           fit: BoxFit.contain,
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
       ];
     });
   }
@@ -472,6 +471,10 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                         RecordItem(
                                             requestKey: 'ضريبة القيمة المضافة ',
                                             value: '${(subtotalPrice*0.15).toStringAsFixed(2)} ر.س'),
+                                        if(double.parse((cubit.userProfile?.wallet??0.0).toString())>0.0)
+                                        RecordItem(
+                                            requestKey: 'خصم المحفظة ',
+                                            value: '${walletDiscount.toStringAsFixed(2)} ر.س'),
                                         Divider(
                                           thickness: 2,
                                           height: 40,
@@ -859,7 +862,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                   ),
                                   onPressed: () {
                                     final cubit = BlocProvider.of<AppBloc>(context);
-                                    cubit.reserveTrip(total: subtotalPrice+subtotalPrice*0.15 , vat: subtotalPrice*0.15,subtotal: subtotalPrice,paymentMethods: [_selectedPayment+1]);
+                                    cubit.reserveTrip(total: subtotalPrice+subtotalPrice*0.15 , vat: subtotalPrice*0.15,subtotal: subtotalPrice,paymentMethods:  [3],walletAmount: walletDiscount);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(10.0),
@@ -868,7 +871,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                       MainAxisAlignment.center,
                                       children: [
                                         Text(LocaleKeys.pay.tr()),
-                                        SizedBox(width: 10,),
+                                        const SizedBox(width: 10,),
                                         SizedBox(
                                           child: Align(
                                               alignment: Alignment.centerLeft,
@@ -903,19 +906,23 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
     final cubit = BlocProvider.of<AppBloc>(context);
     CalculatedPrice totalPrices = calculatePrice(cubit.selectedDates, widget.trip.price??Price());
     double subtotal = totalPrices.total;
+     walletDiscount = 0.0 ;
+    if(double.parse((cubit.userProfile?.wallet??'0.0').toString()) > subtotal){
+      walletDiscount = subtotal;
+    }else{
+      walletDiscount =  double.parse((cubit.userProfile?.wallet??'0.0').toString());
+    }
+    subtotal = subtotal - walletDiscount;
     double totalAfterDiscount = subtotal - (subtotal *(discountPercentage/100));
-    print('--------------');
-    print(subtotal);
-    print(totalAfterDiscount);
-    print(discountPercentage);
-    print('--------------');
-    setState(() {
-      subtotalPrice = double.parse(totalAfterDiscount.toStringAsFixed(2));
-    });
+    // print('------------------------------------------------calculation--------------------------------------------------');
+    // print(totalPrices.total);
+    // print(subtotal);
+    // print(totalAfterDiscount);
+    // print(discountPercentage);
+    // print(double.parse((cubit.userProfile?.wallet??'0.0').toString()));
+    // print(walletDiscount);
+    // print('--------------');
+    subtotalPrice = double.parse(totalAfterDiscount.toStringAsFixed(2));
+    setState(() {});
   }
-}
-String getNumber(UnitModel trip){
-  return "0";
-  // return DateTime.parse(trip.leavingDateTime).difference(DateTime.parse(trip.arrivalDateTime)).inDays.toString();
-  // return '${num.parse(DateFormat('dd').format(DateTime.parse(trip.leavingDateTime)))-num.parse(DateFormat('dd').format(DateTime.parse(trip.arrivalDateTime)))}';
 }

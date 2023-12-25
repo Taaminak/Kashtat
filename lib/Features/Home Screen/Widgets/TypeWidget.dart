@@ -35,10 +35,11 @@ class HomeTypeWidgetGrid extends StatelessWidget {
               Row(
                 children: [
                   Text(count,style: TextStyle(
-                      color: ColorManager.greyColor,
+                      color: ColorManager.grey2,
                     fontWeight: FontWeightManager.bold,
                     fontSize: FontSize.s22
-                  ),),
+                  ),
+                  ),
                   const Spacer(),
                   Container(
                       height: 30,
@@ -107,7 +108,7 @@ class HomeTypeWidget extends StatelessWidget {
             // crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(count,style: TextStyle(
-                  color: ColorManager.greyColor,
+                  color: ColorManager.grey2,
                   fontWeight: FontWeightManager.bold,
                   fontSize: FontSize.s22
               ),),

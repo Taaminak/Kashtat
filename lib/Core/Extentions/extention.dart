@@ -39,7 +39,6 @@ Future<void> shareKashtatToAnyApp()async {
 
 
 CalculatedPrice calculatePrice(List<String> dates,Price price){
-  // Price price = Price(friday: '15',others: '10',saturday: '20',thursday: '25');
   List<int> allPrices = [int.parse(price.friday??'0'),int.parse(price.saturday??'0'),int.parse(price.thursday??'0'),int.parse(price.others??'0')];
 
   int total = 0;
@@ -61,11 +60,6 @@ CalculatedPrice calculatePrice(List<String> dates,Price price){
   int min = allPrices.reduce(math.min);
   double average = dates.isEmpty? double.parse(max.toString()):total/dates.length;
   total = dates.isEmpty?0:total;
-  //
-  // print('-------------------------------------------');
-  // print(min);
-  // print(max);
-  // print(average);
-  // print(total);
   return CalculatedPrice(max: double.parse(max.toString()), min: double.parse(min.toString()), total: double.parse(total.toString()),average: average);
 }
+

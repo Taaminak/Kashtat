@@ -159,7 +159,7 @@ class _SPReservationsState extends State<SPReservations> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 if(cubit.providerTrips !=null)
                 for(int i=0; i<(!isNewRequests?cubit.providerTrips!.past.length:cubit.providerTrips!.upcoming.length); i++)
@@ -168,43 +168,61 @@ class _SPReservationsState extends State<SPReservations> {
                   child: ContainerDecorated(
                     content: Column(
                       children: [
-
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'رقم الوحدة',
-                              style: TextStyle(
-                                fontSize: FontSize.s16,
-                                fontWeight: FontWeightManager.medium,
+                            Expanded(
+                              flex: 2,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'رقم الوحدة',
+                                    style: TextStyle(
+                                      fontSize: FontSize.s16,
+                                      fontWeight: FontWeightManager.medium,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    '#${!isNewRequests?cubit.providerTrips!.past[i].unit.id:cubit.providerTrips!.upcoming[i].unit.id}',
+                                    style: TextStyle(
+                                      fontSize: FontSize.s16,
+                                      fontWeight: FontWeightManager.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            SizedBox(width: 10),
-                            Text(
-                              '#${!isNewRequests?cubit.providerTrips!.past[i].unit.id:cubit.providerTrips!.upcoming[i].unit.id}',
-                              style: TextStyle(
-                                fontSize: FontSize.s16,
-                                fontWeight: FontWeightManager.bold,
+                            Expanded(
+                              flex: 3,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    'الوحدة',
+                                    style: TextStyle(
+                                      fontSize: FontSize.s16,
+                                      fontWeight: FontWeightManager.medium,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Expanded(
+                                    child: Text(
+                                      '${!isNewRequests?cubit.providerTrips!.past[i].unit.name:cubit.providerTrips!.upcoming[i].unit.name}',
+                                      style: TextStyle(
+                                        fontSize: FontSize.s16,
+                                        fontWeight: FontWeightManager.bold,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                            Spacer(),
-                            Text(
-                              'الوحدة',
-                              style: TextStyle(
-                                fontSize: FontSize.s16,
-                                fontWeight: FontWeightManager.medium,
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Text(
-                              '${!isNewRequests?cubit.providerTrips!.past[i].unit.name:cubit.providerTrips!.upcoming[i].unit.name}',
-                              style: TextStyle(
-                                fontSize: FontSize.s16,
-                                fontWeight: FontWeightManager.bold,
-                              ),
-                            ),
+                            )
                           ],
                         ),
-                        Divider(),
+                        const Divider(),
                         Row(
                           children: [
                             InternalAndExternalWidget(
@@ -218,7 +236,7 @@ class _SPReservationsState extends State<SPReservations> {
                                 title: "تفاصيل الخروج", img: ImageManager.logOut,reserved: !isNewRequests?cubit.providerTrips!.past[i]:cubit.providerTrips!.upcoming[i],isArrival: false),
                           ],
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
@@ -237,7 +255,7 @@ class _SPReservationsState extends State<SPReservations> {
                                   ),
                                 ),
                                 SizedBox(width: 20),
-                                Text(!isNewRequests?cubit.providerTrips!.past[i].unit.provider?.name??'':cubit.providerTrips!.upcoming[i].unit.provider?.name??'',
+                                Text(!isNewRequests?cubit.providerTrips!.past[i].user.name??'':cubit.providerTrips!.upcoming[i].user.name??'',
                                   style: TextStyle(
                                     fontSize: FontSize.s16,
                                     fontWeight: FontWeightManager.medium,
@@ -248,7 +266,7 @@ class _SPReservationsState extends State<SPReservations> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
@@ -278,7 +296,7 @@ class _SPReservationsState extends State<SPReservations> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
@@ -308,7 +326,7 @@ class _SPReservationsState extends State<SPReservations> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 30),
+                        const SizedBox(height: 30),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [

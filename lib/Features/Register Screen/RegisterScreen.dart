@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,10 +14,13 @@ import 'package:kashtat/translations/locale_keys.g.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui' as ui;
 
+import '../../Core/Cubit/AuthCubit.dart';
+import '../../Core/Cubit/AuthState.dart';
 import '../../Core/constants/APIsManager.dart';
 import '../../Core/constants/RoutesManager.dart';
 import '../../Core/models/AuthModels/LoginSuccess.dart';
 import '../../Core/models/AuthModels/RegistrationSuccess.dart';
+import '../Widgets/kButton.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key, this.isMainScreen = true}) : super(key: key);
@@ -28,43 +32,8 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool checked = false;
-
   TextEditingController phoneController = TextEditingController();
   TextEditingController nameController = TextEditingController();
-
-  Future<void> login()async{
-    try{
-      print('${APIsManager.baseURL}/api/register');
-      print({
-        "phone": "+966${phoneController.text}",
-        "name": nameController.text,
-      });
-
-      final response = await Dio().post('${APIsManager.baseURL}/api/register', data: {
-        "phone": "+966${phoneController.text}",
-        "name": nameController.text,
-        "role":'normal',
-      });
-      print(response);
-      if(response.statusCode ==200){
-        final decodedData = json.decode(response.toString());
-        RegistrationModel data = RegistrationModel.fromJson(decodedData);
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('phone', phoneController.text);
-        // final snackBar = SnackBar(
-        //   content: Text(data.data.toString()),
-        //   duration: const Duration(seconds: 10),
-        // );
-        // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        context.pop(["otp"]);
-      }
-    }catch(e){
-      final snackBar = SnackBar(
-        content: Text(e.toString()),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,23 +102,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                           const Spacer(),
-                          // TextButton(
-                          //     onPressed: () {
-                          //       context.go(ScreenName.login);
-                          //     },
-                          //     child: Text(
-                          //       LocaleKeys.login.tr().capitalize(),
-                          //       style: TextStyle(
-                          //         color: const Color(0xffE8470A),
-                          //         fontSize: FontSize.s14,
-                          //       ),
-                          //     ))
                         ],
                       ),
                       Text(
                         LocaleKeys.create_your_account_to_benefit_from_Kashtat_services.tr().capitalize(),
                         style: TextStyle(
-                          color: Color(0xffA6A6A6),
+                          color: const Color(0xffA6A6A6),
                           fontWeight: FontWeightManager.bold,
                           fontSize: FontSize.s14,
                         ),
@@ -209,7 +167,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 17),
+                      const SizedBox(height: 17),
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -273,30 +231,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 17),
-                      SizedBox(
-                          width: size.width,
-                          child: ElevatedButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: const Color(0xff482383),
-                            ),
-                            onPressed: () {
-
-                              if(checked){
-                                login();
-                              }else{
-                                final snackBar = SnackBar(
-                                  content: Text('يجب الموافقة علي الشروط اولا'),
-                                );
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      const SizedBox(height: 17),
+                      BlocConsumer<AuthBloc, AuthState>(
+                        listener: (context, state) async {
+                          if (state is RegisterSuccess) {
+                            final SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                            await prefs.setString('phone', phoneController.text);
+                            Navigator.pop(context, ["otp"]);
+                          }
+                          if (state is RegisterFailed) {
+                            final snackBar = SnackBar(
+                              content: Text(state.msg.toString()),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          }
+                        },
+                        builder: (context, state) {
+                          return KButton(
+                            onTap: () {if(checked){
+                              if (phoneController.text.length < 8 || nameController.text.isEmpty) {
+                                return;
                               }
-                              // context.go(ScreenName.dashboard);
+                              final authCubit =
+                              BlocProvider.of<AuthBloc>(context);
+                              authCubit.register(phone: phoneController.text,name: nameController.text);
+                            }else{
+                              const snackBar = SnackBar(
+                                content: Text('يجب الموافقة علي الشروط اولا'),
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            }
+
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: Text(LocaleKeys.register.tr().capitalize()),
-                            ),
-                          ))
+                            title: LocaleKeys.register.tr().capitalize(),
+                            width: size.width,
+                            paddingV: 13,
+                            isLoading: state is RegisterLoadingState,
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),

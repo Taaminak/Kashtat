@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashtat/Core/Extentions/extention.dart';
@@ -14,9 +15,12 @@ import 'dart:ui' as ui;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../Core/Cubit/AuthCubit.dart';
+import '../../Core/Cubit/AuthState.dart';
 import '../../Core/constants/APIsManager.dart';
 import '../../Core/constants/RoutesManager.dart';
 import '../Login Screen/LoginScreen.dart';
+import '../Widgets/kButton.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({Key? key, this.isMainScreen = true}) : super(key: key);
@@ -28,42 +32,7 @@ class OTPScreen extends StatefulWidget {
 
 class _OTPScreenState extends State<OTPScreen> {
   bool checked = false;
-
   TextEditingController controller = TextEditingController();
-
-  Future<void> login()async{
-    try{
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      String phone = prefs.getString('phone') ?? '';
-      print(phone);
-      final response = await Dio().post('${APIsManager.baseURL}/api/validate-otp', data: {
-        "phone": "+966$phone",
-        "otp": controller.text,
-      });
-      print('==========================================');
-      print(response);
-      print('==========================================');
-
-      if(response.statusCode ==200){
-        await prefs.setBool('isLoggedIn', true);
-        await prefs.setString('token', response.data['token'].toString());
-        await prefs.setString('name', response.data['data']['name'].toString());
-        await prefs.setString('id', response.data['data']['id'].toString());
-        await prefs.setString('phone', response.data['data']['phone'].toString());
-        await prefs.setString('avatar', response.data['data']['avatar'].toString());
-        await prefs.setString('role', response.data['data']['role'].toString());
-
-          Navigator.pop(context,[true]);
-
-      }
-    }catch(e){
-      final snackBar = SnackBar(
-        content: Text(e.toString()),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -170,20 +139,39 @@ class _OTPScreenState extends State<OTPScreen> {
                         ),
                       ),
                       const SizedBox(height: 35),
-                      SizedBox(
-                          width: size.width,
-                          child: ElevatedButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: const Color(0xff482383),
-                            ),
-                            onPressed: () {
-                              login();
+                      BlocConsumer<AuthBloc, AuthState>(
+                        listener: (context, state) async {
+                          if (state is OtpSuccess) {
+
+                            Navigator.pop(context,[true]);
+                          }
+                          if (state is OtpFailed) {
+                            final snackBar = SnackBar(
+                              content: Text(state.msg.toString()),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        },
+                        builder: (context, state) {
+                          return KButton(
+                            onTap: () async{
+                              if (controller.text.length < 6) {
+                                return;
+                              }
+                              final SharedPreferences prefs = await SharedPreferences.getInstance();
+                              String phone = prefs.getString('phone') ?? '';
+
+                              final authCubit = BlocProvider.of<AuthBloc>(context);
+                              authCubit.otpLogin(phone: phone,otpCode: controller.text);
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: Text(LocaleKeys.login.tr().capitalize()),
-                            ),
-                          )),
+                            title: LocaleKeys.login.tr().capitalize(),
+                            width: size.width,
+                            paddingV: 13,
+                            isLoading: state is OtpLoadingState,
+                          );
+                        },
+                      ),
                       const SizedBox(height: 15),
                     ],
                   ),

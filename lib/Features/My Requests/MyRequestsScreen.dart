@@ -47,8 +47,8 @@ class _MyRequestsScreenState extends State<MyRequestsScreen> {
       cubit.getUserTrips();
     }
   }
-  userLogin(BuildContext context){
 
+  userLogin(BuildContext context){
     Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen())).then((value){
 
       if(value == null){

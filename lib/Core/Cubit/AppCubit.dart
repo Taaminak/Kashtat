@@ -187,9 +187,6 @@ class AppBloc extends Cubit<AppState> {
       }, (result) {
         final decodedData = json.decode(result.data.toString());
         allTrips = UnitsModel.fromJson(decodedData);
-        allTrips =  allTrips!.copyWith(
-            data:  allTrips!.data!.reversed.map((e) => e).toList()
-        );
         homeTrips = allTrips;
         emit(SuccessTripsState());
       });
@@ -254,6 +251,7 @@ class AppBloc extends Cubit<AppState> {
       }, (result) {
         emit(SuccessReserveTripState());
         getHomeTrips();
+        getUserProfile();
       });
     }catch(e){
       emit(FailureReserveTripState(msg: e.toString()));
@@ -269,11 +267,7 @@ class AppBloc extends Cubit<AppState> {
     }, (result) {
       final decodedData = json.decode(result.data.toString());
       UserReservationModel? userTripsResponse = UserReservationModel.fromJson(decodedData);
-
-      userTrips = userTripsResponse.copyWith(
-          past: userTripsResponse.past.reversed.map((e) => e).toList(),
-          upcoming: userTripsResponse.upcoming.reversed.map((e) => e).toList()
-      );
+      userTrips = userTripsResponse;
       emit(SuccessTripsState());
     });
   }
@@ -415,9 +409,9 @@ class AppBloc extends Cubit<AppState> {
         final kb = bytes / 1024;
         final mb = kb / 1024;
         print('===============');
-        print(bytes);
-        print(kb);
-        print(mb);
+        print("bytes: $bytes");
+        print("kb: $kb");
+        print("mb: $mb");
         print('===============');
         return [image];
       }

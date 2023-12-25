@@ -31,38 +31,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool checked = false;
   TextEditingController controller = TextEditingController();
-
-  Future<void> login()async{
-    try{
-      print('${APIsManager.baseURL}/api/login');
-      final response = await Dio().post('${APIsManager.baseURL}/api/login', data: {
-        "phone": "+966${controller.text}",
-      });
-      print(response);
-      if(response.statusCode ==200){
-        final decodedData = json.decode(response.toString());
-        LoginSuccessModel data = LoginSuccessModel.fromJson(decodedData);
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('phone', controller.text);
-        // final snackBar = SnackBar(
-        //   content: Text(data.data.toString()),
-        //   duration: const Duration(seconds: 10),
-        // );
-        // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        Navigator.pop(context,["otp"]);
-
-      }
-    }catch(e){
-      final snackBar = SnackBar(
-        content: Text(e.toString()),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-  }
-
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -130,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           const Spacer(),
                           TextButton(
                               onPressed: () {
-                                  context.pop(['register']);
+                                context.pop(['register']);
                               },
                               child: Text(
                                 LocaleKeys.new_registration.tr().capitalize(),
@@ -142,7 +111,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       Text(
-                        LocaleKeys.welcome_back_enter_your_mobile_number.tr().capitalize(),
+                        LocaleKeys.welcome_back_enter_your_mobile_number
+                            .tr()
+                            .capitalize(),
                         style: TextStyle(
                           color: Color(0xffA6A6A6),
                           fontWeight: FontWeightManager.bold,
@@ -174,31 +145,33 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Text(
                                     '+966',
                                     style: TextStyle(
-                                        fontWeight: FontWeightManager.bold,),
+                                      fontWeight: FontWeightManager.bold,
+                                    ),
                                   ),
                                 ),
                                 Expanded(
                                   child: TextField(
                                     controller: controller,
-                                    inputFormatters:[
+                                    inputFormatters: [
                                       LengthLimitingTextInputFormatter(10),
                                     ],
                                     keyboardType: TextInputType.number,
                                     style: TextStyle(
                                         fontWeight: FontWeightManager.bold,
-                                      fontFamily: GoogleFonts.lato().fontFamily,
-                                      fontSize: FontSize.s14
-                                    ),
+                                        fontFamily:
+                                            GoogleFonts.lato().fontFamily,
+                                        fontSize: FontSize.s14),
                                     decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                          borderSide: BorderSide.none,
-                                        ),
-                                        filled: true,
-                                        hintStyle: TextStyle(color: Colors.grey[800]),
-                                        fillColor: Colors.white70,
-                                        contentPadding: EdgeInsets.zero,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      filled: true,
+                                      hintStyle:
+                                          TextStyle(color: Colors.grey[800]),
+                                      fillColor: Colors.white70,
+                                      contentPadding: EdgeInsets.zero,
                                     ),
                                   ),
                                 )
@@ -207,37 +180,49 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height:MediaQuery.of(context).viewInsets.bottom!=0.0?50: 100),
+                      SizedBox(
+                          height:
+                              MediaQuery.of(context).viewInsets.bottom != 0.0
+                                  ? 50
+                                  : 100),
                       BlocConsumer<AuthBloc, AuthState>(
-                      listener: (context, state) {
-                        if(state is LoginSuccess){
-                          print(state.msg);
-                          // context.go(ScreenName.otp);
-                        }
-
-                      },
-                      builder: (context, state) {
-
-                        return KButton(onTap: (){
-                          login();
-                          // context.go(ScreenName.otp);
-                          //
-                          // if(controller.text.isEmpty){
-                          //   return;
-                          // }
-                          //
-                          // final cubit = BlocProvider.of<AuthBloc>(context);
-                          //
-                          // cubit.login("+2${controller.text}");
-
-
-                        }, title: LocaleKeys.continue_.tr().capitalize(),
-                        width: size.width,
-                        paddingV: 13,);
-  },
-),
-                      SizedBox(height:MediaQuery.of(context).viewInsets.bottom!=0.0?50: 0),
-
+                        listener: (context, state) async {
+                          if (state is LoginSuccess) {
+                            final SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            await prefs.setString('phone', controller.text);
+                            Navigator.pop(context, ["otp"]);
+                          }
+                          if (state is LoginFailed) {
+                            final snackBar = SnackBar(
+                              content: Text(state.msg.toString()),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        },
+                        builder: (context, state) {
+                          return KButton(
+                            onTap: () {
+                              if (controller.text.length < 8) {
+                                return;
+                              }
+                              final authCubit =
+                                  BlocProvider.of<AuthBloc>(context);
+                              authCubit.login(phone: controller.text);
+                            },
+                            title: LocaleKeys.continue_.tr().capitalize(),
+                            width: size.width,
+                            paddingV: 13,
+                            isLoading: state is LoginLoadingState,
+                          );
+                        },
+                      ),
+                      SizedBox(
+                          height:
+                              MediaQuery.of(context).viewInsets.bottom != 0.0
+                                  ? 50
+                                  : 0),
                     ],
                   ),
                 ),

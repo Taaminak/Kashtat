@@ -64,10 +64,10 @@ class FinancialData {
       );
 
   factory FinancialData.fromJson(Map<String, dynamic> json) => FinancialData(
-    sales: json["sales"]??0.0,
-    commissions: json["commissions"]??0.0,
-    netProfit: json["net_profit"]??0.0,
-    reservationsCount: json["reservations_count"],
+    sales: double.parse(json["sales"].toString()),
+    commissions: double.parse(json["commissions"].toString()),
+    netProfit: double.parse(json["net_profit"].toString()),
+    reservationsCount: json["reservations_count"]??0,
     reservations: json["reservations"] == null ? [] : List<ReservationModel>.from(json["reservations"]!.map((x) => ReservationModel.fromJson(x))),
   );
 
