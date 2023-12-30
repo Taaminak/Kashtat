@@ -7,7 +7,6 @@ import 'package:kashtat/Core/Cubit/AppCubit.dart';
 import 'package:kashtat/Core/models/ProviderCategorysWithUnits.dart';
 import 'package:kashtat/Core/models/UnitModel.dart';
 import 'package:kashtat/Features/Wallet%20Logs%20Screen/Widgets/WalletItemWidget.dart';
-import 'package:kashtat/Features/Widgets/DropDownMenuWidget.dart';
 import 'package:toggle_list/toggle_list.dart';
 import '../../Core/Cubit/AppState.dart';
 import '../../Core/constants/ColorManager.dart';
@@ -148,16 +147,30 @@ class _TransfarsScreenState extends State<TransfarsScreen> {
                                 child: Container(
                                   decoration: _decoration,
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 6.0),
+                                          child: Text(
+                                            'من',
+                                            style: TextStyle(
+                                              fontSize: FontSize.s14,
+                                              fontWeight: FontWeightManager.medium,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
                                         FaIcon(
                                           FontAwesomeIcons.calendarAlt,
                                           size: 14,
                                         ),
                                         SizedBox(
-                                          width: 10,
+                                          width: 5,
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 6.0),
@@ -192,12 +205,25 @@ class _TransfarsScreenState extends State<TransfarsScreen> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 6.0),
+                                          child: Text(
+                                            'الي',
+                                            style: TextStyle(
+                                              fontSize: FontSize.s14,
+                                              fontWeight: FontWeightManager.medium,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
                                         FaIcon(
                                           FontAwesomeIcons.calendarAlt,
                                           size: 14,
                                         ),
                                         SizedBox(
-                                          width: 10,
+                                          width: 5,
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 6.0),

@@ -619,6 +619,64 @@ class _RequestItemWidgetState extends State<RequestItemWidget> {
                             const SizedBox(
                               height: 10,
                             ),
+                            Divider(thickness: 1, height: 20,),
+                            Text(
+                              'بيانات الدفع',
+                              style: TextStyle(
+                                  fontWeight: FontWeightManager.bold,
+                                  color: ColorManager.orangeColor
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "طريقة الدفع",
+                                  style: TextStyle(
+                                      fontWeight: FontWeightManager.bold,
+                                      fontSize: FontSize.s14
+                                  ),
+                                ),
+                                const Spacer(),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: widget.reservated.paymentMethods.map((method) => Text(
+                                      "$method ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeightManager.medium,
+                                        fontSize: FontSize.s14,
+                                        color: Colors.grey,
+                                      ),
+                                    ),).toList()
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'المدفوع ( كامل المبلغ )',
+                                  style: TextStyle(
+                                      fontWeight: FontWeightManager.bold,
+                                      color: ColorManager.blackColor,
+                                      fontSize: 14
+                                  ),
+                                ),
+                                Spacer(),
+                                Text(
+                                  '${widget.reservated.total} ر.س',
+                                  style: TextStyle(
+                                      fontWeight: FontWeightManager.medium,
+                                      color: Colors.grey,
+                                      fontSize: 14
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),

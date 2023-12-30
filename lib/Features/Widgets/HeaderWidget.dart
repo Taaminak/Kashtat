@@ -15,7 +15,7 @@ class HeaderWidget extends StatelessWidget {
     return
       Container(
         color: ColorManager.mainlyBlueColor,
-        height: 95,
+        height: 105,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [

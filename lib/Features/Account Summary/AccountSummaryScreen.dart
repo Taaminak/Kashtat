@@ -145,16 +145,30 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                                 child: Container(
                                   decoration: _decoration,
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 6.0),
+                                          child: Text(
+                                            'من',
+                                            style: TextStyle(
+                                              fontSize: FontSize.s14,
+                                              fontWeight: FontWeightManager.medium,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
                                         FaIcon(
                                           FontAwesomeIcons.calendarAlt,
                                           size: 14,
                                         ),
                                         SizedBox(
-                                          width: 10,
+                                          width: 5,
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 6.0),
@@ -189,12 +203,25 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 6.0),
+                                          child: Text(
+                                            'الي',
+                                            style: TextStyle(
+                                              fontSize: FontSize.s14,
+                                              fontWeight: FontWeightManager.medium,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
                                         FaIcon(
                                           FontAwesomeIcons.calendarAlt,
                                           size: 14,
                                         ),
                                         SizedBox(
-                                          width: 10,
+                                          width: 5,
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 6.0),

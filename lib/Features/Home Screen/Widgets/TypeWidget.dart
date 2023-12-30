@@ -35,7 +35,7 @@ class HomeTypeWidgetGrid extends StatelessWidget {
               Row(
                 children: [
                   Text(count,style: TextStyle(
-                      color: ColorManager.grey2,
+                      color: ColorManager.white,
                     fontWeight: FontWeightManager.bold,
                     fontSize: FontSize.s22
                   ),
@@ -108,7 +108,7 @@ class HomeTypeWidget extends StatelessWidget {
             // crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(count,style: TextStyle(
-                  color: ColorManager.grey2,
+                  color: ColorManager.white,
                   fontWeight: FontWeightManager.bold,
                   fontSize: FontSize.s22
               ),),

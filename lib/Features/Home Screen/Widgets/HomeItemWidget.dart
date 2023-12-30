@@ -159,23 +159,34 @@ class HomeItemWidget extends StatelessWidget {
                     ),
                     SizedBox(width: 10,),
 
-                    // if(cubit.selectedDates.isNotEmpty)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("اجمالي (ليلة واحدة) ${calculatePrice(cubit.selectedDates, trip.price??Price()).average} ر.س", style: TextStyle(
-                            fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: size.width,
+                            child: Text("اجمالي (ليلة واحدة) ${calculatePrice(cubit.selectedDates, trip.price??Price()).average} ر.س", style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeightManager.bold,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                        ),
-                        if(cubit.selectedDates.isNotEmpty)
-                        Text("إجمالي ${cubit.selectedDates.length} ليالي ${calculatePrice(cubit.selectedDates, trip.price??Price()).total} ر.س", style: TextStyle(
-                            fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                          if(cubit.selectedDates.isNotEmpty)
+                          SizedBox(
+                            width: size.width,
+                            child: Text("إجمالي ${cubit.selectedDates.length} ليالي ${calculatePrice(cubit.selectedDates, trip.price??Price()).total} ر.س", style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeightManager.bold,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                        ),
 
-                      ],
+                        ],
+                      ),
                     ),
 
                   ],
