@@ -26,13 +26,22 @@ class _BankAccountSettingsState extends State<BankAccountSettings> {
   TextEditingController ipanController = TextEditingController();
   @override
   void initState() {
-    final cubit = BlocProvider.of<AppBloc>(context);
-    setState(() {
-      dropdownValue = cubit.allBanks.first.name??'';
-      bankId = cubit.allBanks.first.id??-1;
-    });
+    getData();
     super.initState();
   }
+
+  getData()async{
+    final cubit = BlocProvider.of<AppBloc>(context);
+    await cubit.getAllBanks();
+    if(cubit.allBanks.isNotEmpty){
+      setState(() {
+        dropdownValue = cubit.allBanks.first.name??'';
+        bankId = cubit.allBanks.first.id??-1;
+      });
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

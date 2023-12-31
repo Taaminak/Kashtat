@@ -32,10 +32,10 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
   Future<void> _selectDate(BuildContext context, bool isStart) async {
     final cubit = BlocProvider.of<AppBloc>(context);
     final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: isStart?startDate:endDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101),
+      context: context,
+      initialDate: isStart?startDate:endDate,
+      firstDate: DateTime(2015, 8),
+      lastDate: DateTime(2101),
     );
     if (picked != null && picked != startDate) {
       if (isStart) {
@@ -111,9 +111,9 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
           return Column(
             children: [
 
-              SizedBox(
-                width: size.width,
-                height: size.height-100,
+              Expanded(
+                // width: size.width,
+                // height: size.height-100,
                 child: Padding(
                   padding:
                       const EdgeInsets.only(left: 15.0, right: 15.0, top: 5.0),
@@ -130,7 +130,7 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                             Text(
                               'حدد الفترة',
                               style: TextStyle(
-                                fontSize: FontSize.s20,
+                                fontSize: FontSize.s16,
                                 fontWeight: FontWeightManager.medium,
                               ),
                             ),

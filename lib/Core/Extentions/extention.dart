@@ -63,3 +63,21 @@ CalculatedPrice calculatePrice(List<String> dates,Price price){
   return CalculatedPrice(max: double.parse(max.toString()), min: double.parse(min.toString()), total: double.parse(total.toString()),average: average);
 }
 
+
+extension ArabicDateConversion on String {
+  String convertToEnglishDate() {
+    try {
+      DateFormat arabicFormat = DateFormat('yyyy-MM-dd', 'ar');
+
+      DateTime dateTime = arabicFormat.parseLoose(this);
+
+      DateFormat englishFormat = DateFormat('yyyy-MM-dd', 'en_US');
+
+      String englishDate = englishFormat.format(dateTime);
+
+      return englishDate;
+    } catch (e) {
+      return this;
+    }
+  }
+}

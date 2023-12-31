@@ -114,9 +114,9 @@ class _ReportssScreenState extends State<ReportssScreen> {
           return Column(
             children: [
 
-              SizedBox(
-                width: size.width,
-                height: size.height-100,
+              Expanded(
+                // width: size.width,
+                // height: size.height-200,
                 child: Padding(
                   padding:
                   const EdgeInsets.only(left: 15.0, right: 15.0, top: 5.0),
@@ -133,7 +133,7 @@ class _ReportssScreenState extends State<ReportssScreen> {
                             Text(
                               'حدد الفترة',
                               style: TextStyle(
-                                fontSize: FontSize.s20,
+                                fontSize: FontSize.s16,
                                 fontWeight: FontWeightManager.medium,
                               ),
                             ),

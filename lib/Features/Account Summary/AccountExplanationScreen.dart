@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashtat/Core/Cubit/AppCubit.dart';
+import 'package:kashtat/Core/Extentions/extention.dart';
 import 'package:kashtat/Core/models/ProviderCategorysWithUnits.dart';
 import 'package:kashtat/Core/models/UnitModel.dart';
 import 'package:kashtat/Features/Wallet%20Logs%20Screen/Widgets/WalletItemWidget.dart';
@@ -115,9 +116,9 @@ class _AccountExplanationScreenState extends State<AccountExplanationScreen> {
           return Column(
             children: [
 
-              SizedBox(
-                width: size.width,
-                height: size.height-100,
+              Expanded(
+                // width: size.width,
+                // height: size.height-115,
                 child: Padding(
                   padding:
                   const EdgeInsets.only(left: 15.0, right: 15.0, top: 5.0),
@@ -134,7 +135,7 @@ class _AccountExplanationScreenState extends State<AccountExplanationScreen> {
                             Text(
                               'حدد الفترة',
                               style: TextStyle(
-                                fontSize: FontSize.s20,
+                                fontSize: FontSize.s16,
                                 fontWeight: FontWeightManager.medium,
                               ),
                             ),

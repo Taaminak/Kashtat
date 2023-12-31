@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:kashtat/Core/Cubit/AppState.dart';
 import 'package:kashtat/Core/Extentions/extention.dart';
 import 'package:kashtat/Core/constants/APIsManager.dart';
@@ -1011,10 +1012,10 @@ class AppBloc extends Cubit<AppState> {
     try{
       String params = '';
       if(from !=null){
-        params +='date_from=$from&';
+        params +='date_from=${from.convertToEnglishDate()}&';
       }
       if(to !=null){
-        params +='date_to=$to&';
+        params +='date_to=${to.convertToEnglishDate()}&';
       }
       if(unitId !=null){
         params +='unit_id=$unitId&';

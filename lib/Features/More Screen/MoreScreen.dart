@@ -214,7 +214,7 @@ class _MoreScreenState extends State<MoreScreen> {
                                     fontWeight: FontWeightManager.medium
                                 ),),
                                 const SizedBox(height: 10),
-                                Text('${cubit.userProfile?.wallet??0} ر.س',style: TextStyle(
+                                Text('${(cubit.userProfile?.wallet??0).toStringAsFixed(2)} ر.س',style: TextStyle(
                                     fontWeight: FontWeightManager.medium
                                 ),),
                               ],),),
@@ -244,7 +244,7 @@ class _MoreScreenState extends State<MoreScreen> {
                                     fontWeight: FontWeightManager.medium
                                 ),),
                                 const SizedBox(height: 10),
-                                Text('${cubit.userProfile?.totalSales??0}',style: TextStyle(
+                                Text('${(cubit.userProfile?.totalSales??0).toStringAsFixed(2)}',style: TextStyle(
                                     fontWeight: FontWeightManager.medium
                                 ),),
                               ],),),
