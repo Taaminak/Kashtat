@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "977505711886",
+    "project_id": "kahstat-89b57",
+    "storage_bucket": "kahstat-89b57.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:977505711886:android:ebbebbe910aeb76d9d095f",
+        "android_client_info": {
+          "package_name": "it.arm.kashtat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABf3McJIZtpLmzjd3iWSgts0ktXeK1b6A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
