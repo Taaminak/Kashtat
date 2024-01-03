@@ -352,15 +352,15 @@ class _MoreScreenState extends State<MoreScreen> {
                                               Navigator.push(context, MaterialPageRoute(builder: (context)=>CouponScreen()));
                                             }),
 
-                                    // if (isLoggedIn)
-                                    //   if(cubit.userType == UserType.isProvider)
-                                    //     MoreItemWidget(
-                                    //         title: "الفواتير وكشوف الحسابات",
-                                    //         img: "assets/icons/UI icon-clipboard-light@3x.png",
-                                    //         onTap: () {
-                                    //           context.push(ScreenName.accountReports);
-                                    //
-                                    //         }),
+                                    if (isLoggedIn)
+                                      if(cubit.userType == UserType.isProvider)
+                                        MoreItemWidget(
+                                            title: "الفواتير وكشوف الحسابات",
+                                            img: "assets/icons/UI icon-clipboard-light@3x.png",
+                                            onTap: () {
+                                              context.push(ScreenName.accountReports);
+
+                                            }),
 
                                     if (isLoggedIn)
                                       if(cubit.userType == UserType.isProvider)
