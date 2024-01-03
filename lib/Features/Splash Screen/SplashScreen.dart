@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:kashtat/Core/constants/ColorManager.dart';
 import 'package:kashtat/Core/constants/ImageManager.dart';
 import 'package:kashtat/Core/constants/RoutesManager.dart';
+import 'package:kashtat/Core/notification%20manager/NotificationManager.dart';
 import 'package:kashtat/Features/Widgets/kButton.dart';
 
 import '../../Core/Cubit/AppCubit.dart';
@@ -24,6 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
+    NotificationsManager.setupNotifications(context);
     isLogged();
     super.initState();
   }

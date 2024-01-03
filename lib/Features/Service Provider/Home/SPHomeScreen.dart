@@ -67,80 +67,80 @@ class _SPHomeState extends State<SPHome> {
 
                     children: [
                       // SizedBox(height: 20),
-                      SizedBox(
-                        height: 120,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: InkWell(
-                                onTap: (){
-                                  context.push(ScreenName.financialTransactions);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: ColorManager.orangeColor,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 15.0),
-                                      child: Column(
-                                        children: [
-                                          Image.asset(ImageManager.moneyTransactions,width: 20,),
-                                          SizedBox(height: 10),
-                                          Text('المعاملات المالية',style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeightManager.medium,
-                                          ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: InkWell(
-                                onTap: (){
-                                  context.push(ScreenName.accountSummary);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: ColorManager.orangeColor,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 15.0),
-                                      child: Column(
-                                        children: [
-                                          Image.asset(ImageManager.accountSummary,width: 20,),
-                                          SizedBox(height: 10),
-                                          Text('ملخص الحسابات',style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeightManager.medium,
-                                          ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      // SizedBox(
+                      //   height: 120,
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.start,
+                      //     crossAxisAlignment: CrossAxisAlignment.start,
+                      //     children: [
+                      //       Expanded(
+                      //         child: InkWell(
+                      //           onTap: (){
+                      //             context.push(ScreenName.financialTransactions);
+                      //           },
+                      //           child: Padding(
+                      //             padding: const EdgeInsets.all(8.0),
+                      //             child: Container(
+                      //               decoration: BoxDecoration(
+                      //                 color: ColorManager.orangeColor,
+                      //                 borderRadius: BorderRadius.circular(8),
+                      //               ),
+                      //               child: Padding(
+                      //                 padding: const EdgeInsets.only(top: 15.0),
+                      //                 child: Column(
+                      //                   children: [
+                      //                     Image.asset(ImageManager.moneyTransactions,width: 20,),
+                      //                     SizedBox(height: 10),
+                      //                     Text('المعاملات المالية',style: TextStyle(
+                      //                       color: Colors.white,
+                      //                       fontWeight: FontWeightManager.medium,
+                      //                     ),
+                      //                       textAlign: TextAlign.center,
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       Expanded(
+                      //         child: InkWell(
+                      //           onTap: (){
+                      //             context.push(ScreenName.accountSummary);
+                      //           },
+                      //           child: Padding(
+                      //             padding: const EdgeInsets.all(8.0),
+                      //             child: Container(
+                      //               decoration: BoxDecoration(
+                      //                 color: ColorManager.orangeColor,
+                      //                 borderRadius: BorderRadius.circular(8),
+                      //               ),
+                      //               child: Padding(
+                      //                 padding: const EdgeInsets.only(top: 15.0),
+                      //                 child: Column(
+                      //                   children: [
+                      //                     Image.asset(ImageManager.accountSummary,width: 20,),
+                      //                     SizedBox(height: 10),
+                      //                     Text('ملخص الحسابات',style: TextStyle(
+                      //                       color: Colors.white,
+                      //                       fontWeight: FontWeightManager.medium,
+                      //                     ),
+                      //                       textAlign: TextAlign.center,
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
                       SPMomeItem(title: 'آخر الحجوزات', content:(cubit.providerTrips == null || cubit.providerTrips!.upcoming.isEmpty)? Center(
                         child: InkWell(
                           onTap: (){
@@ -415,59 +415,59 @@ class _SPHomeState extends State<SPHome> {
                       SizedBox(
                         height: 20,
                       ),
-                      SPMomeItem(title: 'آخر الحوالات', content:(cubit.providerTrips == null || cubit.providerTrips!.upcoming.isEmpty)? Center(
-                        child: Text('لا يوجد لديك حوالات',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: FontSize.s16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ):
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey.withOpacity(0.2),),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child:
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Text('المبلغ',style: TextStyle(
-                                fontWeight: FontWeightManager.bold,
-                              ),),
-                              SizedBox(width: 10,),
-                              Text('ريال${cubit.providerTrips?.upcoming.first.total}',style: TextStyle(
-                                  fontWeight: FontWeightManager.bold,
-                                  fontSize: 16
-                              ),),
-                              Spacer(),
-                              Text('${cubit.providerTrips?.upcoming.first.unit.arrivalTime } ${cubit.providerTrips?.upcoming.first.arrivalDateTime}',style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),),
-                            ],
-                          ),
-                        ),
-                      ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      SPMomeItem(title: 'المبيعات', content: Center(child: Text('${(cubit.financialData.sales??0.0).toStringAsFixed(2)} ر.س',style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),))),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      SPMomeItem(title: 'استلام المبالغ المالية', content: Center(child: Text('${(cubit.financialData.netProfit??0.0).toStringAsFixed(2)} ر.س',style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),),),),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      // SPMomeItem(title: 'آخر الحوالات', content:(cubit.providerTrips == null || cubit.providerTrips!.upcoming.isEmpty)? Center(
+                      //   child: Text('لا يوجد لديك حوالات',
+                      //     style: TextStyle(
+                      //       color: Colors.grey,
+                      //       fontSize: FontSize.s16,
+                      //       fontWeight: FontWeight.w500,
+                      //     ),
+                      //   ),
+                      // ):
+                      // Container(
+                      //   decoration: BoxDecoration(
+                      //     border: Border.all(color: Colors.grey.withOpacity(0.2),),
+                      //     borderRadius: BorderRadius.circular(8),
+                      //   ),
+                      //   child:
+                      //   Padding(
+                      //     padding: const EdgeInsets.all(8.0),
+                      //     child: Row(
+                      //       children: [
+                      //         Text('المبلغ',style: TextStyle(
+                      //           fontWeight: FontWeightManager.bold,
+                      //         ),),
+                      //         SizedBox(width: 10,),
+                      //         Text('ريال${cubit.providerTrips?.upcoming.first.total}',style: TextStyle(
+                      //             fontWeight: FontWeightManager.bold,
+                      //             fontSize: 16
+                      //         ),),
+                      //         Spacer(),
+                      //         Text('${cubit.providerTrips?.upcoming.first.unit.arrivalTime } ${cubit.providerTrips?.upcoming.first.arrivalDateTime}',style: TextStyle(
+                      //           fontWeight: FontWeight.bold,
+                      //         ),),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // ),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
+                      // SPMomeItem(title: 'المبيعات', content: Center(child: Text('${(cubit.financialData.sales??0.0).toStringAsFixed(2)} ر.س',style: TextStyle(
+                      //   fontWeight: FontWeight.bold,
+                      //   fontSize: 18,
+                      // ),))),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
+                      // SPMomeItem(title: 'استلام المبالغ المالية', content: Center(child: Text('${(cubit.financialData.netProfit??0.0).toStringAsFixed(2)} ر.س',style: TextStyle(
+                      //   fontWeight: FontWeight.bold,
+                      //   fontSize: 18,
+                      // ),),),),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
                       SPMomeItem(title: 'آخر التقييمات', content:
                       ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
