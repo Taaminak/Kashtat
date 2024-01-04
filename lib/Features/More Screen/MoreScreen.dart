@@ -359,7 +359,6 @@ class _MoreScreenState extends State<MoreScreen> {
                                             img: "assets/icons/UI icon-clipboard-light@3x.png",
                                             onTap: () {
                                               context.push(ScreenName.accountReports);
-
                                             }),
 
                                     if (isLoggedIn)

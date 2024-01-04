@@ -14,12 +14,17 @@ class NotificationsManager {
     initializeNotifications();
     requestPermissions();
     getToken();
+    initTopicSubscription();
   }
 
-  static void getToken() {
-    FirebaseMessaging.instance.getToken().then((token) async {
-      debugPrint('Firebase Token: $token');
-    });
+  static Future<String?> getToken() async{
+    String? token = await FirebaseMessaging.instance.getToken();
+    debugPrint('Firebase Token: $token');
+    return token;
+  }
+
+  static void initTopicSubscription(){
+    FirebaseMessaging.instance.subscribeToTopic("kashtat");
   }
 
   static void initializeNotifications() {
@@ -36,7 +41,6 @@ class NotificationsManager {
         requestSoundPermission: true,
       ),
     );
-    // FlutterLocalNotificationsPlugin().initialize(initializationSettings, onSelectNotification: onSelectNotification);
   }
 
   static void requestPermissions() async {
