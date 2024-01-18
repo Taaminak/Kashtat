@@ -25,7 +25,7 @@ class HeaderWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(width: allowToBack?35:0,),
-                  Image.asset(ImageManager.logoWithTitleHWhite,width: 100,),
+                  Image.asset(ImageManager.logoWithTitleHWhite,height: 40,),
                   allowToBack? InkWell(
                     onTap: (){
                       context.pop();
