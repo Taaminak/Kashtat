@@ -291,14 +291,14 @@ class _MoreScreenState extends State<MoreScreen> {
                                             onTap: () {
                                               context.push(ScreenName.rateScreen);
                                             }),
-                                    if (isLoggedIn)
-                                      if(cubit.userType == UserType.isProvider)
-                                        MoreItemWidget(
-                                            title: 'المعاملات المالية',
-                                            img: "assets/icons/Group 6643@3x.png",
-                                            onTap: () {
-                                              context.push(ScreenName.financialTransactions);
-                                            }),
+                                    // if (isLoggedIn)
+                                    //   if(cubit.userType == UserType.isProvider)
+                                    //     MoreItemWidget(
+                                    //         title: 'المعاملات المالية',
+                                    //         img: "assets/icons/Group 6643@3x.png",
+                                    //         onTap: () {
+                                    //           context.push(ScreenName.financialTransactions);
+                                    //         }),
                                     // if (isLoggedIn)
                                     //   if(cubit.userType == UserType.isProvider)
                                     //     MoreItemWidget(
@@ -352,14 +352,14 @@ class _MoreScreenState extends State<MoreScreen> {
                                               Navigator.push(context, MaterialPageRoute(builder: (context)=>CouponScreen()));
                                             }),
 
-                                    if (isLoggedIn)
-                                      if(cubit.userType == UserType.isProvider)
-                                        MoreItemWidget(
-                                            title: "الفواتير وكشوف الحسابات",
-                                            img: "assets/icons/UI icon-clipboard-light@3x.png",
-                                            onTap: () {
-                                              context.push(ScreenName.accountReports);
-                                            }),
+                                    // if (isLoggedIn)
+                                    //   if(cubit.userType == UserType.isProvider)
+                                    //     MoreItemWidget(
+                                    //         title: "الفواتير وكشوف الحسابات",
+                                    //         img: "assets/icons/UI icon-clipboard-light@3x.png",
+                                    //         onTap: () {
+                                    //           context.push(ScreenName.accountReports);
+                                    //         }),
 
                                     if (isLoggedIn)
                                       if(cubit.userType == UserType.isProvider)

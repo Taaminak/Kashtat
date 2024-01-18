@@ -66,80 +66,80 @@ class _SPHomeState extends State<SPHome> {
                   child: Column(
 
                     children: [
-                      SizedBox(
-                        height: 120,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: InkWell(
-                                onTap: (){
-                                  context.push(ScreenName.financialTransactions);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: ColorManager.orangeColor,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 15.0),
-                                      child: Column(
-                                        children: [
-                                          Image.asset(ImageManager.moneyTransactions,width: 20,),
-                                          SizedBox(height: 10),
-                                          Text('المعاملات المالية',style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeightManager.medium,
-                                          ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: InkWell(
-                                onTap: (){
-                                  context.push(ScreenName.accountSummary);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: ColorManager.orangeColor,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 15.0),
-                                      child: Column(
-                                        children: [
-                                          Image.asset(ImageManager.accountSummary,width: 20,),
-                                          SizedBox(height: 10),
-                                          Text('ملخص الحسابات',style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeightManager.medium,
-                                          ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      // SizedBox(
+                      //   height: 120,
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.start,
+                      //     crossAxisAlignment: CrossAxisAlignment.start,
+                      //     children: [
+                      //       Expanded(
+                      //         child: InkWell(
+                      //           onTap: (){
+                      //             context.push(ScreenName.financialTransactions);
+                      //           },
+                      //           child: Padding(
+                      //             padding: const EdgeInsets.all(8.0),
+                      //             child: Container(
+                      //               decoration: BoxDecoration(
+                      //                 color: ColorManager.orangeColor,
+                      //                 borderRadius: BorderRadius.circular(8),
+                      //               ),
+                      //               child: Padding(
+                      //                 padding: const EdgeInsets.only(top: 15.0),
+                      //                 child: Column(
+                      //                   children: [
+                      //                     Image.asset(ImageManager.moneyTransactions,width: 20,),
+                      //                     SizedBox(height: 10),
+                      //                     Text('المعاملات المالية',style: TextStyle(
+                      //                       color: Colors.white,
+                      //                       fontWeight: FontWeightManager.medium,
+                      //                     ),
+                      //                       textAlign: TextAlign.center,
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       Expanded(
+                      //         child: InkWell(
+                      //           onTap: (){
+                      //             context.push(ScreenName.accountSummary);
+                      //           },
+                      //           child: Padding(
+                      //             padding: const EdgeInsets.all(8.0),
+                      //             child: Container(
+                      //               decoration: BoxDecoration(
+                      //                 color: ColorManager.orangeColor,
+                      //                 borderRadius: BorderRadius.circular(8),
+                      //               ),
+                      //               child: Padding(
+                      //                 padding: const EdgeInsets.only(top: 15.0),
+                      //                 child: Column(
+                      //                   children: [
+                      //                     Image.asset(ImageManager.accountSummary,width: 20,),
+                      //                     SizedBox(height: 10),
+                      //                     Text('ملخص الحسابات',style: TextStyle(
+                      //                       color: Colors.white,
+                      //                       fontWeight: FontWeightManager.medium,
+                      //                     ),
+                      //                       textAlign: TextAlign.center,
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
                       SPMomeItem(title: 'آخر الحجوزات', content:(cubit.providerTrips == null || cubit.providerTrips!.upcoming.isEmpty)? Center(
                         child: InkWell(
                           onTap: (){
