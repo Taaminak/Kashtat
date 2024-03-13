@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class APIsManager{
-  static String baseURL = 'http://137.184.154.60';
+  static String baseURL = 'https://kashtat.it-arm.com';
+  // static String baseURL = 'http://137.184.154.60';
   // static String baseURL = 'http://167.71.17.49';
 
   static String loginApi = "/api/login";

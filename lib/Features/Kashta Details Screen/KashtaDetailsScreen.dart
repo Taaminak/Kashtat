@@ -698,13 +698,14 @@ class _KashtaDetailsScreenState extends State<KashtaDetailsScreen> {
                                             style: TextStyle(
                                               fontSize: FontSize.s12,
                                               fontWeight: FontWeightManager.bold,
+                                                color: Colors.white
                                             ),
                                           ),
                                           Text(
                                             'إجمالي ${cubit.selectedDates.length} ليالي ${calculatePrice(selectedDates, trip.price??Price()).total + (calculatePrice(selectedDates, trip.price??Price()).total*0.15)} ر.س',
                                             style: TextStyle(
                                               fontSize: FontSize.s12,
-                                              fontWeight: FontWeightManager.bold,
+                                              fontWeight: FontWeightManager.bold,color: Colors.white
                                             ),
                                           ),
                                         ],
@@ -715,7 +716,7 @@ class _KashtaDetailsScreenState extends State<KashtaDetailsScreen> {
                                         style: TextStyle(
                                           fontSize: FontSize.s12,
                                           fontWeight: FontWeightManager.bold,
-                                          color: isAvailableDates(trip.reservedDates??[],cubit.selectedDates)? null: ColorManager.redColor,
+                                          color: isAvailableDates(trip.reservedDates??[],cubit.selectedDates)? Colors.white: ColorManager.redColor,
                                         ),),
                                     )),
                                   ],

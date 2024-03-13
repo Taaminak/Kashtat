@@ -277,7 +277,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     KButton(onTap: (){
-                                      cubit.updateProfile(phone: "+966${phoneController.text}", name: nameController.text, avatar: image!).then((value) => getData());
+                                      cubit.updateProfile(phone: "+966${phoneController.text}", name: nameController.text, avatar: image).then((value) => getData());
                                     }, title: "حفظ",),
                                     KButton(onTap: (){
                                       setState(() {

@@ -61,11 +61,8 @@ class DioImpl implements DioHelper {
     }
 
     dio.options.headers = {
-      'Content-Type': isFormUrlEncoded? "application/x-www-form-urlencoded":'application/json',
-      'Accept': 'application/json',
-      'Connection': 'keep-alive',
-      'Accept-Encoding': 'gzip, deflate, br',
-      "Keep-Alive": "timeout=5, max=1000",
+      if(isFormUrlEncoded)
+      'Content-Type':"application/x-www-form-urlencoded",
       if (token != null)'Authorization': 'Bearer $token',
     };
 
@@ -80,8 +77,8 @@ class DioImpl implements DioHelper {
     // debugPrint('URL => ${dio.options.baseUrl + url}');
     // debugPrint('Body => $body');
 
-    // log(dio.options.baseUrl + url,name: "URL");
-    // log(body.toString(),name: "Body");
+    log(dio.options.baseUrl + url,name: "URL");
+    log(body.toString(),name: "Body");
 
     final r= await request(
       () => dio.post(
@@ -92,8 +89,7 @@ class DioImpl implements DioHelper {
     );
     log(r.realUri.toString(),name: "URL");
     log(body.toString(),name: "Body");
-    log('',name: "Response");
-    print(r.data.toString());
+    log(r.data.toString(),name: "Response");
     return r;
 
   }
@@ -146,8 +142,7 @@ class DioImpl implements DioHelper {
     );
     log(r.realUri.toString(),name: "URL");
     log(body.toString(),name: "Body");
-    log('',name: "Response");
-    print(r.data.toString());
+    log(r.data.toString(),name: "Response");
     return r;
   }
 
@@ -190,8 +185,7 @@ class DioImpl implements DioHelper {
       ),
     );
     log(r.realUri.toString(),name: "URL");
-    log('',name: "Response");
-    print(r.data.toString());
+    log(r.data.toString(),name: "Response");
     return r;
   }
 }
@@ -205,8 +199,9 @@ extension on DioHelper{
       // logger.i('Response => ${r.data}');
       return r;
     }catch(e){
-      var logger = Logger();
-      logger.e('Response => $e');
+      print(e);
+      // var logger = Logger();
+      // logger.e('Response => $e');
       rethrow;
     }
   }

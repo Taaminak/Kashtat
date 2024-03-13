@@ -57,7 +57,7 @@ class User {
     phone: json["phone"]??'',
     role: json["role"]??'',
     avatar: json["avatar"]??'',
-    wallet: json["wallet"]??0,
+    wallet: num.parse(json["wallet"]??'0.0'),
     reservationsCount: json["reservations_count"]??0,
     unitsCount: json["units_count"]??0,
     totalSales: json["total_sales"]??0,

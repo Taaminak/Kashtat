@@ -527,8 +527,10 @@ class _MoreScreenState extends State<MoreScreen> {
   @override
   void initState() {
     isLogged();
-    BlocProvider.of<AppBloc>(context).getUserProfile();
-    BlocProvider.of<AppBloc>(context).getAllProviderUnits();
+    if (isLoggedIn){
+      BlocProvider.of<AppBloc>(context).getUserProfile();
+      BlocProvider.of<AppBloc>(context).getAllProviderUnits();
+    }
     super.initState();
   }
   String name = '';

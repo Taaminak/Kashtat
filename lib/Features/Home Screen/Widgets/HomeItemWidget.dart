@@ -239,7 +239,7 @@ class HomeItemWidget extends StatelessWidget {
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Text(LocaleKeys.more.tr().capitalize()),
+                        child: Text(LocaleKeys.more.tr().capitalize(),style: TextStyle(color: Colors.white),),
                       ),
                     )
                 ),

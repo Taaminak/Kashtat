@@ -7,7 +7,7 @@ class CategoryModel {
   List<CategoryModel>? subCategories;
   String? tin;
   bool? isApplicableForVat;
-  int? vat;
+  double? vat;
   int? unitsCount;
 
   CategoryModel({
@@ -30,7 +30,7 @@ class CategoryModel {
     List<CategoryModel>? subCategories,
     String? tin,
     bool? isApplicableForVat,
-    int? vat,
+    double? vat,
     int? unitsCount,
   }) =>
       CategoryModel(
@@ -51,7 +51,7 @@ class CategoryModel {
     img: json["icon"]??'',
     serviceName: json["service_name"]??'',
     tin: json["tin"]??'',
-    vat: json["vat"]??0,
+    vat: double.parse(json["vat"]??"0.0"),
     unitsCount: json["units_count"]??0,
     isApplicableForVat: json["is_applicable_for_vat"]??false,
     subCategories: json["sub_categories"] == null?[] : List<CategoryModel>.from(json["sub_categories"].map((c)=>CategoryModel.fromJson(c))),

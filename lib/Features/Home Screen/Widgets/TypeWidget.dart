@@ -26,7 +26,7 @@ class HomeTypeWidgetGrid extends StatelessWidget {
           borderRadius: BorderRadius.circular(10)
         ),
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(7.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -46,7 +46,7 @@ class HomeTypeWidgetGrid extends StatelessWidget {
                       width: 30,
                       child:
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 5.0),
+                        padding: const EdgeInsets.only(bottom: 3.0),
                         child: CachedNetworkImage(
                           imageUrl: img,
                           color: Colors.white,

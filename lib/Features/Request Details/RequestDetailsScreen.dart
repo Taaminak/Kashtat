@@ -811,12 +811,12 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                       mainAxisAlignment:
                                       MainAxisAlignment.center,
                                       children: [
-                                        Text(LocaleKeys.pay.tr()),
+                                        Text(LocaleKeys.pay.tr(),style: TextStyle(color: Colors.white),),
                                         const SizedBox(width: 10,),
                                         SizedBox(
                                           child: Align(
                                               alignment: Alignment.centerLeft,
-                                              child: Text('${(subtotalPrice * 0.15 + subtotalPrice).toStringAsFixed(2)} ر.س')),
+                                              child: Text('${(subtotalPrice * 0.15 + subtotalPrice).toStringAsFixed(2)} ر.س',style: TextStyle(color: Colors.white),)),
                                         ),
                                       ],
                                     ),
@@ -921,7 +921,9 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               // TODO: implement listener
             },
             builder: (context, state) {
-              return KButton(onTap: (){
+              return KButton(
+
+                onTap: (){
                 if(controller.text.isEmpty){
                   return;
                 }

@@ -3,12 +3,10 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dartz/dartz_unsafe.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:kashtat/Core/Cubit/AppState.dart';
 import 'package:kashtat/Core/Extentions/extention.dart';
 import 'package:kashtat/Core/constants/APIsManager.dart';
@@ -27,13 +25,10 @@ import 'package:kashtat/Core/models/FinancialSummaryModel.dart';
 import 'package:kashtat/Core/models/PaymentMethodsModel.dart';
 import 'package:kashtat/Core/models/RequestTripModel.dart';
 import 'package:kashtat/Core/models/ReservationModel.dart';
-import 'package:kashtat/Core/models/ReservedTripsModel.dart';
 import 'package:kashtat/Core/models/UnitModel.dart';
 import 'package:kashtat/Core/models/UnitsModel.dart';
 import 'package:kashtat/Core/models/WalletLogsModel.dart';
 import 'package:kashtat/Core/repository/endpoint_responses.dart';
-import 'package:multiple_images_picker/multiple_images_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/ProviderCategorysWithUnits.dart';
 import '../models/RatingModel.dart';
@@ -174,7 +169,7 @@ class AppBloc extends Cubit<AppState> {
   Future<void> getHomeTrips({/*List<String>? dates, */int? cityId}) async {
     emit(LoadingHomeTripsState());
 
-    try{
+    // try{
 
       String url = "/api/units";
       if(cityId !=null){
@@ -191,10 +186,10 @@ class AppBloc extends Cubit<AppState> {
         homeTrips = allTrips;
         emit(SuccessTripsState());
       });
-    }catch(e){
-      debugPrintStack(label: e.toString());
-      emit(FailureTripsState());
-    }
+    // }catch(e){
+    //   debugPrintStack(label: e.toString());
+    //   emit(FailureTripsState());
+    // }
   }
 
 
@@ -584,14 +579,14 @@ class AppBloc extends Cubit<AppState> {
   Future<void> updateProfile({
     required String phone,
     required String name,
-    required XFile avatar,
+    required XFile? avatar,
   })async{
     emit(LoadingUpdateProfileState());
-    try{
       final result = await request.postRequest(APIsManager.updateProfile, 
       FormData.fromMap({
         "phone": phone,
         "name": name,
+        if(avatar !=null)
         "avatar": await MultipartFile.fromFile(avatar.path, filename: DateTime.now().toString()),
       }));
       result.fold((failure) {
@@ -602,12 +597,15 @@ class AppBloc extends Cubit<AppState> {
         final decodedData = json.decode(data.data.toString());
         // print(decodedData['data']['avatar']);
         prefs.setString('avatar', decodedData['data']['avatar'].toString());
+        prefs.setString('name', decodedData['data']['name'].toString());
+        prefs.setString('phone', decodedData['data']['phone'].toString());
+        prefs.setString('avatar', decodedData['data']['avatar'].toString());
         emit(UpdateProfileSuccessState());
       });
-    }catch(e){
-      debugPrintStack(label: e.toString());
-      emit(UpdateProfileFailureState());
-    }
+    // }catch(e){
+    //   debugPrintStack(label: e.toString());
+    //   emit(UpdateProfileFailureState());
+    // }
   }
 
   /// provider units

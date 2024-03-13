@@ -10,18 +10,16 @@ class NetworkModule {
   final DioHelper _dio = DioHelper();
 
   ServerResponse<dynamic> postRequest<T>(
-      String url,
-      dynamic body,
-      [
-        bool isFormUrlEncoded = false,
-        bool isMultipart = false,
-      ]
+    String url,
+    dynamic body, [
+    bool isFormUrlEncoded = false,
+    bool isMultipart = false,
+  ]
       // dynamic model,
       ) async {
-    try{
-
+    try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      String token = prefs.getString('token') ?? '';
+      String? token = prefs.getString('token');
 
       Response response = await _dio.post(base: APIsManager.baseURL,url: url, body: body,token: token,isMultipart: isMultipart,isFormUrlEncoded: isFormUrlEncoded).onError((error, stackTrace){
         return Left(
@@ -31,14 +29,13 @@ class NetworkModule {
 
         );
       });
-      print(response.statusCode);
       print(response);
+      print(response.statusCode);
       if (response.statusCode == 200 || response.statusCode == 201) {
-        return Right(
-            Success(
-              message: response.statusMessage ??'Done',
-              data: response,
-            ));
+        return Right(Success(
+          message: response.statusMessage ?? 'Done',
+          data: response,
+        ));
       } else {
         return Left(
           Failure(
@@ -46,8 +43,7 @@ class NetworkModule {
           ),
         );
       }
-    }catch(e){
-
+    } catch (e) {
       return Left(
         Failure(
           failure: e,
@@ -56,32 +52,34 @@ class NetworkModule {
     }
   }
 
-  ServerResponse<dynamic> putRequest<T>(
-      String url,
-      dynamic body,
+  ServerResponse<dynamic> putRequest<T>(String url, dynamic body,
       [bool isMultipart = false]
       // dynamic model,
       ) async {
-    try{
-
+    try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       String token = prefs.getString('token') ?? '';
 
-      Response response = await _dio.put(base: APIsManager.baseURL,url: url, body: body,token: token,isMultipart: isMultipart).onError((error, stackTrace){
+      Response response = await _dio
+          .put(
+              base: APIsManager.baseURL,
+              url: url,
+              body: body,
+              token: token,
+              isMultipart: isMultipart)
+          .onError((error, stackTrace) {
         return Left(
           Failure(
             failure: {error},
           ),
-
         );
       });
       print(response.statusCode);
       if (response.statusCode == 200 || response.statusCode == 201) {
-        return Right(
-            Success(
-              message: response.statusMessage ??'Done',
-              data: response,
-            ));
+        return Right(Success(
+          message: response.statusMessage ?? 'Done',
+          data: response,
+        ));
       } else {
         return Left(
           Failure(
@@ -89,8 +87,7 @@ class NetworkModule {
           ),
         );
       }
-    }catch(e){
-
+    } catch (e) {
       return Left(
         Failure(
           failure: e,
@@ -100,20 +97,20 @@ class NetworkModule {
   }
 
   ServerResponse<dynamic> getRequest<T>(
-      String url,
-      // dynamic model,
-      ) async {
+    String url,
+    // dynamic model,
+  ) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token') ?? '';
     print(token);
-    Response response = await _dio.get(base: APIsManager.baseURL,url: url,token: token);
+    Response response =
+        await _dio.get(base: APIsManager.baseURL, url: url, token: token);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      return Right(
-          Success(
-            message: response.statusMessage ??'Done',
-            data: response,
-          ));
+      return Right(Success(
+        message: response.statusMessage ?? 'Done',
+        data: response,
+      ));
     } else {
       return Left(
         Failure(
@@ -122,5 +119,4 @@ class NetworkModule {
       );
     }
   }
-
 }

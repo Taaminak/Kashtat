@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/APIsManager.dart';
@@ -18,11 +19,22 @@ class AuthBloc extends Cubit<AuthState> {
 
   /// Account Login
   Future<void> login({required String phone})async{
+
+    // final dio = Dio();
+    //   FormData formData = FormData.fromMap({
+    //     "phone": "+966$phone",
+    //   });
+    //   Response response;
+    //   response = await dio.post(APIsManager.baseURL+APIsManager.loginApi,data: formData);
+    //   print(response.data.toString());
+    //   print(response.data['data']);
+
     emit(LoginLoadingState());
     try{
-      final result = await request.postRequest(APIsManager.loginApi,{
+      FormData formData = FormData.fromMap({
         "phone": "+966$phone",
       });
+      final result = await request.postRequest(APIsManager.loginApi,formData);
       result.fold((failure) {
         throw Exception(failure.failure);
       }, (result) {
