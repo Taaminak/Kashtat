@@ -188,8 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       BlocConsumer<AuthBloc, AuthState>(
                         listener: (context, state) async {
                           if (state is LoginSuccess) {
-                            final SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
+                            final SharedPreferences prefs = await SharedPreferences.getInstance();
                             await prefs.setString('phone', controller.text);
                             Navigator.pop(context, ["otp"]);
                           }

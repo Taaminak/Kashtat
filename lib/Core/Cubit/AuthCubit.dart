@@ -37,7 +37,14 @@ class AuthBloc extends Cubit<AuthState> {
       final result = await request.postRequest(APIsManager.loginApi,formData);
       result.fold((failure) {
         throw Exception(failure.failure);
-      }, (result) {
+      }, (result) async{
+
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        final decodedData = json.decode(result.data.toString());
+        print('----------------------------------------------------');
+        print(decodedData['data']);
+        print('----------------------------------------------------');
+        await prefs.setString('guest_otp', decodedData['data'].toString());
         emit(LoginSuccess(msg: "Check Your Otp"));
       });
     }catch(e){

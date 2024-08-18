@@ -32,7 +32,26 @@ class OTPScreen extends StatefulWidget {
 
 class _OTPScreenState extends State<OTPScreen> {
   bool checked = false;
+  String phone = '';
   TextEditingController controller = TextEditingController();
+
+  @override
+  void initState() {
+    checkGuestUser();
+    super.initState();
+  }
+
+  checkGuestUser()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    phone = prefs.getString('phone') ?? '';
+    if(phone.contains('123456789')){
+      String code = prefs.getString('guest_otp') ??'';
+      controller.text = code;
+    }
+    setState(() {});
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -159,8 +178,6 @@ class _OTPScreenState extends State<OTPScreen> {
                               if (controller.text.length < 6) {
                                 return;
                               }
-                              final SharedPreferences prefs = await SharedPreferences.getInstance();
-                              String phone = prefs.getString('phone') ?? '';
 
                               final authCubit = BlocProvider.of<AuthBloc>(context);
                               authCubit.otpLogin(phone: phone,otpCode: controller.text);
