@@ -385,221 +385,221 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                               const SizedBox(
                                 height: 15,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 30),
-                                child: Text(
-                                  "اختر طريقة الدفع",
-                                  style: TextStyle(
-                                    fontSize: FontSize.s18,
-                                    fontWeight: FontWeightManager.bold,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: ColorManager.whiteColor,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.1),
-                                      spreadRadius: 3,
-                                      blurRadius: 7,
-                                      offset: const Offset(
-                                          0, 0), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 10.0),
-                                  child: Row(
-                                    children: [
-                                      selectedTypeView[_selectedPayment],
-                                      const Spacer(),
-                                      InkWell(
-                                        onTap: () {
-                                          customBottomSheet(
-                                              context, LocaleKeys.select_payment_method.tr(),Directionality(
-                                            textDirection: ui.TextDirection.ltr,
-                                            child: Container(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                ColorManager.whiteDarkColor,
-                                                borderRadius:
-                                                const BorderRadius.only(
-                                                  topLeft:
-                                                  Radius.circular(50.0),
-                                                  topRight:
-                                                  Radius.circular(50.0),
-                                                ),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 30.0),
-                                                child: Column(
-                                                  children:[
-                                                    SizedBox(height: 50),
-                                                    for(int i=0; i<selectedType.length;i++)
-                                                      Column(
-                                                        children: [
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                            crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                            children: [
-                                                              Radio(
-                                                                value: i,
-                                                                activeColor: ColorManager
-                                                                    .mainlyBlueColor,
-                                                                groupValue: _selectedPayment,
-                                                                onChanged:
-                                                                    (int? value) {
-                                                                  print(i);
-                                                                  changeSelected(i);
-                                                                  context.pop();
-                                                                },
-                                                              ),
-                                                              selectedType[i]
-                                                            ],
-                                                          ),
-                                                          if(i!=selectedType.length-1)
-                                                            Divider(thickness: 1.5,)
-                                                        ],
-                                                      ),
-                                                    SizedBox(height: 50),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),true);
-                                        },
-                                        child: Text(
-                                          LocaleKeys.change.tr(),
-                                          style: TextStyle(
-                                            color: ColorManager.orangeColor,
-                                            fontWeight: FontWeightManager.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: ColorManager.whiteColor,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.1),
-                                      spreadRadius: 3,
-                                      blurRadius: 7,
-                                      offset: const Offset(
-                                          0, 0), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10.0,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Expanded(child: Row(
-                                        children: [
-                                          const Text(
-                                            'استخدم رصيد المحفظة',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeightManager.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(width: 5),
-                                          Expanded(
-                                            child: Text(
-                                              "(${(cubit.userProfile!.wallet! - walletDiscount).toString()} ر.س)",
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeightManager.bold,
-                                                color: ColorManager.green,
-                                              ),
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      ),
-                                      AdvancedSwitch(
-                                        controller: _controller,
-                                        inactiveColor: Colors.grey.withOpacity(0.5),
-                                        activeColor: ColorManager.green,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: ColorManager.whiteColor,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.1),
-                                      spreadRadius: 3,
-                                      blurRadius: 7,
-                                      offset: const Offset(
-                                          0, 0), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 15.0),
-                                  child: Row(
-                                    children: [
-                                      const Text(
-                                        'إضافة كوبون',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeightManager.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Image.asset(
-                                        ImageManager.coupon,
-                                        width: 25,
-                                        color: ColorManager.mainlyBlueColor,
-                                      ),
-                                      const Spacer(),
-                                      InkWell(
-                                        onTap: () {
-                                          applyCoupon(context);
-
-                                        },
-                                        child: Text(
-                                          'اضافة',
-                                          style: TextStyle(
-                                            color: ColorManager.orangeColor,
-                                            fontWeight: FontWeightManager.bold,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 20),
+                              // Padding(
+                              //   padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 30),
+                              //   child: Text(
+                              //     "اختر طريقة الدفع",
+                              //     style: TextStyle(
+                              //       fontSize: FontSize.s18,
+                              //       fontWeight: FontWeightManager.bold,
+                              //     ),
+                              //   ),
+                              // ),
+                              // Container(
+                              //   decoration: BoxDecoration(
+                              //     color: ColorManager.whiteColor,
+                              //     boxShadow: [
+                              //       BoxShadow(
+                              //         color: Colors.grey.withOpacity(0.1),
+                              //         spreadRadius: 3,
+                              //         blurRadius: 7,
+                              //         offset: const Offset(
+                              //             0, 0), // changes position of shadow
+                              //       ),
+                              //     ],
+                              //   ),
+                              //   child: Padding(
+                              //     padding: const EdgeInsets.symmetric(
+                              //         horizontal: 30, vertical: 10.0),
+                              //     child: Row(
+                              //       children: [
+                              //         selectedTypeView[_selectedPayment],
+                              //         const Spacer(),
+                              //         InkWell(
+                              //           onTap: () {
+                              //             customBottomSheet(
+                              //                 context, LocaleKeys.select_payment_method.tr(),Directionality(
+                              //               textDirection: ui.TextDirection.ltr,
+                              //               child: Container(
+                              //                 width: MediaQuery.of(context)
+                              //                     .size
+                              //                     .width,
+                              //                 decoration: BoxDecoration(
+                              //                   color:
+                              //                   ColorManager.whiteDarkColor,
+                              //                   borderRadius:
+                              //                   const BorderRadius.only(
+                              //                     topLeft:
+                              //                     Radius.circular(50.0),
+                              //                     topRight:
+                              //                     Radius.circular(50.0),
+                              //                   ),
+                              //                 ),
+                              //                 child: Padding(
+                              //                   padding:
+                              //                   const EdgeInsets.symmetric(
+                              //                       horizontal: 30.0),
+                              //                   child: Column(
+                              //                     children:[
+                              //                       SizedBox(height: 50),
+                              //                       for(int i=0; i<selectedType.length;i++)
+                              //                         Column(
+                              //                           children: [
+                              //                             Row(
+                              //                               mainAxisAlignment:
+                              //                               MainAxisAlignment
+                              //                                   .start,
+                              //                               crossAxisAlignment:
+                              //                               CrossAxisAlignment
+                              //                                   .center,
+                              //                               children: [
+                              //                                 Radio(
+                              //                                   value: i,
+                              //                                   activeColor: ColorManager
+                              //                                       .mainlyBlueColor,
+                              //                                   groupValue: _selectedPayment,
+                              //                                   onChanged:
+                              //                                       (int? value) {
+                              //                                     print(i);
+                              //                                     changeSelected(i);
+                              //                                     context.pop();
+                              //                                   },
+                              //                                 ),
+                              //                                 selectedType[i]
+                              //                               ],
+                              //                             ),
+                              //                             if(i!=selectedType.length-1)
+                              //                               Divider(thickness: 1.5,)
+                              //                           ],
+                              //                         ),
+                              //                       SizedBox(height: 50),
+                              //                     ],
+                              //                   ),
+                              //                 ),
+                              //               ),
+                              //             ),true);
+                              //           },
+                              //           child: Text(
+                              //             LocaleKeys.change.tr(),
+                              //             style: TextStyle(
+                              //               color: ColorManager.orangeColor,
+                              //               fontWeight: FontWeightManager.bold,
+                              //             ),
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // Container(
+                              //   decoration: BoxDecoration(
+                              //     color: ColorManager.whiteColor,
+                              //     boxShadow: [
+                              //       BoxShadow(
+                              //         color: Colors.grey.withOpacity(0.1),
+                              //         spreadRadius: 3,
+                              //         blurRadius: 7,
+                              //         offset: const Offset(
+                              //             0, 0), // changes position of shadow
+                              //       ),
+                              //     ],
+                              //   ),
+                              //   child: Padding(
+                              //     padding: const EdgeInsets.symmetric(
+                              //         horizontal: 20, vertical: 10.0,
+                              //     ),
+                              //     child: Row(
+                              //       children: [
+                              //         Expanded(child: Row(
+                              //           children: [
+                              //             const Text(
+                              //               'استخدم رصيد المحفظة',
+                              //               style: TextStyle(
+                              //                 fontSize: 18,
+                              //                 fontWeight: FontWeightManager.bold,
+                              //               ),
+                              //             ),
+                              //             const SizedBox(width: 5),
+                              //             Expanded(
+                              //               child: Text(
+                              //                 "(${(cubit.userProfile!.wallet! - walletDiscount).toString()} ر.س)",
+                              //                 style: const TextStyle(
+                              //                   fontSize: 16,
+                              //                   fontWeight: FontWeightManager.bold,
+                              //                   color: ColorManager.green,
+                              //                 ),
+                              //                 maxLines: 1,
+                              //                 overflow: TextOverflow.ellipsis,
+                              //               ),
+                              //             ),
+                              //           ],
+                              //         ),
+                              //         ),
+                              //         AdvancedSwitch(
+                              //           controller: _controller,
+                              //           inactiveColor: Colors.grey.withOpacity(0.5),
+                              //           activeColor: ColorManager.green,
+                              //         )
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // Container(
+                              //   decoration: BoxDecoration(
+                              //     color: ColorManager.whiteColor,
+                              //     boxShadow: [
+                              //       BoxShadow(
+                              //         color: Colors.grey.withOpacity(0.1),
+                              //         spreadRadius: 3,
+                              //         blurRadius: 7,
+                              //         offset: const Offset(
+                              //             0, 0), // changes position of shadow
+                              //       ),
+                              //     ],
+                              //   ),
+                              //   child: Padding(
+                              //     padding: const EdgeInsets.symmetric(
+                              //         horizontal: 30, vertical: 15.0),
+                              //     child: Row(
+                              //       children: [
+                              //         const Text(
+                              //           'إضافة كوبون',
+                              //           style: TextStyle(
+                              //             fontSize: 18,
+                              //             fontWeight: FontWeightManager.bold,
+                              //           ),
+                              //         ),
+                              //         const SizedBox(width: 10),
+                              //         Image.asset(
+                              //           ImageManager.coupon,
+                              //           width: 25,
+                              //           color: ColorManager.mainlyBlueColor,
+                              //         ),
+                              //         const Spacer(),
+                              //         InkWell(
+                              //           onTap: () {
+                              //             applyCoupon(context);
+                              //
+                              //           },
+                              //           child: Text(
+                              //             'اضافة',
+                              //             style: TextStyle(
+                              //               color: ColorManager.orangeColor,
+                              //               fontWeight: FontWeightManager.bold,
+                              //             ),
+                              //           ),
+                              //         )
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(height: 20),
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                                 child: Container(
