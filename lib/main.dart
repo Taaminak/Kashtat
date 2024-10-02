@@ -56,7 +56,6 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-
       builder: (BuildContext context, child) =>
           MultiBlocProvider(
             providers: [
@@ -84,31 +83,6 @@ class MyApp extends StatelessWidget {
             ),
           ),
     );
-    // return MultiBlocProvider(
-    //   providers: [
-    //     BlocProvider<LanguageBloc>(
-    //       create: (BuildContext context) => LanguageBloc(),
-    //     ),
-    //     BlocProvider<AuthBloc>(
-    //       create: (BuildContext context) => AuthBloc(),
-    //     ),
-    //     BlocProvider<AppBloc>(
-    //       create: (BuildContext context) => AppBloc(),
-    //     ),
-    //   ],
-    //   child: MaterialApp.router(
-    //     title: 'KASHTAT',
-    //     localizationsDelegates: context.localizationDelegates,
-    //     supportedLocales: context.supportedLocales,
-    //     locale: context.locale,
-    //     debugShowCheckedModeBanner: false,
-    //     theme: ThemeData(
-    //       primarySwatch: Colors.blue,
-    //       fontFamily: FontConstants.fontFamilyAR
-    //     ),
-    //     routerConfig: RoutesManager.router,
-    //   ),
-    // );
   }
 }
 

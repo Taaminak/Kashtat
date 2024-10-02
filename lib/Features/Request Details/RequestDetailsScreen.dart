@@ -86,7 +86,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 ),
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Padding(
               padding: const EdgeInsets.only(top: 5.0),
               child: Text(
@@ -116,7 +116,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 ),
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Padding(
               padding: const EdgeInsets.only(top: 5.0),
               child: Text(
@@ -145,7 +145,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 ),
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Container(
               width: 60,
               height: 30,
@@ -175,7 +175,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 ),
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Container(
               width: 60,
               height: 30,
@@ -283,8 +283,8 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                           child: CachedNetworkImage(
                                             imageUrl: widget.trip.mainPic??'',
                                             fit: BoxFit.cover,
-                                            placeholder: (context, url) => Loader(),
-                                            errorWidget: (context, url, error) => Icon(Icons.error),
+                                            placeholder: (context, url) => const Loader(),
+                                            errorWidget: (context, url, error) => const Icon(Icons.error),
 
                                           ),
                                         ),
@@ -319,7 +319,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                                         size: 15,
                                                       ),
                                                     ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 5,
                                                   ),
                                                   Padding(
@@ -637,10 +637,10 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                             requestKey: 'تاريخ المغادرة',
                                             value: DateFormat("EEEE, MMM d, yyyy").format(DateTime.parse(cubit.selectedDates.last))),
                                             // value: DateFormat.yMMMMd().format(DateTime.parse(widget.trip.leavingDateTime))),
-                                        RecordItem(
+                                        const RecordItem(
                                             requestKey: 'وقت الوصول',
                                             value: '10 صباحا',),
-                                        RecordItem(
+                                        const RecordItem(
                                             requestKey: 'وقت المغادرة',
                                             value: '10 مساءا',),
                                             // DateFormat('kk:mm a').format(DateTime.parse(widget.trip.leavingDateTime)),),
@@ -654,7 +654,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                         RecordItem(
                                             requestKey: 'خصم المحفظة ',
                                             value: '${walletDiscount.toStringAsFixed(2)} ر.س'),
-                                        Divider(
+                                        const Divider(
                                           thickness: 2,
                                         ),
                                         const SizedBox(height: 15,),
@@ -681,7 +681,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                   Container(
                     decoration: BoxDecoration(
                       color: ColorManager.whiteColor,
-                      borderRadius: BorderRadius.only(topRight: Radius.circular(50),topLeft: Radius.circular(50)),
+                      borderRadius: const BorderRadius.only(topRight: Radius.circular(50),topLeft: Radius.circular(50)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.3),
@@ -708,9 +708,9 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 10),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 0.0),
+                          const SizedBox(height: 10),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 0.0),
                             child: Row(
                               mainAxisAlignment:
                               MainAxisAlignment.spaceBetween,
@@ -730,7 +730,6 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                           ),
                           BlocListener<AppBloc, AppState>(
                             listener: (context, state) async{
-                              print(state);
                               if(state is SuccessReserveTripState){
 
                                 var alert =  AlertDialog(
@@ -740,26 +739,26 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      CircleAvatar(
+                                      const CircleAvatar(
                                         backgroundColor : Colors.green,
                                         child: FaIcon(FontAwesomeIcons.check,color: Colors.white,),
                                       ),
-                                      SizedBox(height: 25),
-                                      Text('تم الدفع بنجاح',style: TextStyle(
+                                      const SizedBox(height: 25),
+                                      const Text('تم ارسال الطلب بنجاح',style: TextStyle(
                                         fontWeight: FontWeightManager.bold,
                                         fontSize: 20,
 
                                       ),),
-                                      SizedBox(height: 10),
-                                      Text('نشكر لك اختيار كشتات',style: TextStyle(
+                                      const SizedBox(height: 10),
+                                      const Text('نشكر لك اختيار كشتات',style: TextStyle(
                                         fontWeight: FontWeightManager.medium,
                                         fontSize: 12,
 
                                       ),),
-                                      SizedBox(height: 25),
+                                      const SizedBox(height: 25),
                                       TextButton(onPressed: (){
                                         Navigator.pop(context);
-                                      }, child: Text('موافق')),
+                                      }, child: const Text('موافق')),
                                     ],
                                   ),
                                 );
@@ -770,13 +769,8 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                     return alert;
                                   },
                                 ).then((value){
-                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>DashboardScreen(selectedIndex: 1,)));
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const DashboardScreen(selectedIndex: 1,)));
                                 });
-                                // final snackBar = SnackBar(
-                                //   content: Center(child: Text('تم الدفع',textAlign: TextAlign.center,)),
-                                // );
-                                // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                // context.push(ScreenName.dashboard);
                               }
 
                               if(state is FailureReserveTripState){
@@ -805,19 +799,19 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                     final cubit = BlocProvider.of<AppBloc>(context);
                                     cubit.reserveTrip(total: subtotalPrice+subtotalPrice*0.15 , vat: subtotalPrice*0.15,subtotal: subtotalPrice,paymentMethods:  [3],walletAmount: walletDiscount);
                                   },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(10.0),
                                     child: Row(
                                       mainAxisAlignment:
                                       MainAxisAlignment.center,
                                       children: [
-                                        Text(LocaleKeys.pay.tr(),style: TextStyle(color: Colors.white),),
-                                        const SizedBox(width: 10,),
-                                        SizedBox(
-                                          child: Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text('${(subtotalPrice * 0.15 + subtotalPrice).toStringAsFixed(2)} ر.س',style: TextStyle(color: Colors.white),)),
-                                        ),
+                                        Text('تأكيد الطلب',style: TextStyle(color: Colors.white),),
+                                        // const SizedBox(width: 10,),
+                                        // SizedBox(
+                                        //   child: Align(
+                                        //       alignment: Alignment.centerLeft,
+                                        //       child: Text('${(subtotalPrice * 0.15 + subtotalPrice).toStringAsFixed(2)} ر.س',style: TextStyle(color: Colors.white),)),
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -938,7 +932,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               }, title: 'تطبيق',isLoading: state is ValidateCouponLoadingState,);
             },
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
 
         ],
       ),

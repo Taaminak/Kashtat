@@ -712,7 +712,7 @@ class _KashtaDetailsScreenState extends State<KashtaDetailsScreen> {
                                       ),
                                     ),
                                     Expanded(child: Center(
-                                      child: Text(isAvailableDates(trip.reservedDates??[],cubit.selectedDates)?'ادفع':'غير متاح',
+                                      child: Text(isAvailableDates(trip.reservedDates??[],cubit.selectedDates)?'أححز الآن':'غير متاح',
                                         style: TextStyle(
                                           fontSize: FontSize.s12,
                                           fontWeight: FontWeightManager.bold,
