@@ -2,11 +2,11 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../Core/constants/ColorManager.dart';
 import '../../../Core/constants/app_size.dart';
 import '../../../Core/constants/style_manager.dart';
-
 
 class CustomDropDownFormField extends StatelessWidget {
   TextEditingController? controller;
@@ -85,7 +85,9 @@ class CustomDropDownFormField extends StatelessWidget {
       value: drobDownValue,
       alignment: Alignment.centerLeft,
       hint: Text(
-        hintText ?? "",
+        hintText != null
+            ? (hintText!)
+            : "",
         style: StyleManager.getMediumStyle(
             fontSize: AppSize.sp14, color: ColorManager.grey4),
       ),
@@ -107,7 +109,9 @@ class CustomDropDownFormField extends StatelessWidget {
         contentPadding: EdgeInsets.symmetric(
             vertical: heigh ?? 2.h, horizontal: AppSize.w20),
         prefix: preFixWidget,
-        labelText: label,
+        labelText: label != null
+            ? label!
+            : null,
         filled: true,
         fillColor: fillColor ?? Colors.transparent,
         label: labelWidgets,
@@ -134,7 +138,9 @@ class CustomDropDownFormField extends StatelessWidget {
             borderSide: const BorderSide(
               color: Colors.transparent,
             )),
-        hintText: hintText,
+        hintText: hintText != null
+            ? hintText!
+            : null,
         hintStyle: StyleManager.getMediumStyle(
             fontSize: AppSize.sp14, color: ColorManager.grey4),
         prefixIconConstraints: BoxConstraints(maxHeight: 20.h, maxWidth: 50.w),

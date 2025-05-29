@@ -30,8 +30,11 @@ class HomeItemWidget extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final cubit = BlocProvider.of<AppBloc>(context);
     return InkWell(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>KashtaDetailsScreen(trip: trip)));
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => KashtaDetailsScreen(trip: trip)));
       },
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -59,12 +62,14 @@ class HomeItemWidget extends StatelessWidget {
                     topRight: Radius.circular(10),
                   ),
                   child: CachedNetworkImage(
-                    imageUrl: trip.mainPic??'',
+                    imageUrl: trip.mainPic ?? '',
                     height: 80,
                     fit: BoxFit.cover,
                     placeholder: (context, url) => Loader(),
-                    errorWidget: (context, url, error) => Icon(Icons.image_not_supported_outlined,color: Colors.grey,),
-
+                    errorWidget: (context, url, error) => Icon(
+                      Icons.image_not_supported_outlined,
+                      color: Colors.grey,
+                    ),
                   ),
                 ),
               ),
@@ -80,7 +85,9 @@ class HomeItemWidget extends StatelessWidget {
                             padding: const EdgeInsets.all(0.0),
                             child: Icon(
                               Icons.star,
-                              color: (i+1)>trip.rate!.round()?Colors.grey:ColorManager.yellowColor,
+                              color: (i + 1) > trip.rate!.round()
+                                  ? Colors.grey
+                                  : ColorManager.yellowColor,
                               size: 15,
                             ),
                           )
@@ -88,7 +95,7 @@ class HomeItemWidget extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      trip.rate!.toString(),
+                      '${trip.rate!.toString()}',
                       style: TextStyle(
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.bold,
@@ -97,7 +104,7 @@ class HomeItemWidget extends StatelessWidget {
                     ),
                     Spacer(),
                     Text(
-                      'عدد الحجوزات: ${trip.reservationsCount}',
+                      '${LocaleKeys.reservations_count.tr()}: ${trip.reservationsCount}',
                       style: TextStyle(
                         fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.bold,
@@ -120,52 +127,56 @@ class HomeItemWidget extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    if(cubit.selectedDates.isNotEmpty)
-                    Text(
-                      isAvailable?"متاح":"غير متاح",
-                      style: TextStyle(
-                        fontSize: FontSize.s16,
-                        fontWeight: FontWeightManager.bold,
-                        color: isAvailable? ColorManager.greenColor: ColorManager.redColor,
+                    if (cubit.selectedDates.isNotEmpty)
+                      Text(
+                        isAvailable
+                            ? LocaleKeys.available.tr()
+                            : LocaleKeys.not_available.tr(),
+                        style: TextStyle(
+                          fontSize: FontSize.s16,
+                          fontWeight: FontWeightManager.bold,
+                          color: isAvailable
+                              ? ColorManager.greenColor
+                              : ColorManager.redColor,
+                        ),
                       ),
-                    ),
-
                   ],
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
                   children: [
-
                     Container(
                       decoration: BoxDecoration(
                         color: ColorManager.orangeColor,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 5),
                         child: Text(
-                          '${calculatePrice(cubit.selectedDates, trip.price??Price()).max} ر.س/ليلة',
+                          '${calculatePrice(cubit.selectedDates, trip.price ?? Price()).max} ${LocaleKeys.per_night.tr()}',
                           style: TextStyle(
                             color: ColorManager.whiteColor,
                             fontSize: FontSize.s14,
-
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(width: 10,),
-
+                    SizedBox(
+                      width: 10,
+                    ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
                             width: size.width,
-                            child: Text("اجمالي (ليلة واحدة) ${calculatePrice(cubit.selectedDates, trip.price??Price()).average} ر.س", style: TextStyle(
+                            child: Text(
+                              "${LocaleKeys.total_one_night.tr()} ${calculatePrice(cubit.selectedDates, trip.price ?? Price()).average} ر.س",
+                              style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeightManager.bold,
                               ),
@@ -173,22 +184,22 @@ class HomeItemWidget extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          if(cubit.selectedDates.isNotEmpty)
-                          SizedBox(
-                            width: size.width,
-                            child: Text("إجمالي ${cubit.selectedDates.length} ليالي ${calculatePrice(cubit.selectedDates, trip.price??Price()).total} ر.س", style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeightManager.bold,
+                          if (cubit.selectedDates.isNotEmpty)
+                            SizedBox(
+                              width: size.width,
+                              child: Text(
+                                "${LocaleKeys.total_nights.tr()} ${cubit.selectedDates.length} ليالي ${calculatePrice(cubit.selectedDates, trip.price ?? Price()).total} ر.س",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeightManager.bold,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
                             ),
-                          ),
-
                         ],
                       ),
                     ),
-
                   ],
                 ),
               ),
@@ -197,7 +208,7 @@ class HomeItemWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      'كود الوحدة (${trip.id})',
+                      '${LocaleKeys.unit_code.tr()} (${trip.id})',
                       style: TextStyle(
                         fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.bold,
@@ -210,10 +221,9 @@ class HomeItemWidget extends StatelessWidget {
                       size: 20,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top:   5.0),
+                      padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
-                        (trip.city?.name??'').capitalize()
-                        ,
+                        (trip.city?.name ?? '').capitalize(),
                         style: TextStyle(
                           fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.bold,
@@ -224,25 +234,29 @@ class HomeItemWidget extends StatelessWidget {
                   ],
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: SizedBox(
                     width: size.width,
                     child: ElevatedButton(
                       style: TextButton.styleFrom(
-                        backgroundColor:  const Color(0xff482383) ,
+                        backgroundColor: const Color(0xff482383),
                       ),
-                      onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>KashtaDetailsScreen(trip: trip)));
-                        // context.push(ScreenName.kashtaDetails);
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    KashtaDetailsScreen(trip: trip)));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Text(LocaleKeys.more.tr().capitalize(),style: TextStyle(color: Colors.white),),
+                        child: Text(
+                          LocaleKeys.more.tr().capitalize(),
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
-                    )
-                ),
+                    )),
               )
             ],
           ),
@@ -252,7 +266,7 @@ class HomeItemWidget extends StatelessWidget {
   }
 }
 
-String getNumber(UnitModel trip){
+String getNumber(UnitModel trip) {
   return "0";
   // return DateTime.parse(trip.leavingDateTime).difference(DateTime.parse(trip.arrivalDateTime)).inDays.toString();
   // return '${num.parse(DateFormat('dd').format(DateTime.parse(trip.leavingDateTime)))-num.parse(DateFormat('dd').format(DateTime.parse(trip.arrivalDateTime)))}';

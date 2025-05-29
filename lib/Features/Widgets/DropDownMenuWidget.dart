@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kashtat/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../Core/constants/ColorManager.dart';
 
 class DropDownWidget extends StatefulWidget {
-  const DropDownWidget({Key? key,required this.values,this.onSelect}) : super(key: key);
+  const DropDownWidget({Key? key, required this.values, this.onSelect})
+      : super(key: key);
   final List<String> values;
   final Function? onSelect;
 
@@ -23,7 +26,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       decoration: BoxDecoration(
         color: ColorManager.whiteColor,
         boxShadow: [
@@ -47,11 +50,11 @@ class _DropDownWidgetState extends State<DropDownWidget> {
               isExpanded: true,
               iconDisabledColor: ColorManager.orangeColor,
               iconEnabledColor: ColorManager.orangeColor,
-              items: widget.values.map<DropdownMenuItem<String>>((String value) {
+              items:
+                  widget.values.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(
-                    value,
+                  child: Text(value,
                     style: const TextStyle(fontSize: 14),
                   ),
                 );

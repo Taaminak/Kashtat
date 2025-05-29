@@ -1,15 +1,23 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kashtat/Core/Extentions/media_values.dart';
 
 import '../../../../Core/constants/ColorManager.dart';
 import '../../../../Core/constants/style_manager.dart';
+import '../../../../translations/locale_keys.g.dart';
+import 'dart:ui' as ui;
 
 class CustomTxtFlied extends StatelessWidget {
-  const CustomTxtFlied(
-      {super.key, required this.hintText, required this.controller});
+  const CustomTxtFlied({
+    super.key,
+    required this.hintText,
+    required this.controller,
+    this.translationKey,
+  });
   final String hintText;
   final TextEditingController controller;
+  final String? translationKey;
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +34,13 @@ class CustomTxtFlied extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.r),
         ),
         child: Directionality(
-          textDirection: TextDirection.rtl,
+          textDirection: ui.TextDirection.rtl,
           child: TextFormField(
             controller: controller,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(horizontal: 10.r),
-              hintText: hintText,
+              hintText:
+                  translationKey != null ? translationKey!.tr() : hintText,
               hintStyle: StyleManager.getMediumStyle(
                   fontSize: 14.sp, color: ColorManager.grey4),
               border: InputBorder.none,

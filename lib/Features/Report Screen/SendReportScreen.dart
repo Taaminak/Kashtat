@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,9 +9,12 @@ import 'package:kashtat/Core/constants/ImageManager.dart';
 import 'package:kashtat/Features/Widgets/kButton.dart';
 
 import '../../Core/Cubit/AppCubit.dart';
+import '../../translations/locale_keys.g.dart';
 
 class SendReportScreen extends StatefulWidget {
-  const SendReportScreen({Key? key,}) : super(key: key);
+  const SendReportScreen({
+    Key? key,
+  }) : super(key: key);
   @override
   State<SendReportScreen> createState() => _SendReportScreenState();
 }
@@ -71,7 +75,7 @@ class _SendReportScreenState extends State<SendReportScreen> {
                           children: [
                             const SizedBox(height: 20),
                             Text(
-                              'رفع بلاغ او شكوى',
+                              LocaleKeys.report_or_complaint.tr(),
                               style: TextStyle(
                                 fontSize: FontSize.s34,
                                 fontWeight: FontWeightManager.bold,
@@ -87,14 +91,14 @@ class _SendReportScreenState extends State<SendReportScreen> {
                                     color: Colors.grey.withOpacity(0.2),
                                     spreadRadius: 3,
                                     blurRadius: 7,
-                                    offset: const Offset(0, 0), // changes position of shadow
+                                    offset: const Offset(
+                                        0, 0), // changes position of shadow
                                   ),
-
                                 ],
                               ),
                               child: Padding(
                                   padding: const EdgeInsets.all(15.0),
-                                  child:Column(
+                                  child: Column(
                                     children: [
                                       TextFormField(
                                         controller: controller,
@@ -103,45 +107,57 @@ class _SendReportScreenState extends State<SendReportScreen> {
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                         ),
-                                        cursorColor: ColorManager.mainlyBlueColor,
-
-                                        onChanged: (String text){
+                                        cursorColor:
+                                            ColorManager.mainlyBlueColor,
+                                        onChanged: (String text) {
                                           setState(() {
                                             this.text = text;
                                           });
                                         },
                                       ),
-                                      KButton(onTap: ()async{
-                                        if(controller.text.isEmpty)
-                                          return;
-                                        setState(() {
-                                          isLoading = true;
-                                        });
-                                        final cubit = BlocProvider.of<AppBloc>(context);
-                                        await cubit.createNewComplain(message: controller.text);
-                                        Fluttertoast.showToast(
-                                            msg: "Message Sent Successfully",
-                                            toastLength: Toast.LENGTH_SHORT,
-                                            gravity: ToastGravity.BOTTOM,
-                                            timeInSecForIosWeb: 1,
-                                            backgroundColor: Colors.green,
-                                            textColor: Colors.white,
-                                            fontSize: 16.0
-                                        );
-                                        setState(() {
-                                          isLoading = false;
-                                          controller.text = '';
-                                        });
-                                      }, title: 'ارسال',width: 200,paddingV: 15,isLoading: isLoading,clr: text.isEmpty?Colors.grey:Color(0xff482383),)
+                                      KButton(
+                                        onTap: () async {
+                                          if (controller.text.isEmpty) return;
+                                          setState(() {
+                                            isLoading = true;
+                                          });
+                                          final cubit =
+                                              BlocProvider.of<AppBloc>(context);
+                                          await cubit.createNewComplain(
+                                              message: controller.text);
+                                          Fluttertoast.showToast(
+                                              msg: LocaleKeys
+                                                  .message_sent_successfully
+                                                  .tr(),
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: Colors.green,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0);
+                                          setState(() {
+                                            isLoading = false;
+                                            controller.text = '';
+                                          });
+                                        },
+                                        title: LocaleKeys.send.tr(),
+                                        width: 200,
+                                        paddingV: 15,
+                                        isLoading: isLoading,
+                                        clr: text.isEmpty
+                                            ? Colors.grey
+                                            : Color(0xff482383),
+                                      )
                                     ],
-                                  )
-                              ),
+                                  )),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 20,)
+                    SizedBox(
+                      height: 20,
+                    )
                   ],
                 ),
               ),
@@ -151,25 +167,28 @@ class _SendReportScreenState extends State<SendReportScreen> {
       ),
     );
   }
-  bool isLoading = false;
-  Future<void> loading()async{setState(() {
-    isLoading = true;
-  });
-  Future.delayed(Duration(seconds: 1),() {
-    Fluttertoast.showToast(
-        msg: "Message Sent Successfully",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
-    setState(() {
-      isLoading = false;
-      controller.text = '';
-    });
-  },);
-  }
 
+  bool isLoading = false;
+  Future<void> loading() async {
+    setState(() {
+      isLoading = true;
+    });
+    Future.delayed(
+      Duration(seconds: 1),
+      () {
+        Fluttertoast.showToast(
+            msg: LocaleKeys.message_sent_successfully.tr(),
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        setState(() {
+          isLoading = false;
+          controller.text = '';
+        });
+      },
+    );
+  }
 }

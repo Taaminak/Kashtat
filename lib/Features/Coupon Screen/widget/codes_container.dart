@@ -8,6 +8,7 @@ import '../../../../Core/constants/app_size.dart';
 import '../../../../Features/Widgets/custom_container.dart';
 import 'analytics_container.dart';
 import 'code_widget.dart';
+import 'package:kashtat/translations/locale_keys.g.dart';
 
 class CodesContainer extends StatefulWidget {
   const CodesContainer({super.key, required this.coupon});
@@ -35,7 +36,7 @@ class _CodesContainerState extends State<CodesContainer> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CodeWidget(
-                  title: widget.coupon.code??'',
+                  title: widget.coupon.code ?? '',
                 ),
                 CupertinoSwitch(
                   value: _switchValue,
@@ -48,20 +49,22 @@ class _CodesContainerState extends State<CodesContainer> {
                 ),
               ],
             ),
-             Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AnalyticsContainer(
-                  title: 'الخصم',
+                  title: LocaleKeys.analytics_discount.tr(),
                   value: '${widget.coupon.discount}%',
                 ),
                 AnalyticsContainer(
-                  title: 'الاستخدام',
-                  value: (widget.coupon.limit??'').toString(),
+                  title: LocaleKeys.analytics_usage.tr(),
+                  value: (widget.coupon.limit ?? '').toString(),
                 ),
                 AnalyticsContainer(
-                  title: 'الإنتهاء',
-                  value: DateFormat().add_yMMMd().format(widget.coupon.expiresAt??DateTime.now()),
+                  title: LocaleKeys.analytics_expiry.tr(),
+                  value: DateFormat()
+                      .add_yMMMd()
+                      .format(widget.coupon.expiresAt ?? DateTime.now()),
                 ),
               ],
             )

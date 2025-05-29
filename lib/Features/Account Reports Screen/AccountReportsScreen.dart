@@ -6,6 +6,8 @@ import '../../../Core/constants/app_size.dart';
 import '../../../Core/constants/style_manager.dart';
 import '../../../Features/Widgets/custom_container.dart';
 import '../../../Features/Widgets/image_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../translations/locale_keys.g.dart';
 
 class AccountReportsScreen extends StatefulWidget {
   const AccountReportsScreen({super.key});
@@ -49,7 +51,7 @@ class _AccountReportsScreenState extends State<AccountReportsScreen> {
                 height: AppSize.h10,
               ),
               Text(
-                "الفواتير وكشوف الحسابات",
+                LocaleKeys.account_reports.tr(),
                 textAlign: TextAlign.right,
                 style: StyleManager.getBoldStyle(
                     fontSize: AppSize.sp30, color: ColorManager.black),
@@ -62,7 +64,7 @@ class _AccountReportsScreenState extends State<AccountReportsScreen> {
                 width: context.width,
                 child: Center(
                   child: Text(
-                    "ليس لديك كشف حساب حتى الآن",
+                    LocaleKeys.no_account_reports_yet.tr(),
                     style: StyleManager.getBoldStyle(
                         fontSize: AppSize.sp14, color: ColorManager.grey2),
                   ),

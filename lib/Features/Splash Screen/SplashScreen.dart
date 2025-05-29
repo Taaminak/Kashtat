@@ -22,67 +22,98 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     NotificationsManager.setupNotifications(context);
     isLogged();
     super.initState();
   }
+
+  bool isLoading = true;
+
   bool isLoggedIn = false;
 
-  Future<void> isLogged()async{
-    final cubit = BlocProvider.of<AppBloc>(context,listen: false);
-    cubit.initAppData();
-      // Future.delayed(const Duration(milliseconds: 100),(){
-      //   Navigator.push(context, MaterialPageRoute(builder: (context)=>TestScreen()));
-      // });
+  Future<void> isLogged() async {
+    isLoading = true;
+    final cubit = BlocProvider.of<AppBloc>(context, listen: false);
+    await cubit.initAppData();
+    setState(() {
+      isLoggedIn = cubit.userProfile != null;
+      isLoading = false;
+    });
+
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      if (isLoggedIn) {
+        context.go(ScreenName.dashboard);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body:  Column(
+      body: Column(
         children: [
           const Spacer(),
-          Image.asset(ImageManager.logoWithTitleV,width: size.width/2.1,fit: BoxFit.cover,),
-          SizedBox(height: 65,),
-          if(!isLoggedIn)
-          Text("اختر اللغة".capitalize(),style: TextStyle(
-            fontSize: FontSize.s20,
-            fontWeight: FontWeightManager.bold,
-            color: ColorManager.mainlyBlueColor,
-          ),),
-          if(!isLoggedIn)
-          // const SizedBox(height: 10),
-          if(!isLoggedIn)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              KButton(onTap: (){
-                selectAndNavigate('ar');
-              }, title: 'عربي',width: size.width/2.5,paddingV: 15,),
-              SizedBox(width: 15,),
-              KButton(onTap: (){
-                selectAndNavigate('en');
-                }, title: 'English',width: size.width/2.5,paddingV: 15,),
-            ],
+          Image.asset(
+            ImageManager.logoWithTitleV,
+            width: size.width / 2.1,
+            fit: BoxFit.cover,
           ),
+          SizedBox(
+            height: 65,
+          ),
+          if (!isLoggedIn && !isLoading)
+            Text(
+              "اختر اللغة".capitalize(),
+              style: TextStyle(
+                fontSize: FontSize.s20,
+                fontWeight: FontWeightManager.bold,
+                color: ColorManager.mainlyBlueColor,
+              ),
+            ),
+          if (!isLoggedIn && !isLoading)
+            // const SizedBox(height: 10),
+            if (!isLoggedIn && !isLoading)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  KButton(
+                    onTap: () {
+                      selectAndNavigate('ar');
+                    },
+                    title: 'عربي',
+                    width: size.width / 2.5,
+                    paddingV: 15,
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  KButton(
+                    onTap: () {
+                      selectAndNavigate('en');
+                    },
+                    title: 'English',
+                    width: size.width / 2.5,
+                    paddingV: 15,
+                  ),
+                ],
+              ),
           const WaveDemoHomePage(),
         ],
       ),
     );
   }
 
-  selectAndNavigate(String lang)async {
+  selectAndNavigate(String lang) async {
     final cubit = BlocProvider.of<LanguageBloc>(context);
     // final bloc = BlocProvider.of<AppBloc>(context);
     // bloc.getAllCategories();
-    await cubit.setLanguage(context, Locale('ar'));
-    if(isLoggedIn){
+    await cubit.setLanguage(context, Locale(lang));
+    if (isLoggedIn) {
       context.go(ScreenName.dashboard);
-    }else{
+    } else {
       context.go(ScreenName.onBoarding);
     }
   }

@@ -8,6 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'package:kashtat/Core/constants/ColorManager.dart';
 import 'package:kashtat/Core/constants/FontManager.dart';
 import 'package:kashtat/Features/Widgets/kButton.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:kashtat/translations/locale_keys.g.dart';
 
 import '../../Core/Cubit/AppCubit.dart';
 import '../../Core/Cubit/AppState.dart';
@@ -23,16 +25,14 @@ class ArrivalInstructionsScreen extends StatefulWidget {
 }
 
 class _ArrivalInstructionsScreenState extends State<ArrivalInstructionsScreen> {
-
-
   TextEditingController instruction1Controller = TextEditingController();
   TextEditingController instruction2Controller = TextEditingController();
   @override
   void initState() {
     final cubit = BlocProvider.of<AppBloc>(context);
     setState(() {
-      instruction1Controller.text = cubit.selectedUnit.instruction1??'';
-      instruction2Controller.text = cubit.selectedUnit.instruction2??'';
+      instruction1Controller.text = cubit.selectedUnit.instruction1 ?? '';
+      instruction2Controller.text = cubit.selectedUnit.instruction2 ?? '';
     });
     super.initState();
   }
@@ -45,7 +45,7 @@ class _ArrivalInstructionsScreenState extends State<ArrivalInstructionsScreen> {
       appBar: AppBar(
         backgroundColor: ColorManager.mainlyBlueColor,
         title: Text(
-          'تعليمات الوصول',
+          LocaleKeys.arrival_instructions.tr(),
           style: TextStyle(fontWeight: FontWeight.normal),
         ),
         centerTitle: true,
@@ -75,12 +75,12 @@ class _ArrivalInstructionsScreenState extends State<ArrivalInstructionsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TitleWidget(txt: 'تعليمات الوصول'),
+                TitleWidget(txt: LocaleKeys.arrival_instructions.tr()),
                 SizedBox(
                   height: 10,
                 ),
                 Text(
-                  'لتسهيل عملية تسجيل دخول الضيوف بإمكانك إضافة تعليمات الوصول وستكون التعليمات ظاهرة للضيوف بعد تأكيد الحجز وبذلك لن يحتاج الضيف إلى سؤالك عند الوصول',
+                  LocaleKeys.arrival_instructions_description.tr(),
                   style: TextStyle(
                       fontSize: FontSize.s14,
                       color: ColorManager.darkerGreyColor),
@@ -88,9 +88,7 @@ class _ArrivalInstructionsScreenState extends State<ArrivalInstructionsScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                TitleWidget(
-                    txt:
-                        'عند وصول الضيف ما الطريقة التي ترغب ان يسجل في الدخول ؟'),
+                TitleWidget(txt: LocaleKeys.guest_arrival_method.tr()),
                 SizedBox(
                   height: 10,
                 ),
@@ -145,7 +143,7 @@ class _ArrivalInstructionsScreenState extends State<ArrivalInstructionsScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                TitleWidget(txt: 'تعليمات اخرى'),
+                TitleWidget(txt: LocaleKeys.other_instructions.tr()),
                 SizedBox(
                   height: 10,
                 ),
@@ -221,7 +219,8 @@ class _ArrivalInstructionsScreenState extends State<ArrivalInstructionsScreen> {
                         padding: const EdgeInsets.all(15.0),
                         child: InkWell(
                           onTap: () async {
-                            final pics = await cubit.pickImage(ImagePickerType.singleImage);
+                            final pics = await cubit
+                                .pickImage(ImagePickerType.singleImage);
                             cubit.updateNewUnitInstructionPhotos(pics.first);
                           },
                           child: Container(
@@ -236,7 +235,6 @@ class _ArrivalInstructionsScreenState extends State<ArrivalInstructionsScreen> {
                                 SizedBox(
                                   height: 20,
                                 ),
-
                                 if (cubit.instructionImage != null)
                                   Image.file(
                                     File(cubit.instructionImage!.path),
@@ -247,26 +245,28 @@ class _ArrivalInstructionsScreenState extends State<ArrivalInstructionsScreen> {
                                   ),
                                 if (cubit.instructionImage == null)
                                   Container(
-                                      width: 100,
-                                      height: 100,
-                                      color: Colors.white,
-                                      child: CachedNetworkImage(
-                                        imageUrl: cubit.selectedUnit.instructionImage??'',
-                                        fit: BoxFit.cover,
-                                        placeholder: (context, url) => Loader(),
-                                        errorWidget: (context, url, error) => Icon(
-                                          Icons.camera_alt,
-                                          size: 80,
-                                          color: ColorManager.darkGreyColor,
-                                        ),
-
+                                    width: 100,
+                                    height: 100,
+                                    color: Colors.white,
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          cubit.selectedUnit.instructionImage ??
+                                              '',
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) => Loader(),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(
+                                        Icons.camera_alt,
+                                        size: 80,
+                                        color: ColorManager.darkGreyColor,
                                       ),
+                                    ),
                                   ),
                                 SizedBox(
                                   height: 20,
                                 ),
                                 Text(
-                                  'اضف صورة',
+                                  LocaleKeys.add_photo.tr(),
                                   style: TextStyle(
                                       color: Colors.grey,
                                       fontWeight: FontWeight.bold,
@@ -287,16 +287,18 @@ class _ArrivalInstructionsScreenState extends State<ArrivalInstructionsScreen> {
                   height: 40,
                 ),
                 BlocConsumer<AppBloc, AppState>(
-                    listener: (context, state) {
-                      // TODO: implement listener
-                    },
-                    builder: (context, state) {
-                      return KButton(
+                  listener: (context, state) {
+                    // TODO: implement listener
+                  },
+                  builder: (context, state) {
+                    return KButton(
                       onTap: () {
-                        cubit.updateNewUnitInstructions(inst1: instruction1Controller.text, inst2: instruction2Controller.text);
+                        cubit.updateNewUnitInstructions(
+                            inst1: instruction1Controller.text,
+                            inst2: instruction2Controller.text);
                         cubit.updateUnitArrivalInstructions();
                       },
-                      title: 'اضافة',
+                      title: LocaleKeys.add.tr(),
                       width: size.width,
                       paddingV: 15,
                       isLoading: state is UpdateUnitLoadingState,

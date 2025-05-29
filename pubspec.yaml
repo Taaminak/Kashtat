@@ -56,7 +56,7 @@ dependencies:
   url_launcher: ^6.1.4
   custom_date_range_picker: ^1.0.6
   calendar_date_picker2: ^0.5.3
-  multiple_images_picker: ^1.0.1
+  # multiple_images_picker: ^1.0.1
   image_picker: ^1.0.4
   google_maps_flutter: ^2.2.5
   geolocator: ^10.1.0

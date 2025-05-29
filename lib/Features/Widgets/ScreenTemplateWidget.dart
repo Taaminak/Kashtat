@@ -3,9 +3,13 @@ import 'package:go_router/go_router.dart';
 import '../../Core/constants/FontManager.dart';
 import '../../Core/constants/ImageManager.dart';
 import '../Wallet Logs Screen/Widgets/WalletItemWidget.dart';
+import 'package:kashtat/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ScreenTemplateWidget extends StatelessWidget {
-  const ScreenTemplateWidget({Key? key,required this.title, required this.content, this.button}) : super(key: key);
+  const ScreenTemplateWidget(
+      {Key? key, required this.title, required this.content, this.button})
+      : super(key: key);
   final String title;
   final Widget content;
   final Widget? button;
@@ -57,27 +61,32 @@ class ScreenTemplateWidget extends StatelessWidget {
                       width: 150,
                     ),
                     const SizedBox(height: 20),
-                    Expanded(child:  SingleChildScrollView(
+                    Expanded(
+                        child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                        Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: FontSize.s34,
-                            fontWeight: FontWeightManager.bold,
+                          Text(title,
+                            style: TextStyle(
+                              fontSize: FontSize.s34,
+                              fontWeight: FontWeightManager.bold,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        ContainerDecorated(
-                            content: content
-                        ),
-                        if(button !=null)
-                          const SizedBox(height: 50,),
-                        button != null ? Center(child: button!) :  const SizedBox(),
-                        const SizedBox(height: 20,)
-                      ],),
+                          const SizedBox(height: 20),
+                          ContainerDecorated(content: content),
+                          if (button != null)
+                            const SizedBox(
+                              height: 50,
+                            ),
+                          button != null
+                              ? Center(child: button!)
+                              : const SizedBox(),
+                          const SizedBox(
+                            height: 20,
+                          )
+                        ],
+                      ),
                     )),
                   ],
                 ),

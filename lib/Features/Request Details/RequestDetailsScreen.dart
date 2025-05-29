@@ -38,7 +38,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
   TextEditingController controller = TextEditingController();
   int discountPercentage = 0;
   double subtotalPrice = 0.0;
-  double walletDiscount = 0.0 ;
+  double walletDiscount = 0.0;
   bool _checked = false;
   @override
   void initState() {
@@ -57,7 +57,8 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
     });
     super.initState();
   }
-  changeSelected(int i){
+
+  changeSelected(int i) {
     // final cubit = BlocProvider.of<AppBloc>(context);
     // cubit.setReserveTripData(trip: widget.trip);
     setState(() {
@@ -65,10 +66,10 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
     });
   }
 
-  buildPayments(){
+  buildPayments() {
     final cubit = BlocProvider.of<AppBloc>(context);
     setState(() {
-      selectedType =  [
+      selectedType = [
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,7 +80,8 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5), border: Border.all()),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
                 child: Image.asset(
                   ImageManager.applePay,
                   fit: BoxFit.contain,
@@ -109,7 +111,8 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5), border: Border.all()),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
                 child: Image.asset(
                   ImageManager.credit,
                   fit: BoxFit.contain,
@@ -130,7 +133,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
           ],
         ),
       ];
-      selectedTypeView =  [
+      selectedTypeView = [
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -152,7 +155,8 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5), border: Border.all()),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
                 child: Image.asset(
                   ImageManager.applePay,
                   fit: BoxFit.contain,
@@ -182,7 +186,8 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5), border: Border.all()),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
                 child: Image.asset(
                   ImageManager.credit,
                   fit: BoxFit.contain,
@@ -194,6 +199,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
       ];
     });
   }
+
   final _controller = ValueNotifier<bool>(false);
 
   @override
@@ -219,7 +225,9 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 children: [
                   Column(
                     children: [
-                      SizedBox(height: MediaQuery.of(context).viewPadding.top + 15,),
+                      SizedBox(
+                        height: MediaQuery.of(context).viewPadding.top + 15,
+                      ),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: InkWell(
@@ -255,9 +263,9 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                                child:Container(
-
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15.0),
+                                child: Container(
                                   decoration: BoxDecoration(
                                     color: ColorManager.whiteColor,
                                     borderRadius: BorderRadius.circular(8),
@@ -273,19 +281,23 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                   ),
                                   height: 130,
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
                                         height: 130,
                                         width: 130,
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                           child: CachedNetworkImage(
-                                            imageUrl: widget.trip.mainPic??'',
+                                            imageUrl: widget.trip.mainPic ?? '',
                                             fit: BoxFit.cover,
-                                            placeholder: (context, url) => const Loader(),
-                                            errorWidget: (context, url, error) => const Icon(Icons.error),
-
+                                            placeholder: (context, url) =>
+                                                const Loader(),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    const Icon(Icons.error),
                                           ),
                                         ),
                                       ),
@@ -294,28 +306,36 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                           padding: const EdgeInsets.all(15.0),
                                           child: Column(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                                MainAxisAlignment.spaceEvenly,
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                widget.trip.name??'',
+                                                widget.trip.name ?? '',
                                                 style: TextStyle(
                                                   fontSize: FontSize.s18,
                                                   fontWeight:
-                                                  FontWeightManager.bold,
+                                                      FontWeightManager.bold,
                                                 ),
                                               ),
                                               Row(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.center,
                                                 children: [
                                                   for (int i = 0; i < 5; i++)
                                                     Padding(
-                                                      padding: const EdgeInsets.all(0.0),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              0.0),
                                                       child: Icon(
                                                         Icons.star,
-                                                        color: (i+1)>widget.trip.rate!.round()?Colors.grey:ColorManager.yellowColor,
+                                                        color: (i + 1) >
+                                                                widget
+                                                                    .trip.rate!
+                                                                    .round()
+                                                            ? Colors.grey
+                                                            : ColorManager
+                                                                .yellowColor,
                                                         size: 15,
                                                       ),
                                                     ),
@@ -324,15 +344,16 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                                   ),
                                                   Padding(
                                                     padding:
-                                                    const EdgeInsets.only(
-                                                        top: 8.0),
+                                                        const EdgeInsets.only(
+                                                            top: 8.0),
                                                     child: Text(
-                                                      widget.trip.rate!.toString(),
+                                                      widget.trip.rate!
+                                                          .toString(),
                                                       style: TextStyle(
                                                         fontSize: FontSize.s14,
                                                         fontWeight:
-                                                        FontWeightManager
-                                                            .bold,
+                                                            FontWeightManager
+                                                                .bold,
                                                       ),
                                                     ),
                                                   ),
@@ -341,34 +362,60 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                               const SizedBox(height: 0),
                                               Row(
                                                 children: [
-                                                  Image.asset(ImageManager.marker,
+                                                  Image.asset(
+                                                      ImageManager.marker,
                                                       color: Colors.black,
                                                       width: 12),
                                                   const SizedBox(width: 5),
                                                   InkWell(
-                                                    onTap: (){
-                                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>MapScreen(showSelectLocation: false,lat: widget.trip.latitude??0.0,long: widget.trip.longitude??0.0,)));
+                                                    onTap: () {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                      MapScreen(
+                                                                        showSelectLocation:
+                                                                            false,
+                                                                        lat: widget.trip.latitude ??
+                                                                            0.0,
+                                                                        long: widget.trip.longitude ??
+                                                                            0.0,
+                                                                      )));
                                                     },
                                                     child: Padding(
-                                                      padding: const EdgeInsets.only(top: 3.0),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 3.0),
                                                       child: Text(
-                                                        widget.trip.city?.name??'',
+                                                        widget.trip.city
+                                                                ?.name ??
+                                                            '',
                                                         style: TextStyle(
                                                           color: Colors.black,
-                                                          fontSize: FontSize.s12,
-                                                          fontWeight: FontWeightManager.bold,
+                                                          fontSize:
+                                                              FontSize.s12,
+                                                          fontWeight:
+                                                              FontWeightManager
+                                                                  .bold,
                                                         ),
                                                       ),
                                                     ),
                                                   ),
                                                   const SizedBox(width: 20),
                                                   Padding(
-                                                    padding: const EdgeInsets.only(top: 3.0),
-                                                    child: Text('كود الوحدة (${widget.trip.id})',
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 3.0),
+                                                    child: Text(
+                                                      'كود الوحدة (${widget.trip.id})',
                                                       style: TextStyle(
-                                                        color: ColorManager.blackColor,
+                                                        color: ColorManager
+                                                            .blackColor,
                                                         fontSize: FontSize.s12,
-                                                        fontWeight: FontWeightManager.bold,
+                                                        fontWeight:
+                                                            FontWeightManager
+                                                                .bold,
                                                       ),
                                                     ),
                                                   ),
@@ -477,7 +524,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                               //                   ),
                               //                 ),
                               //               ),
-                              //             ),true);
+                              //             ),
                               //           },
                               //           child: Text(
                               //             LocaleKeys.change.tr(),
@@ -601,7 +648,8 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                               // ),
                               // const SizedBox(height: 20),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15.0),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8),
@@ -619,7 +667,8 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(15.0),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           LocaleKeys.order_details.tr(),
@@ -630,37 +679,55 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                         ),
                                         const SizedBox(height: 20),
                                         RecordItem(
-                                            requestKey: 'تاريخ الوصول',
-                                            value:DateFormat("EEEE, MMM d, yyyy").format(DateTime.parse(cubit.selectedDates.first))),
-                                            // value: DateFormat.yMMMMd().format(DateTime.parse(widget.trip.arrivalDateTime))),
+                                            requestKey:
+                                                LocaleKeys.arrival_date.tr(),
+                                            value:
+                                                DateFormat("EEEE, MMM d, yyyy")
+                                                    .format(DateTime.parse(cubit
+                                                        .selectedDates.first))),
                                         RecordItem(
-                                            requestKey: 'تاريخ المغادرة',
-                                            value: DateFormat("EEEE, MMM d, yyyy").format(DateTime.parse(cubit.selectedDates.last))),
-                                            // value: DateFormat.yMMMMd().format(DateTime.parse(widget.trip.leavingDateTime))),
-                                        const RecordItem(
-                                            requestKey: 'وقت الوصول',
-                                            value: '10 صباحا',),
-                                        const RecordItem(
-                                            requestKey: 'وقت المغادرة',
-                                            value: '10 مساءا',),
-                                            // DateFormat('kk:mm a').format(DateTime.parse(widget.trip.leavingDateTime)),),
+                                            requestKey:
+                                                LocaleKeys.departure_date.tr(),
+                                            value: DateFormat(
+                                                    "EEEE, MMM d, yyyy")
+                                                .format(DateTime.parse(
+                                                    cubit.selectedDates.last))),
                                         RecordItem(
-                                            requestKey: '${cubit.selectedDates.length} ليالي ${calculatePrice(cubit.selectedDates, widget.trip.price??Price()).average}xر.س',
-                                            value: '${subtotalPrice} ر.س'),
+                                          requestKey:
+                                              LocaleKeys.arrival_time.tr(),
+                                          value: '10 صباحا',
+                                        ),
                                         RecordItem(
-                                            requestKey: 'ضريبة القيمة المضافة ',
-                                            value: '${(subtotalPrice*0.15).toStringAsFixed(2)} ر.س'),
-                                        if(_checked)
+                                          requestKey:
+                                              LocaleKeys.departure_time.tr(),
+                                          value: '10 مساءا',
+                                        ),
                                         RecordItem(
-                                            requestKey: 'خصم المحفظة ',
-                                            value: '${walletDiscount.toStringAsFixed(2)} ر.س'),
+                                            requestKey:
+                                                '${cubit.selectedDates.length} ${LocaleKeys.nights.tr()} ${calculatePrice(cubit.selectedDates, widget.trip.price ?? Price()).average}x${LocaleKeys.riyal.tr()}',
+                                            value:
+                                                '${subtotalPrice} ${LocaleKeys.riyal.tr()}'),
+                                        RecordItem(
+                                            requestKey: LocaleKeys.vat.tr(),
+                                            value:
+                                                '${(subtotalPrice * 0.15).toStringAsFixed(2)} ${LocaleKeys.riyal.tr()}'),
+                                        if (_checked)
+                                          RecordItem(
+                                              requestKey: LocaleKeys
+                                                  .wallet_balance
+                                                  .tr(),
+                                              value:
+                                                  '${walletDiscount.toStringAsFixed(2)} ${LocaleKeys.riyal.tr()}'),
                                         const Divider(
                                           thickness: 2,
                                         ),
-                                        const SizedBox(height: 15,),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
                                         RecordItem(
-                                            requestKey: 'الاجمالي',
-                                            value: '${((subtotalPrice*0.15) +(subtotalPrice)).toStringAsFixed(2)} ر.س',
+                                          requestKey: LocaleKeys.total.tr(),
+                                          value:
+                                              '${((subtotalPrice * 0.15) + (subtotalPrice)).toStringAsFixed(2)} ${LocaleKeys.riyal.tr()}',
                                         ),
                                       ],
                                     ),
@@ -676,24 +743,25 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                       ),
                     ),
                   ),
-
-
                   Container(
                     decoration: BoxDecoration(
                       color: ColorManager.whiteColor,
-                      borderRadius: const BorderRadius.only(topRight: Radius.circular(50),topLeft: Radius.circular(50)),
+                      borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(50),
+                          topLeft: Radius.circular(50)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.3),
                           spreadRadius: 3,
                           blurRadius: 7,
-                          offset: const Offset(
-                              0, 0), // changes position of shadow
+                          offset:
+                              const Offset(0, 0), // changes position of shadow
                         ),
                       ],
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15.0,horizontal: 40),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15.0, horizontal: 40),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
@@ -712,8 +780,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                           const Padding(
                             padding: EdgeInsets.only(bottom: 0.0),
                             child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 // Text(
                                 //   'مدينة الكشتة',
@@ -729,10 +796,9 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                             ),
                           ),
                           BlocListener<AppBloc, AppState>(
-                            listener: (context, state) async{
-                              if(state is SuccessReserveTripState){
-
-                                var alert =  AlertDialog(
+                            listener: (context, state) async {
+                              if (state is SuccessReserveTripState) {
+                                var alert = AlertDialog(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30),
                                   ),
@@ -740,25 +806,34 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       const CircleAvatar(
-                                        backgroundColor : Colors.green,
-                                        child: FaIcon(FontAwesomeIcons.check,color: Colors.white,),
+                                        backgroundColor: Colors.green,
+                                        child: FaIcon(
+                                          FontAwesomeIcons.check,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                       const SizedBox(height: 25),
-                                      const Text('تم ارسال الطلب بنجاح',style: TextStyle(
-                                        fontWeight: FontWeightManager.bold,
-                                        fontSize: 20,
-
-                                      ),),
+                                      const Text(
+                                        'تم ارسال الطلب بنجاح',
+                                        style: TextStyle(
+                                          fontWeight: FontWeightManager.bold,
+                                          fontSize: 20,
+                                        ),
+                                      ),
                                       const SizedBox(height: 10),
-                                      const Text('نشكر لك اختيار كشتات',style: TextStyle(
-                                        fontWeight: FontWeightManager.medium,
-                                        fontSize: 12,
-
-                                      ),),
+                                      const Text(
+                                        'نشكر لك اختيار كشتات',
+                                        style: TextStyle(
+                                          fontWeight: FontWeightManager.medium,
+                                          fontSize: 12,
+                                        ),
+                                      ),
                                       const SizedBox(height: 25),
-                                      TextButton(onPressed: (){
-                                        Navigator.pop(context);
-                                      }, child: const Text('موافق')),
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text('موافق')),
                                     ],
                                   ),
                                 );
@@ -768,44 +843,68 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                                   builder: (BuildContext context) {
                                     return alert;
                                   },
-                                ).then((value){
-                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const DashboardScreen(selectedIndex: 1,)));
+                                ).then((value) {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const DashboardScreen(
+                                                selectedIndex: 1,
+                                              )));
                                 });
                               }
 
-                              if(state is FailureReserveTripState){
+                              if (state is FailureReserveTripState) {
                                 final snackBar = SnackBar(
-                                  content: Center(child: Text(state.msg,textAlign: TextAlign.center,)),
+                                  content: Center(
+                                      child: Text(
+                                    state.msg,
+                                    textAlign: TextAlign.center,
+                                  )),
                                 );
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
                               }
                             },
                             child: SizedBox(
                                 width: size.width,
                                 height: 45,
                                 child: ElevatedButton(
-
                                   style: ButtonStyle(
-                                    backgroundColor:MaterialStateProperty.all<Color>(ColorManager.mainlyBlueColor),
-                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            ColorManager.mainlyBlueColor),
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8),
-                                        )
-                                    ),
-                                    side: MaterialStateProperty.resolveWith<BorderSide>(
-                                            (states) => BorderSide(color: ColorManager.mainlyBlueColor)),
+                                      borderRadius: BorderRadius.circular(8),
+                                    )),
+                                    side: MaterialStateProperty.resolveWith<
+                                            BorderSide>(
+                                        (states) => BorderSide(
+                                            color:
+                                                ColorManager.mainlyBlueColor)),
                                   ),
                                   onPressed: () {
-                                    final cubit = BlocProvider.of<AppBloc>(context);
-                                    cubit.reserveTrip(total: subtotalPrice+subtotalPrice*0.15 , vat: subtotalPrice*0.15,subtotal: subtotalPrice,paymentMethods:  [3],walletAmount: walletDiscount);
+                                    final cubit =
+                                        BlocProvider.of<AppBloc>(context);
+                                    cubit.reserveTrip(
+                                        total: subtotalPrice +
+                                            subtotalPrice * 0.15,
+                                        vat: subtotalPrice * 0.15,
+                                        subtotal: subtotalPrice,
+                                        paymentMethods: [3],
+                                        walletAmount: walletDiscount);
                                   },
-                                  child: const Padding(
+                                  child: Padding(
                                     padding: EdgeInsets.all(10.0),
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: [
-                                        Text('تأكيد الطلب',style: TextStyle(color: Colors.white),),
+                                        Text(
+                                          LocaleKeys.confirm.tr(),
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                         // const SizedBox(width: 10,),
                                         // SizedBox(
                                         //   child: Align(
@@ -837,105 +936,107 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
     );
   }
 
-  calculateOrderPrice(){
+  calculateOrderPrice() {
     final cubit = BlocProvider.of<AppBloc>(context);
-    CalculatedPrice totalPrices = calculatePrice(cubit.selectedDates, widget.trip.price??Price());
+    CalculatedPrice totalPrices =
+        calculatePrice(cubit.selectedDates, widget.trip.price ?? Price());
     double subtotal = totalPrices.total;
-     walletDiscount = 0.0 ;
-     if(_checked){
-       if(double.parse((cubit.userProfile?.wallet??'0.0').toString()) > subtotal){
-         walletDiscount = subtotal;
-       }else{
-         walletDiscount =  double.parse((cubit.userProfile?.wallet??'0.0').toString());
-       }
-     }
+    walletDiscount = 0.0;
+    if (_checked) {
+      if (double.parse((cubit.userProfile?.wallet ?? '0.0').toString()) >
+          subtotal) {
+        walletDiscount = subtotal;
+      } else {
+        walletDiscount =
+            double.parse((cubit.userProfile?.wallet ?? '0.0').toString());
+      }
+    }
     subtotal = subtotal - walletDiscount;
-    double totalAfterDiscount = subtotal - (subtotal *(discountPercentage/100));
+    double totalAfterDiscount =
+        subtotal - (subtotal * (discountPercentage / 100));
     subtotalPrice = double.parse(totalAfterDiscount.toStringAsFixed(2));
     setState(() {});
   }
 
-  applyCoupon(BuildContext context){
-
+  applyCoupon(BuildContext context) {
     final cubit = BlocProvider.of<AppBloc>(context);
     customBottomSheet(
-        context,  'اضف كود خصم' ,Container(
-      width: MediaQuery.of(context)
-          .size
-          .width,
-      decoration: BoxDecoration(
-        color:
-        ColorManager.whiteDarkColor,
-        borderRadius:
-        const BorderRadius.only(
-          topLeft:
-          Radius.circular(50.0),
-          topRight:
-          Radius.circular(50.0),
-        ),
-      ),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: TextField(
-              controller: controller,
-              style: TextStyle(
-                  fontWeight: FontWeightManager.bold,
-                  fontFamily: GoogleFonts.lato().fontFamily,
-                  fontSize: FontSize.s14
-              ),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: Colors.grey.withOpacity(0.2),width: 1)
-                ),
-                filled: true,
-                hintStyle: TextStyle(color: Colors.grey.withOpacity(0.5),
-                    fontFamily: FontConstants.fontFamilyAR,fontSize: 12),
-                hintText: "كشتات",
-                fillColor: Colors.white70,
-
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(color: Colors.grey.withOpacity(0.2),width: 1)
-                ),
-
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(color: Colors.grey.withOpacity(0.2),width: 1)
-                ),
-
-              ),
-              cursorColor: ColorManager.mainlyBlueColor,
+        context,
+        'اضف كود خصم',
+        Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            color: ColorManager.whiteDarkColor,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(50.0),
+              topRight: Radius.circular(50.0),
             ),
           ),
-          BlocConsumer<AppBloc, AppState>(
-            listener: (context, state) {
-              // TODO: implement listener
-            },
-            builder: (context, state) {
-              return KButton(
-
-                onTap: (){
-                if(controller.text.isEmpty){
-                  return;
-                }
-                cubit.validateCoupon(code: controller.text, unitId: widget.trip.id!).then((value){
-
-                  setState(() {
-                    discountPercentage = value??0;
-                  });
-                  calculateOrderPrice();
-                  Navigator.pop(context);
-                });
-              }, title: 'تطبيق',isLoading: state is ValidateCouponLoadingState,);
-            },
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: TextField(
+                  controller: controller,
+                  style: TextStyle(
+                      fontWeight: FontWeightManager.bold,
+                      fontFamily: GoogleFonts.lato().fontFamily,
+                      fontSize: FontSize.s14),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(
+                            color: Colors.grey.withOpacity(0.2), width: 1)),
+                    filled: true,
+                    hintStyle: TextStyle(
+                        color: Colors.grey.withOpacity(0.5),
+                        fontFamily: FontConstants.fontFamilyAR,
+                        fontSize: 12),
+                    hintText: "كشتات",
+                    fillColor: Colors.white70,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                            color: Colors.grey.withOpacity(0.2), width: 1)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                            color: Colors.grey.withOpacity(0.2), width: 1)),
+                  ),
+                  cursorColor: ColorManager.mainlyBlueColor,
+                ),
+              ),
+              BlocConsumer<AppBloc, AppState>(
+                listener: (context, state) {
+                  // TODO: implement listener
+                },
+                builder: (context, state) {
+                  return KButton(
+                    onTap: () {
+                      if (controller.text.isEmpty) {
+                        return;
+                      }
+                      cubit
+                          .validateCoupon(
+                              code: controller.text, unitId: widget.trip.id!)
+                          .then((value) {
+                        setState(() {
+                          discountPercentage = value ?? 0;
+                        });
+                        calculateOrderPrice();
+                        Navigator.pop(context);
+                      });
+                    },
+                    title: 'تطبيق',
+                    isLoading: state is ValidateCouponLoadingState,
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+            ],
           ),
-          const SizedBox(height: 20,),
-
-        ],
-      ),
-    ));
+        ));
   }
 }

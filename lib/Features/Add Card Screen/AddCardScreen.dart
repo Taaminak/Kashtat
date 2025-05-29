@@ -18,7 +18,6 @@ class CreditCardScreen extends StatefulWidget {
 }
 
 class _CreditCardScreenState extends State<CreditCardScreen> {
-
   TextEditingController holder = TextEditingController();
   TextEditingController number = TextEditingController();
   TextEditingController validThru = TextEditingController();
@@ -26,7 +25,6 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SizedBox(
@@ -34,32 +32,52 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
         height: size.height,
         child: Stack(
           children: [
-            Positioned(left: 0,top: 0,child:  Image.asset(ImageManager.logoHalfGrey,height: size.height/2.5,),),
+            Positioned(
+              left: 0,
+              top: 0,
+              child: Image.asset(
+                ImageManager.logoHalfGrey,
+                height: size.height / 2.5,
+              ),
+            ),
             Positioned.fill(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding:  EdgeInsets.only(left: 15.0,right: 15.0,top: MediaQuery.of(context).viewPadding.top+15,),
+                  padding: EdgeInsets.only(
+                    left: 15.0,
+                    right: 15.0,
+                    top: MediaQuery.of(context).viewPadding.top + 15,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Align(
                         alignment: Alignment.centerLeft,
                         child: InkWell(
-                            onTap: (){
+                            onTap: () {
                               context.pop();
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
-                              child: Image.asset(ImageManager.backIcon,width: 10,),
+                              child: Image.asset(
+                                ImageManager.backIcon,
+                                width: 10,
+                              ),
                             )),
                       ),
                       const SizedBox(height: 20),
-                      Image.asset(ImageManager.logoWithTitleHColored,width: 150,),
+                      Image.asset(
+                        ImageManager.logoWithTitleHColored,
+                        width: 150,
+                      ),
                       const SizedBox(height: 20),
-                      Text(LocaleKeys.my_cards.tr(),style: TextStyle(
-                        fontSize: FontSize.s34,
-                        fontWeight: FontWeightManager.bold,
-                      ),),
+                      Text(
+                        LocaleKeys.my_cards.tr(),
+                        style: TextStyle(
+                          fontSize: FontSize.s34,
+                          fontWeight: FontWeightManager.bold,
+                        ),
+                      ),
                       const SizedBox(height: 20),
                       Container(
                         decoration: BoxDecoration(
@@ -70,7 +88,8 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
                               color: Colors.grey.withOpacity(0.3),
                               spreadRadius: 3,
                               blurRadius: 7,
-                              offset: const Offset(0, 0), // changes position of shadow
+                              offset: const Offset(
+                                  0, 0), // changes position of shadow
                             ),
                           ],
                         ),
@@ -81,108 +100,150 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Name on Card',style: TextStyle(
-                                    color: ColorManager.darkGreyColor,
-                                    fontWeight: FontWeightManager.bold
-                                ),),
+                                Text(
+                                  LocaleKeys.card_holder_name.tr(),
+                                  style: TextStyle(
+                                      color: ColorManager.darkGreyColor,
+                                      fontWeight: FontWeightManager.bold),
+                                ),
                                 TextField(
                                   cursorColor: ColorManager.orangeColor,
                                   style: TextStyle(
                                       fontWeight: FontWeightManager.bold,
                                       fontFamily: GoogleFonts.lato().fontFamily,
-                                      fontSize: FontSize.s14
-                                  ),
+                                      fontSize: FontSize.s14),
                                   decoration: InputDecoration(
                                     enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: ColorManager.greyColor), //<-- SEE HERE
+                                      borderSide: BorderSide(
+                                          color: ColorManager
+                                              .greyColor), //<-- SEE HERE
                                     ),
                                     border: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: ColorManager.greyColor), //<-- SEE HERE
+                                      borderSide: BorderSide(
+                                          color: ColorManager
+                                              .greyColor), //<-- SEE HERE
                                     ),
                                     focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: ColorManager.greyColor), //<-- SEE HERE
+                                      borderSide: BorderSide(
+                                          color: ColorManager
+                                              .greyColor), //<-- SEE HERE
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height:40),
-                                Text('Card Number',style: TextStyle(
+                                const SizedBox(height: 40),
+                                Text(
+                                  LocaleKeys.card_number.tr(),
+                                  style: TextStyle(
                                     color: ColorManager.darkGreyColor,
-                                    fontWeight: FontWeightManager.bold
-                                ),),
+                                    fontWeight: FontWeightManager.bold,
+                                  ),
+                                ),
                                 TextField(
                                   keyboardType: TextInputType.number,
                                   maxLength: 16,
                                   cursorColor: ColorManager.orangeColor,
                                   decoration: InputDecoration(
-                                    suffixIcon: Image.asset(ImageManager.masterCard,width: 5),
+                                    suffixIcon: Image.asset(
+                                        ImageManager.masterCard,
+                                        width: 5),
                                     enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: ColorManager.greyColor), //<-- SEE HERE
+                                      borderSide: BorderSide(
+                                          color: ColorManager
+                                              .greyColor), //<-- SEE HERE
                                     ),
                                     border: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: ColorManager.greyColor), //<-- SEE HERE
+                                      borderSide: BorderSide(
+                                          color: ColorManager
+                                              .greyColor), //<-- SEE HERE
                                     ),
                                     focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: ColorManager.greyColor), //<-- SEE HERE
+                                      borderSide: BorderSide(
+                                          color: ColorManager
+                                              .greyColor), //<-- SEE HERE
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height:40),
+                                const SizedBox(height: 40),
                                 Row(
                                   children: [
-                                    Expanded(child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text('Expiry Date',style: TextStyle(
-                                            color: ColorManager.darkGreyColor,
-                                            fontWeight: FontWeightManager.bold
-                                        ),),
-                                        TextField(
-                                          maxLength: 5,
-                                          controller: validThru,
-                                          keyboardType: TextInputType.number,
-                                          cursorColor: ColorManager.orangeColor,
-                                          inputFormatters: [
-                                            new CardExpirationFormatter(),
-                                          ],
-                                          onChanged: (v){
-                                          },
-                                          decoration: InputDecoration(
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: ColorManager.greyColor), //<-- SEE HERE
-                                            ),
-                                            border: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: ColorManager.greyColor), //<-- SEE HERE
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: ColorManager.greyColor), //<-- SEE HERE
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            LocaleKeys.expiry_date.tr(),
+                                            style: TextStyle(
+                                                color:
+                                                    ColorManager.darkGreyColor,
+                                                fontWeight:
+                                                    FontWeightManager.bold),
+                                          ),
+                                          TextField(
+                                            maxLength: 5,
+                                            controller: validThru,
+                                            keyboardType: TextInputType.number,
+                                            cursorColor:
+                                                ColorManager.orangeColor,
+                                            inputFormatters: [
+                                              new CardExpirationFormatter(),
+                                            ],
+                                            onChanged: (v) {},
+                                            decoration: InputDecoration(
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: ColorManager
+                                                        .greyColor), //<-- SEE HERE
+                                              ),
+                                              border: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: ColorManager
+                                                        .greyColor), //<-- SEE HERE
+                                              ),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: ColorManager
+                                                        .greyColor), //<-- SEE HERE
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                    ),
-
-                                    const SizedBox(width:20),
-                                    Expanded(child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                    const SizedBox(width: 20),
+                                    Expanded(
+                                        child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text('CVV',style: TextStyle(
-                                            color: ColorManager.darkGreyColor,
-                                            fontWeight: FontWeightManager.bold
-                                        ),),
+                                        Text(
+                                          LocaleKeys.cvv.tr(),
+                                          style: TextStyle(
+                                              color: ColorManager.darkGreyColor,
+                                              fontWeight:
+                                                  FontWeightManager.bold),
+                                        ),
                                         TextField(
                                           maxLength: 3,
                                           keyboardType: TextInputType.number,
                                           cursorColor: ColorManager.orangeColor,
                                           decoration: InputDecoration(
                                             enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: ColorManager.greyColor), //<-- SEE HERE
+                                              borderSide: BorderSide(
+                                                  color: ColorManager
+                                                      .greyColor), //<-- SEE HERE
                                             ),
                                             border: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: ColorManager.greyColor), //<-- SEE HERE
+                                              borderSide: BorderSide(
+                                                  color: ColorManager
+                                                      .greyColor), //<-- SEE HERE
                                             ),
                                             focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: ColorManager.greyColor), //<-- SEE HERE
+                                              borderSide: BorderSide(
+                                                  color: ColorManager
+                                                      .greyColor), //<-- SEE HERE
                                             ),
                                           ),
                                         ),
@@ -192,18 +253,19 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
                                 ),
                                 const SizedBox(height: 70),
                                 SizedBox(
-                                    width: size.width,
-                                    child: ElevatedButton(
-                                      style: TextButton.styleFrom(
-                                        backgroundColor: const Color(0xff482383),
-                                      ),
-                                      onPressed: (){
-                                        context.pop();
-                                      }, child: Padding(
-                                        padding: const EdgeInsets.all(15.0),
-                                        child: Text(LocaleKeys.add.tr()),
-                                      ),
+                                  width: size.width,
+                                  child: ElevatedButton(
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: const Color(0xff482383),
                                     ),
+                                    onPressed: () {
+                                      context.pop();
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child: Text(LocaleKeys.save.tr()),
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
@@ -221,6 +283,7 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
     );
   }
 }
+
 class CardExpirationFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(

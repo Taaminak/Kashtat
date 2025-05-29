@@ -10,6 +10,7 @@ import 'package:kashtat/Features/Widgets/DropDownMenuWidget.dart';
 import '../../Core/Cubit/AppState.dart';
 import '../../Core/constants/ColorManager.dart';
 import '../../Core/constants/FontManager.dart';
+import '../../translations/locale_keys.g.dart';
 import '../Widgets/ItemScreenTitle.dart';
 
 class AccountSummaryScreen extends StatefulWidget {
@@ -33,7 +34,7 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
     final cubit = BlocProvider.of<AppBloc>(context);
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: isStart?startDate:endDate,
+      initialDate: isStart ? startDate : endDate,
       firstDate: DateTime(2015, 8),
       lastDate: DateTime(2101),
     );
@@ -42,12 +43,16 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
         setState(() {
           startDate = picked;
         });
-        cubit.getFinancialSummary(from: DateFormat('yyyy-MM-dd').format(startDate),to: DateFormat('yyyy-MM-dd').format(endDate));
+        cubit.getFinancialSummary(
+            from: DateFormat('yyyy-MM-dd').format(startDate),
+            to: DateFormat('yyyy-MM-dd').format(endDate));
       } else {
         setState(() {
           endDate = picked;
         });
-        cubit.getFinancialSummary(from: DateFormat('yyyy-MM-dd').format(startDate),to: DateFormat('yyyy-MM-dd').format(endDate));
+        cubit.getFinancialSummary(
+            from: DateFormat('yyyy-MM-dd').format(startDate),
+            to: DateFormat('yyyy-MM-dd').format(endDate));
       }
     }
   }
@@ -58,17 +63,17 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
     super.initState();
   }
 
-  getData()async{
-
+  getData() async {
     final cubit = BlocProvider.of<AppBloc>(context);
-    cubit.getFinancialSummary(to: DateFormat('yyyy-MM-dd').format(DateTime.now()));
-    // await cubit.getAllProviderUnits();
+    cubit.getFinancialSummary(
+        to: DateFormat('yyyy-MM-dd').format(DateTime.now()));
 
     setState(() {
       if (cubit.providerCategoriesWithUnits.isNotEmpty) {
-        selectedCategory = cubit.providerCategoriesWithUnits.first;
+        selectedCategory = ProviderCategoriesWithUnits(
+            name: LocaleKeys.all_categories.tr(), categoryId: -1, units: []);
         if (selectedCategory.units.isNotEmpty) {
-          selectedUnit = selectedCategory.units.first;
+          selectedUnit = UnitModel(name: LocaleKeys.all_units.tr(), id: -1);
         }
       }
     });
@@ -82,7 +87,7 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
       appBar: AppBar(
         backgroundColor: ColorManager.mainlyBlueColor,
         title: Text(
-          'ملخص الحسابات',
+          LocaleKeys.account_summary.tr(),
           style: TextStyle(fontWeight: FontWeight.normal),
         ),
         centerTitle: true,
@@ -110,10 +115,7 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
         builder: (context, state) {
           return Column(
             children: [
-
               Expanded(
-                // width: size.width,
-                // height: size.height-100,
                 child: Padding(
                   padding:
                       const EdgeInsets.only(left: 15.0, right: 15.0, top: 5.0),
@@ -122,21 +124,25 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if(state is FinancialSummaryLoadingState)
-                        LinearProgressIndicator(color: ColorManager.mainlyBlueColor,backgroundColor: ColorManager.mainlyBlueColorLight),
-                        SizedBox(height: state is FinancialSummaryLoadingState?16:20),
+                        if (state is FinancialSummaryLoadingState)
+                          LinearProgressIndicator(
+                              color: ColorManager.mainlyBlueColor,
+                              backgroundColor:
+                                  ColorManager.mainlyBlueColorLight),
+                        SizedBox(
+                            height: state is FinancialSummaryLoadingState
+                                ? 16
+                                : 20),
                         Row(
                           children: [
                             Text(
-                              'حدد الفترة',
+                              LocaleKeys.select_period.tr(),
                               style: TextStyle(
                                 fontSize: FontSize.s16,
                                 fontWeight: FontWeightManager.medium,
                               ),
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
+                            SizedBox(width: 10),
                             Expanded(
                               child: InkWell(
                                 onTap: () {
@@ -145,40 +151,41 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                                 child: Container(
                                   decoration: _decoration,
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 6.0),
+                                          padding:
+                                              const EdgeInsets.only(top: 6.0),
                                           child: Text(
-                                            'من',
+                                            LocaleKeys.from.tr(),
                                             style: TextStyle(
                                               fontSize: FontSize.s14,
-                                              fontWeight: FontWeightManager.medium,
+                                              fontWeight:
+                                                  FontWeightManager.medium,
                                             ),
                                           ),
                                         ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        FaIcon(
-                                          FontAwesomeIcons.calendarAlt,
-                                          size: 14,
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
+                                        SizedBox(width: 5),
+                                        FaIcon(FontAwesomeIcons.calendarAlt,
+                                            size: 14),
+                                        SizedBox(width: 5),
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 6.0),
+                                          padding:
+                                              const EdgeInsets.only(top: 6.0),
                                           child: Text(
                                             DateFormat()
                                                 .add_yMMM()
                                                 .format(startDate),
                                             style: TextStyle(
                                               fontSize: FontSize.s14,
-                                              fontWeight: FontWeightManager.medium,
+                                              fontWeight:
+                                                  FontWeightManager.medium,
                                             ),
                                           ),
                                         ),
@@ -188,9 +195,7 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
+                            SizedBox(width: 10),
                             Expanded(
                               child: InkWell(
                                 onTap: () {
@@ -201,35 +206,36 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 6.0),
+                                          padding:
+                                              const EdgeInsets.only(top: 6.0),
                                           child: Text(
-                                            'الي',
+                                            LocaleKeys.to.tr(),
                                             style: TextStyle(
                                               fontSize: FontSize.s14,
-                                              fontWeight: FontWeightManager.medium,
+                                              fontWeight:
+                                                  FontWeightManager.medium,
                                             ),
                                           ),
                                         ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        FaIcon(
-                                          FontAwesomeIcons.calendarAlt,
-                                          size: 14,
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
+                                        SizedBox(width: 5),
+                                        FaIcon(FontAwesomeIcons.calendarAlt,
+                                            size: 14),
+                                        SizedBox(width: 5),
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 6.0),
+                                          padding:
+                                              const EdgeInsets.only(top: 6.0),
                                           child: Text(
-                                            DateFormat().add_yMMM().format(endDate),
+                                            DateFormat()
+                                                .add_yMMM()
+                                                .format(endDate),
                                             style: TextStyle(
                                               fontSize: FontSize.s14,
-                                              fontWeight: FontWeightManager.medium,
+                                              fontWeight:
+                                                  FontWeightManager.medium,
                                             ),
                                           ),
                                         ),
@@ -242,7 +248,8 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                           ],
                         ),
                         SizedBox(height: 40),
-                        TitleWidget(txt: 'اختر لوكيشن الكشتة'),
+                        TitleWidget(
+                            txt: LocaleKeys.select_kashta_location.tr()),
                         Container(
                           decoration: BoxDecoration(
                             color: ColorManager.whiteColor,
@@ -251,7 +258,8 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                                 color: Colors.grey.withOpacity(0.2),
                                 spreadRadius: 3,
                                 blurRadius: 7,
-                                offset: Offset(0, 0), // changes position of shadow
+                                offset:
+                                    Offset(0, 0), // changes position of shadow
                               ),
                             ],
                             borderRadius: BorderRadius.circular(8),
@@ -260,37 +268,55 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                           ),
                           child: DropdownButtonHideUnderline(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: ButtonTheme(
                                 alignedDropdown: true,
                                 child: DropdownButton<String>(
-                                  value: cubit.providerCategoriesWithUnits.isEmpty?'':selectedCategory.name,
+                                  value:
+                                      cubit.providerCategoriesWithUnits.isEmpty
+                                          ? ''
+                                          : selectedCategory.name,
                                   isExpanded: true,
                                   iconDisabledColor: ColorManager.orangeColor,
                                   iconEnabledColor: ColorManager.orangeColor,
-                                  items:cubit.providerCategoriesWithUnits.isEmpty?[]: cubit.providerCategoriesWithUnits
-                                      .map((e) => e.name)
-                                      .toList()
-                                      .map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value:cubit.providerCategoriesWithUnits.isEmpty?'': value,
-                                      child: Text(
-                                        value,
-                                        style: const TextStyle(fontSize: 14),
-                                      ),
-                                    );
-                                  }).toList(),
+                                  items: cubit
+                                          .providerCategoriesWithUnits.isEmpty
+                                      ? []
+                                      : cubit.providerCategoriesWithUnits
+                                          .map((e) => e.name)
+                                          .toList()
+                                          .map<DropdownMenuItem<String>>(
+                                              (String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: cubit
+                                                    .providerCategoriesWithUnits
+                                                    .isEmpty
+                                                ? ''
+                                                : value,
+                                            child: Text(
+                                              value,
+                                              style:
+                                                  const TextStyle(fontSize: 14),
+                                            ),
+                                          );
+                                        }).toList(),
                                   onChanged: (String? newValue) {
                                     setState(() {
                                       selectedCategory = cubit
                                           .providerCategoriesWithUnits
                                           .firstWhere((element) =>
                                               element.name == newValue!);
-                                      selectedUnit = selectedCategory.units.first;
+                                      selectedUnit =
+                                          selectedCategory.units.first;
                                     });
 
-                                    cubit.getFinancialSummary(from: DateFormat('yyyy-MM-dd').format(startDate),to: DateFormat('yyyy-MM-dd').format(endDate),unitId: selectedUnit.id);
+                                    cubit.getFinancialSummary(
+                                        from: DateFormat('yyyy-MM-dd')
+                                            .format(startDate),
+                                        to: DateFormat('yyyy-MM-dd')
+                                            .format(endDate),
+                                        unitId: selectedUnit.id);
                                   },
                                 ),
                               ),
@@ -299,7 +325,7 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                         ),
                         // DropDownWidget(values: cubit.providerCategoriesWithUnits.map((e) => e.name).toList(),onSelect: (){},),
                         SizedBox(height: 30),
-                        TitleWidget(txt: 'اختر الوحدة'),
+                        TitleWidget(txt: LocaleKeys.select_unit.tr()),
 
                         Container(
                           decoration: BoxDecoration(
@@ -309,7 +335,8 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                                 color: Colors.grey.withOpacity(0.2),
                                 spreadRadius: 3,
                                 blurRadius: 7,
-                                offset: Offset(0, 0), // changes position of shadow
+                                offset:
+                                    Offset(0, 0), // changes position of shadow
                               ),
                             ],
                             borderRadius: BorderRadius.circular(8),
@@ -318,7 +345,8 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                           ),
                           child: DropdownButtonHideUnderline(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: ButtonTheme(
                                 alignedDropdown: true,
                                 child: DropdownButton<String>(
@@ -347,10 +375,14 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                                       selectedUnit = selectedCategory.units
                                           .firstWhere((element) =>
                                               element.name == newValue);
-
                                     });
 
-                                    cubit.getFinancialSummary(from: DateFormat('yyyy-MM-dd').format(startDate),to: DateFormat('yyyy-MM-dd').format(endDate),unitId: selectedUnit.id);
+                                    cubit.getFinancialSummary(
+                                        from: DateFormat('yyyy-MM-dd')
+                                            .format(startDate),
+                                        to: DateFormat('yyyy-MM-dd')
+                                            .format(endDate),
+                                        unitId: selectedUnit.id);
                                   },
                                 ),
                               ),
@@ -368,17 +400,19 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                               height: size.width / 2.4,
                               child: Center(
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
-                                      'المبيعات',
+                                      LocaleKeys.sales.tr(),
                                       style: TextStyle(
                                         fontSize: FontSize.s18,
                                         fontWeight: FontWeightManager.bold,
                                       ),
                                     ),
                                     Text(
-                                      (cubit.financialData.sales??0.0).toStringAsFixed(2),
+                                      (cubit.financialData.sales ?? 0.0)
+                                          .toStringAsFixed(2),
                                       style: TextStyle(
                                         fontSize: FontSize.s18,
                                         fontWeight: FontWeightManager.bold,
@@ -394,17 +428,19 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                               height: size.width / 2.4,
                               child: Center(
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
-                                      'العمولة',
+                                      LocaleKeys.commission.tr(),
                                       style: TextStyle(
                                         fontSize: FontSize.s18,
                                         fontWeight: FontWeightManager.bold,
                                       ),
                                     ),
                                     Text(
-                                      (cubit.financialData.commissions??0.0).toStringAsFixed(2),
+                                      (cubit.financialData.commissions ?? 0.0)
+                                          .toStringAsFixed(2),
                                       style: TextStyle(
                                         fontSize: FontSize.s18,
                                         fontWeight: FontWeightManager.bold,
@@ -416,9 +452,7 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 10),
                         Center(
                           child: Container(
                             decoration: _decoration,
@@ -426,17 +460,19 @@ class _AccountSummaryScreenState extends State<AccountSummaryScreen> {
                             height: size.width / 2.4,
                             child: Center(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Text(
-                                    'صافي المبيعات',
+                                    LocaleKeys.net_sales.tr(),
                                     style: TextStyle(
                                       fontSize: FontSize.s18,
                                       fontWeight: FontWeightManager.bold,
                                     ),
                                   ),
                                   Text(
-                                    (cubit.financialData.netProfit??0.0).toStringAsFixed(2),
+                                    (cubit.financialData.netProfit ?? 0.0)
+                                        .toStringAsFixed(2),
                                     style: TextStyle(
                                       fontSize: FontSize.s18,
                                       fontWeight: FontWeightManager.bold,

@@ -18,6 +18,7 @@ import 'package:kashtat/Features/Widgets/HeaderWidget.dart';
 import 'package:kashtat/Features/Widgets/Loader.dart';
 import 'package:kashtat/Features/Widgets/kButton.dart';
 
+import '../../translations/locale_keys.g.dart';
 import '../Request Details/Widgets/ShowModelBottomSheet.dart';
 import 'Widgets/HomeItemWidget.dart';
 
@@ -40,16 +41,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   ScrollController controller = ScrollController();
 
-  listenOnScrolling(){
+  listenOnScrolling() {
     controller.addListener(() {
       // print(controller.position);
       // print(controller.position.pixels);
 
-      if(controller.position.pixels > 40){
+      if (controller.position.pixels > 40) {
         setState(() {
           isHorizontal = true;
         });
-      }else{
+      } else {
         setState(() {
           isHorizontal = false;
         });
@@ -73,77 +74,106 @@ class _HomeScreenState extends State<HomeScreen> {
         _dates = cubit.selectedDates.map((e) => DateTime.parse(e)).toList();
       });
 
-      if(cubit.selectedDates.isEmpty){
-        Future.delayed(const Duration(milliseconds: 500),() {
-          selectCity().then((value) => _selectDate(context)).then((value){
-            cubit.getLastTrip().then((value){
-              if(cubit.lastTrip?.rating == -1){
-
-                final date = cubit.lastTrip?.leavingDateTime.split('-');
-                final birthday = date==null?DateTime.now(): DateTime(int.parse(date[2]),int.parse(date[1]),int.parse(date[0]),);
-                final date2 = DateTime.now();
-                final difference = birthday.difference(date2).inDays;
-                if(difference>0){
-                  // print('cancel');
-                  return;
-                }
-                customBottomSheet(
-                  context,
-                  '',
-                  StatefulBuilder(
-                      builder: (context, innerSetState)  {
-                        return Column(
-                          children: [
-                            Padding(
-                              padding:
-                              const EdgeInsets.all(
-                                  20.0),
-                              child: SizedBox(
-                                width: double.infinity,
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 130,
-                                      width: 130,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: CachedNetworkImage(
-                                          imageUrl: cubit.lastTrip?.unit.mainPic??'',
-                                          fit: BoxFit.cover,
-                                          placeholder: (context, url) => const Loader(),
-                                          errorWidget: (context, url, error) => const Icon(Icons.image_not_supported_outlined,color: Colors.grey,),
-
-                                        ),
+      if (cubit.selectedDates.isEmpty) {
+        Future.delayed(
+          const Duration(milliseconds: 500),
+          () {
+            selectCity().then((value) => _selectDate(context)).then((value) {
+              cubit.getLastTrip().then((value) {
+                if (cubit.lastTrip?.rating == -1) {
+                  final date = cubit.lastTrip?.leavingDateTime.split('-');
+                  final birthday = date == null
+                      ? DateTime.now()
+                      : DateTime(
+                          int.parse(date[2]),
+                          int.parse(date[1]),
+                          int.parse(date[0]),
+                        );
+                  final date2 = DateTime.now();
+                  final difference = birthday.difference(date2).inDays;
+                  if (difference > 0) {
+                    // print('cancel');
+                    return;
+                  }
+                  customBottomSheet(context, '',
+                      StatefulBuilder(builder: (context, innerSetState) {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 130,
+                                  width: 130,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          cubit.lastTrip?.unit.mainPic ?? '',
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) =>
+                                          const Loader(),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(
+                                        Icons.image_not_supported_outlined,
+                                        color: Colors.grey,
                                       ),
                                     ),
-                                    const SizedBox(height: 20,),
-                                    const Text('كيف كانت الكشتة مع',style: TextStyle(color: Colors.black,fontSize: 16),),
-                                    const SizedBox(height: 10,),
-                                    Text(cubit.lastTrip?.unit.name??'',style: TextStyle(color: ColorManager.mainlyBlueColor,fontWeight: FontWeight.bold,fontSize: 16),),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        for(int i=0;i<5;i++)
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: InkWell(
-                                              onTap: (){
-                                                innerSetState((){
-                                                  rating = i+1;
-                                                });
-                                                // print(rating);
-                                              },
-                                              child: FaIcon(FontAwesomeIcons.solidStar,color:i<rating? Colors.amber :  Colors.grey,),
-                                            ),
-                                          )
-                                      ],
-                                    ),
-                                    const SizedBox(height: 20,),
-
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        KButton(onTap: (){
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                const Text(
+                                  'كيف كانت الكشتة مع',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 16),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  cubit.lastTrip?.unit.name ?? '',
+                                  style: TextStyle(
+                                      color: ColorManager.mainlyBlueColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    for (int i = 0; i < 5; i++)
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: InkWell(
+                                          onTap: () {
+                                            innerSetState(() {
+                                              rating = i + 1;
+                                            });
+                                            // print(rating);
+                                          },
+                                          child: FaIcon(
+                                            FontAwesomeIcons.solidStar,
+                                            color: i < rating
+                                                ? Colors.amber
+                                                : Colors.grey,
+                                          ),
+                                        ),
+                                      )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    KButton(
+                                        onTap: () {
                                           cubit.rateReservation(rating: 1);
                                           Navigator.pop(context);
                                           Fluttertoast.showToast(
@@ -153,38 +183,45 @@ class _HomeScreenState extends State<HomeScreen> {
                                               timeInSecForIosWeb: 1,
                                               backgroundColor: Colors.green,
                                               textColor: Colors.white,
-                                              fontSize: 16.0
-                                          );
-                                        }, title: 'تخطي',width: 150,paddingV: 15),
-                                        KButton(onTap: (){
-                                          cubit.rateReservation(rating: rating);
-                                          Navigator.pop(context);
-                                          Fluttertoast.showToast(
-                                              msg: "تم التقييم",
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              gravity: ToastGravity.CENTER,
-                                              timeInSecForIosWeb: 1,
-                                              backgroundColor: Colors.green,
-                                              textColor: Colors.white,
-                                              fontSize: 16.0
-                                          );
-                                        }, title: 'التالي',width: 150,paddingV: 15,hasBorder: true,clr: Colors.white,txtClr: ColorManager.mainlyBlueColor,),
-                                      ],)
+                                              fontSize: 16.0);
+                                        },
+                                        title: 'تخطي',
+                                        width: 150,
+                                        paddingV: 15),
+                                    KButton(
+                                      onTap: () {
+                                        cubit.rateReservation(rating: rating);
+                                        Navigator.pop(context);
+                                        Fluttertoast.showToast(
+                                            msg: "تم التقييم",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.green,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0);
+                                      },
+                                      title: 'التالي',
+                                      width: 150,
+                                      paddingV: 15,
+                                      hasBorder: true,
+                                      clr: Colors.white,
+                                      txtClr: ColorManager.mainlyBlueColor,
+                                    ),
                                   ],
-                                ),
-                              ),
+                                )
+                              ],
                             ),
-                          ],
-                        );
-                      }
-                  ),
-                  true,
-                  430
-                );
-              }
+                          ),
+                        ),
+                      ],
+                    );
+                  }), true, 430);
+                }
+              });
             });
-          });
-        },);
+          },
+        );
       }
     });
     super.initState();
@@ -193,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:BlocBuilder<AppBloc, AppState>(
+      body: BlocBuilder<AppBloc, AppState>(
         builder: (context, state) {
           final cubit = BlocProvider.of<AppBloc>(context);
           return BlocConsumer<AppBloc, AppState>(
@@ -212,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         const SizedBox(height: 15),
                         Text(
-                          'حدد المدينة والتاريخ',
+                          LocaleKeys.select_city_and_date.tr(),
                           style: TextStyle(
                             fontSize: FontSize.s16,
                             fontWeight: FontWeightManager.bold,
@@ -227,22 +264,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                 selectCity();
                               },
                               title: selectedCity == -1
-                                  ? 'حدد المدينة'
-                                  :  cubit.allCities[selectedCity].name,
+                                  ? LocaleKeys.select_city.tr()
+                                  : cubit.allCities[selectedCity].name,
                             ),
                             const SizedBox(width: 15),
                             FilterButton(
                                 onTap: () {
                                   _selectDate(context);
                                 },
-                                title: selectedDates.isEmpty ? "اختر التاريخ" : "${selectedDates.first } - ${selectedDates.last} [ ${selectedDates.length} ليالي ] "),
+                                title: selectedDates.isEmpty
+                                    ? LocaleKeys.select_date.tr()
+                                    : "${selectedDates.first} - ${selectedDates.last} [ ${selectedDates.length} ليالي ] "),
                             // const Spacer(),
                             // Image.asset(ImageManager.gridList,width: 20),
                           ],
                         ),
                         const SizedBox(height: 15),
                         Text(
-                          'حدد نوع الكشتة',
+                          LocaleKeys.select_kashta_type.tr(),
                           style: TextStyle(
                             fontSize: FontSize.s16,
                             fontWeight: FontWeightManager.bold,
@@ -260,33 +299,50 @@ class _HomeScreenState extends State<HomeScreen> {
                                   physics: const BouncingScrollPhysics(),
                                   scrollDirection: Axis.horizontal,
                                   itemCount: cubit.allCategories.length,
-                                  padding: const EdgeInsets.all( 0.0),
-                                  itemBuilder: (context,index){
+                                  padding: const EdgeInsets.all(0.0),
+                                  itemBuilder: (context, index) {
                                     return InkWell(
-                                      onTap: (){
-                                        cubit.filterHomeUnitsByCategory(catId: cubit.allCategories[index].id??0);
+                                      onTap: () {
+                                        cubit.filterHomeUnitsByCategory(
+                                            catId:
+                                                cubit.allCategories[index].id ??
+                                                    0);
                                         setState(() {
-                                          selected = cubit.allCategories[index].id??0;
+                                          selected =
+                                              cubit.allCategories[index].id ??
+                                                  0;
                                           selectedSub = -1;
                                         });
                                       },
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5.0),
                                         child: Container(
                                           decoration: BoxDecoration(
-                                              color: selected == cubit.allCategories[index].id
+                                              color: selected ==
+                                                      cubit.allCategories[index]
+                                                          .id
                                                   ? ColorManager.orangeColor
-                                                  : ColorManager.mainlyBlueColor,
-                                              borderRadius: BorderRadius.circular(5)
-                                          ),
+                                                  : ColorManager
+                                                      .mainlyBlueColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(5)),
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 15.0),
                                             child: Center(
-                                              child: Text(cubit.allCategories[index].name??'',style: TextStyle(
-                                                fontSize: FontSize.s14,
-                                                fontWeight: FontWeightManager.bold,
-                                                color: Colors.white,
-                                              ), textAlign: TextAlign.center,),
+                                              child: Text(
+                                                cubit.allCategories[index]
+                                                        .name ??
+                                                    '',
+                                                style: TextStyle(
+                                                  fontSize: FontSize.s14,
+                                                  fontWeight:
+                                                      FontWeightManager.bold,
+                                                  color: Colors.white,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -301,89 +357,182 @@ class _HomeScreenState extends State<HomeScreen> {
                               ListView.builder(
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemCount: cubit.categoriesWithSubCategories.length,
-                                  padding: const EdgeInsets.all( 0.0),
-                                  itemBuilder: (context,index){
+                                  itemCount:
+                                      cubit.categoriesWithSubCategories.length,
+                                  padding: const EdgeInsets.all(0.0),
+                                  itemBuilder: (context, index) {
                                     return Padding(
-                                      padding: const EdgeInsets.only(bottom: 10.0),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 10.0),
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           HomeTypeWidget(
-                                            title: cubit.categoriesWithSubCategories[index].name??'',
-                                            img: cubit.categoriesWithSubCategories[index].img??'',
-                                            color: selected == cubit.categoriesWithSubCategories[index].id
+                                            title: cubit
+                                                    .categoriesWithSubCategories[
+                                                        index]
+                                                    .name ??
+                                                '',
+                                            img: cubit
+                                                    .categoriesWithSubCategories[
+                                                        index]
+                                                    .img ??
+                                                '',
+                                            color: selected ==
+                                                    cubit
+                                                        .categoriesWithSubCategories[
+                                                            index]
+                                                        .id
                                                 ? ColorManager.orangeColor
                                                 : null,
                                             onTap: () {
-                                              cubit.filterHomeUnitsByCategory(catId: cubit.categoriesWithSubCategories[index].id??0);
+                                              cubit.filterHomeUnitsByCategory(
+                                                  catId: cubit
+                                                          .categoriesWithSubCategories[
+                                                              index]
+                                                          .id ??
+                                                      0);
                                               setState(() {
-                                                selected = cubit.categoriesWithSubCategories[index].id??0;
+                                                selected = cubit
+                                                        .categoriesWithSubCategories[
+                                                            index]
+                                                        .id ??
+                                                    0;
                                                 selectedSub = -1;
                                               });
                                             },
-                                            count: cubit.categoriesWithSubCategories[index].unitsCount.toString(),
-                                            width: MediaQuery.of(context).size.width,
+                                            count: cubit
+                                                .categoriesWithSubCategories[
+                                                    index]
+                                                .unitsCount
+                                                .toString(),
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
                                           ),
-                                          if (selected == cubit.categoriesWithSubCategories[index].id)
+                                          if (selected ==
+                                              cubit
+                                                  .categoriesWithSubCategories[
+                                                      index]
+                                                  .id)
                                             const SizedBox(height: 10),
-                                          if (selected == cubit.categoriesWithSubCategories[index].id)
+                                          if (selected ==
+                                              cubit
+                                                  .categoriesWithSubCategories[
+                                                      index]
+                                                  .id)
                                             GridView.custom(
                                               primary: false,
                                               padding: const EdgeInsets.all(0),
-                                              physics: const NeverScrollableScrollPhysics(),
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
                                               shrinkWrap: true,
-                                              childrenDelegate: SliverChildBuilderDelegate(
-                                                childCount: cubit.categoriesWithSubCategories[index].subCategories!.length,
-                                                    (context, innerIndex) =>
-
+                                              childrenDelegate:
+                                                  SliverChildBuilderDelegate(
+                                                childCount: cubit
+                                                    .categoriesWithSubCategories[
+                                                        index]
+                                                    .subCategories!
+                                                    .length,
+                                                (context, innerIndex) =>
                                                     InkWell(
-                                                      onTap: () {
-                                                        cubit.filterHomeUnitsByCategory(
-                                                          catId: cubit.categoriesWithSubCategories[index].id??0,
-                                                          subCatId: cubit.categoriesWithSubCategories[index].subCategories![innerIndex].id??0,
-                                                        );
-                                                        setState(() {
-                                                          selectedSub = cubit.categoriesWithSubCategories[index].subCategories![innerIndex].id??0;
-                                                        });
-                                                      },
-                                                      child: Container(
-                                                        decoration: BoxDecoration(
-                                                          borderRadius:
-                                                          BorderRadius.circular(8),
-                                                          border: Border.all(
-                                                              color: selectedSub != cubit.categoriesWithSubCategories[index].subCategories![innerIndex].id
-                                                                  ? ColorManager.orangeColor
-                                                                  : ColorManager.mainlyBlueColor),
-                                                          color: selectedSub == cubit.categoriesWithSubCategories[index].subCategories![innerIndex].id
-                                                              ? ColorManager.mainlyBlueColor
-                                                              : Colors.white,
-                                                        ),
-                                                        child: Center(
-                                                          child: Padding(
-                                                            padding: const EdgeInsets.all(2.0),
-                                                            child: Text(
-                                                              cubit.categoriesWithSubCategories[index].subCategories![innerIndex].name??'',
-                                                              style: TextStyle(
-                                                                color: selectedSub != cubit.categoriesWithSubCategories[index].subCategories![innerIndex].id
-                                                                    ? ColorManager.mainlyBlueColor
-                                                                    : Colors.white,
-
-                                                                fontWeight: FontWeightManager.bold,
-                                                              ),
-                                                              textAlign: TextAlign.center,
-                                                            ),
+                                                  onTap: () {
+                                                    cubit
+                                                        .filterHomeUnitsByCategory(
+                                                      catId: cubit
+                                                              .categoriesWithSubCategories[
+                                                                  index]
+                                                              .id ??
+                                                          0,
+                                                      subCatId: cubit
+                                                              .categoriesWithSubCategories[
+                                                                  index]
+                                                              .subCategories![
+                                                                  innerIndex]
+                                                              .id ??
+                                                          0,
+                                                    );
+                                                    setState(() {
+                                                      selectedSub = cubit
+                                                              .categoriesWithSubCategories[
+                                                                  index]
+                                                              .subCategories![
+                                                                  innerIndex]
+                                                              .id ??
+                                                          0;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      border: Border.all(
+                                                          color: selectedSub !=
+                                                                  cubit
+                                                                      .categoriesWithSubCategories[
+                                                                          index]
+                                                                      .subCategories![
+                                                                          innerIndex]
+                                                                      .id
+                                                              ? ColorManager
+                                                                  .orangeColor
+                                                              : ColorManager
+                                                                  .mainlyBlueColor),
+                                                      color: selectedSub ==
+                                                              cubit
+                                                                  .categoriesWithSubCategories[
+                                                                      index]
+                                                                  .subCategories![
+                                                                      innerIndex]
+                                                                  .id
+                                                          ? ColorManager
+                                                              .mainlyBlueColor
+                                                          : Colors.white,
+                                                    ),
+                                                    child: Center(
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(2.0),
+                                                        child: Text(
+                                                          cubit
+                                                                  .categoriesWithSubCategories[
+                                                                      index]
+                                                                  .subCategories![
+                                                                      innerIndex]
+                                                                  .name ??
+                                                              '',
+                                                          style: TextStyle(
+                                                            color: selectedSub !=
+                                                                    cubit
+                                                                        .categoriesWithSubCategories[
+                                                                            index]
+                                                                        .subCategories![
+                                                                            innerIndex]
+                                                                        .id
+                                                                ? ColorManager
+                                                                    .mainlyBlueColor
+                                                                : Colors.white,
+                                                            fontWeight:
+                                                                FontWeightManager
+                                                                    .bold,
                                                           ),
+                                                          textAlign:
+                                                              TextAlign.center,
                                                         ),
-
                                                       ),
                                                     ),
+                                                  ),
+                                                ),
                                               ),
                                               semanticChildCount: 1,
-                                              gridDelegate: SliverWovenGridDelegate.count(
+                                              gridDelegate:
+                                                  SliverWovenGridDelegate.count(
                                                 crossAxisCount: 4,
-
                                                 mainAxisSpacing: 8,
                                                 crossAxisSpacing: 8,
                                                 pattern: [
@@ -401,28 +550,51 @@ class _HomeScreenState extends State<HomeScreen> {
                                 physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 childrenDelegate: SliverChildBuilderDelegate(
-                                  childCount: cubit.categoriesWithoutSubCategories.length,
-                                      (context, index) =>
-                                      HomeTypeWidgetGrid(
-                                        title: cubit.categoriesWithoutSubCategories[index].name??'',
-                                        img: cubit.categoriesWithoutSubCategories[index].img??'',
-                                        bgIconColor: ColorManager.orangeColor,
-                                        color: selected == cubit.categoriesWithoutSubCategories[index].id
-                                            ? ColorManager.orangeColor
-                                            : null,
-                                        onTap: () {
-                                          cubit.filterHomeUnitsByCategory(catId: cubit.categoriesWithoutSubCategories[index].id??0);
-                                          setState(() {
-                                            selected = cubit.categoriesWithoutSubCategories[index].id??0;
-                                          });
-                                        },
-                                        count: cubit.categoriesWithoutSubCategories[index].unitsCount.toString(),
-                                      ),
+                                  childCount: cubit
+                                      .categoriesWithoutSubCategories.length,
+                                  (context, index) => HomeTypeWidgetGrid(
+                                    title: cubit
+                                            .categoriesWithoutSubCategories[
+                                                index]
+                                            .name ??
+                                        '',
+                                    img: cubit
+                                            .categoriesWithoutSubCategories[
+                                                index]
+                                            .img ??
+                                        '',
+                                    bgIconColor: ColorManager.orangeColor,
+                                    color: selected ==
+                                            cubit
+                                                .categoriesWithoutSubCategories[
+                                                    index]
+                                                .id
+                                        ? ColorManager.orangeColor
+                                        : null,
+                                    onTap: () {
+                                      cubit.filterHomeUnitsByCategory(
+                                          catId: cubit
+                                                  .categoriesWithoutSubCategories[
+                                                      index]
+                                                  .id ??
+                                              0);
+                                      setState(() {
+                                        selected = cubit
+                                                .categoriesWithoutSubCategories[
+                                                    index]
+                                                .id ??
+                                            0;
+                                      });
+                                    },
+                                    count: cubit
+                                        .categoriesWithoutSubCategories[index]
+                                        .unitsCount
+                                        .toString(),
+                                  ),
                                 ),
                                 semanticChildCount: 1,
                                 gridDelegate: SliverWovenGridDelegate.count(
                                   crossAxisCount: 3,
-
                                   mainAxisSpacing: 8,
                                   crossAxisSpacing: 8,
                                   pattern: [
@@ -433,7 +605,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               const SizedBox(height: 10),
                             ],
                           ),
-                          crossFadeState: isHorizontal ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                          crossFadeState: isHorizontal
+                              ? CrossFadeState.showFirst
+                              : CrossFadeState.showSecond,
                           // crossFadeState: isHorizontal ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                         ),
                       ],
@@ -441,32 +615,44 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Expanded(
                       child: SingleChildScrollView(
-                        controller: controller,
+                    controller: controller,
                     physics: const BouncingScrollPhysics(),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         state is LoadingHomeTripsState
                             ? const Loader()
-                            : (cubit.homeTrips == null || cubit.homeTrips!.data!.isEmpty)
+                            : (cubit.homeTrips == null ||
+                                    cubit.homeTrips!.data!.isEmpty)
                                 ? const HomeEmptyWidget()
                                 : ListView.builder(
-                                    itemBuilder: (context, index) => cubit.homeTrips != null
+                                    itemBuilder: (context, index) => cubit
+                                                .homeTrips !=
+                                            null
                                         ? HomeItemWidget(
                                             trip: cubit.homeTrips!.data![index],
-                                            isAvailable:  selectedDates.isEmpty
+                                            isAvailable: selectedDates.isEmpty
                                                 ? true
                                                 : isAvailableDates(
-                                                    cubit.homeTrips!.data![index].reservedDates??[],
+                                                    cubit
+                                                            .homeTrips!
+                                                            .data![index]
+                                                            .reservedDates ??
+                                                        [],
                                                     selectedDates),
                                             city: selectedCity != -1
-                                                ? cubit.allCities[selectedCity].name
-                                                : cubit.homeTrips!.data![index].state!.name,
+                                                ? cubit.allCities[selectedCity]
+                                                    .name
+                                                : cubit.homeTrips!.data![index]
+                                                    .state!.name,
                                           )
                                         : const SizedBox(),
-                                    itemCount: cubit.homeTrips != null ? cubit.homeTrips?.data?.length : 0,
+                                    itemCount: cubit.homeTrips != null
+                                        ? cubit.homeTrips?.data?.length
+                                        : 0,
                                     shrinkWrap: true,
-                                    physics: const NeverScrollableScrollPhysics(),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
                                     padding: const EdgeInsets.only(bottom: 10),
                                   ),
                       ],
@@ -495,7 +681,8 @@ class _HomeScreenState extends State<HomeScreen> {
               config: CalendarDatePicker2WithActionButtonsConfig(
                 firstDayOfWeek: 1,
                 calendarType: CalendarDatePicker2Type.range,
-                selectedDayTextStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                selectedDayTextStyle: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.w700),
                 selectedDayHighlightColor: Colors.purple[800],
                 centerAlignModePicker: true,
                 customModePickerIcon: const SizedBox(),
@@ -509,7 +696,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   isToday,
                 }) {
                   Widget? dayWidget;
-                  if (calculateDifference(date)<0) {
+                  if (calculateDifference(date) < 0) {
                     dayWidget = Container(
                       decoration: decoration,
                       child: Center(
@@ -517,11 +704,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           alignment: AlignmentDirectional.center,
                           children: [
                             Text(
-                              MaterialLocalizations.of(context).formatDecimal(date.day),
+                              MaterialLocalizations.of(context)
+                                  .formatDecimal(date.day),
                               style: const TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12
-                              ),
+                                  color: Colors.grey, fontSize: 12),
                             ),
                             // Padding(
                             //   padding: const EdgeInsets.only(top: 27.5),
@@ -552,7 +738,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
                 // print(_dates);
                 if (_dates.isNotEmpty) {
-                  if(calculateDifference(_dates.first??DateTime.now())<0){
+                  if (calculateDifference(_dates.first ?? DateTime.now()) < 0) {
                     return;
                   }
                   if (_dates.length == 1) {
@@ -615,144 +801,113 @@ class _HomeScreenState extends State<HomeScreen> {
     for (int i = 0; i <= endDate!.difference(startDate!).inDays; i++) {
       Intl.withLocale("en_US", () {
         // days.add(DateTime.parse(startDate.add(Duration(days: i)).toString()).toString());
-        days.add(DateFormat("yyyy-MM-dd").format(startDate.add(Duration(days: i))));
+        days.add(
+            DateFormat("yyyy-MM-dd").format(startDate.add(Duration(days: i))));
       });
     }
 
     return days;
   }
 
-  Future<void> selectCity()async{
+  Future<void> selectCity() async {
     final cubit = BlocProvider.of<AppBloc>(context);
     await customBottomSheet(
-        context,
-        'حدد المدينة',
-        Column(
-          children: [
-            Padding(
-              padding:
-              const EdgeInsets.all(
-                  20.0),
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  physics:
-                  const BouncingScrollPhysics(),
-                  itemCount: cubit
-                      .allCities.length,
-                  itemBuilder:
-                      (context, index) {
-                    return Padding(
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 10.0,vertical: 12.5),
-                      child: InkWell(
-                        onTap: () {
-                          if (selectedCity ==
-                              index) {
-                            setState(() {
-                              selectedCity =
-                              -1;
-                            });
-                          } else {
-                            setState(() {
-                              selectedCity =
-                                  index;
-                            });
-                          }
-
-                          cubit.filterUsingCityId(selectedCity ==
-                              -1
-                              ? null
-                              : cubit
-                              .allCities[index]
-                              .id);
-                          cubit.getAllCategories(cityId: selectedCity ==
-                              -1
-                              ? null
-                              : cubit
-                              .allCities[index]
-                              .id);
-                          cubit.getHomeTrips(
-                              cityId: selectedCity ==
-                                  -1
-                                  ? null
-                                  : cubit
-                                  .allCities[index]
-                                  .id);
+      context,
+      'حدد المدينة',
+      Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: ListView.builder(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemCount: cubit.allCities.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10.0, vertical: 12.5),
+                    child: InkWell(
+                      onTap: () {
+                        if (selectedCity == index) {
                           setState(() {
-                            selected =0;
+                            selectedCity = -1;
                           });
+                        } else {
+                          setState(() {
+                            selectedCity = index;
+                          });
+                        }
 
-                          context.pop();
-                        },
-                        child: Row(
-                          children: [
-                            Text( cubit.allCities[index].name,
-                              style:
-                              TextStyle(
-                                fontSize:
-                                FontSize
-                                    .s16,
-                                fontWeight:
-                                FontWeightManager
-                                    .bold,
-                                color: index ==
-                                    selectedCity
-                                    ? ColorManager
-                                    .orangeColor
-                                    : ColorManager
-                                    .mainlyBlueColor,
+                        cubit.filterUsingCityId(selectedCity == -1
+                            ? null
+                            : cubit.allCities[index].id);
+                        cubit.getAllCategories(
+                            cityId: selectedCity == -1
+                                ? null
+                                : cubit.allCities[index].id);
+                        cubit.getHomeTrips(
+                            cityId: selectedCity == -1
+                                ? null
+                                : cubit.allCities[index].id);
+                        setState(() {
+                          selected = 0;
+                        });
+
+                        context.pop();
+                      },
+                      child: Row(
+                        children: [
+                          Text(
+                            cubit.allCities[index].name,
+                            style: TextStyle(
+                              fontSize: FontSize.s16,
+                              fontWeight: FontWeightManager.bold,
+                              color: index == selectedCity
+                                  ? ColorManager.orangeColor
+                                  : ColorManager.mainlyBlueColor,
+                            ),
+                          ),
+                          if (index == selectedCity) const SizedBox(width: 15),
+                          if (index == selectedCity)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: FaIcon(
+                                FontAwesomeIcons.check,
+                                size: 18,
+                                color: ColorManager.orangeColor,
                               ),
                             ),
-                            if (index ==
-                                selectedCity)
-                              const SizedBox(
-                                  width:
-                                  15),
-                            if (index ==
-                                selectedCity)
-                              Padding(
-                                padding: const EdgeInsets
-                                    .only(
-                                    bottom:
-                                    8.0),
-                                child:
-                                FaIcon(
-                                  FontAwesomeIcons
-                                      .check,
-                                  size:
-                                  18,
-                                  color: ColorManager
-                                      .orangeColor,
-                                ),
-                              ),
-                          ],
-                        ),
+                        ],
                       ),
-                    );
-                  }),
-            ),
-          ],
-        ),
+                    ),
+                  );
+                }),
+          ),
+        ],
+      ),
       true,
     );
   }
 
   bool isAvailableDates<T>(List<String> first, List<String> second) {
-    if(second.isEmpty){
+    if (second.isEmpty) {
       return true;
     }
     List<String> output = [];
     for (String element in first) {
-      if(second.contains(element.split(' ').first)){
+      if (second.contains(element.split(' ').first)) {
         output.add(element);
         break;
       }
     }
     return output.isEmpty;
   }
+
   int calculateDifference(DateTime date) {
     DateTime now = DateTime.now();
-    int days = DateTime(date.year, date.month, date.day).difference(DateTime(now.year, now.month, now.day)).inDays;
+    int days = DateTime(date.year, date.month, date.day)
+        .difference(DateTime(now.year, now.month, now.day))
+        .inDays;
     // print('---------------------------------------');
     // print(date);
     // print(days);

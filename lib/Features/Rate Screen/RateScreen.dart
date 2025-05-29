@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashtat/Core/constants/ColorManager.dart';
+import 'package:kashtat/translations/locale_keys.g.dart';
 
 import '../../Core/Cubit/AppCubit.dart';
 import '../../Core/Cubit/AppState.dart';
@@ -38,8 +39,7 @@ class _RateScreenState extends State<RateScreen> {
     super.initState();
   }
 
-  Future getData()async{
-
+  Future getData() async {
     final cubit = BlocProvider.of<AppBloc>(context);
     // await cubit.getAllProviderUnits();
     cubit.getRatingSummary();
@@ -107,7 +107,7 @@ class _RateScreenState extends State<RateScreen> {
                         ),
                         const SizedBox(height: 20),
                         Text(
-                          'التقييمات',
+                          LocaleKeys.ratings_title.tr(),
                           style: TextStyle(
                             fontSize: FontSize.s34,
                             fontWeight: FontWeightManager.bold,
@@ -124,10 +124,19 @@ class _RateScreenState extends State<RateScreen> {
                                     content: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    if(state is RatingSummaryLoadingState)
-                                    LinearProgressIndicator(color: ColorManager.mainlyBlueColor,backgroundColor: ColorManager.mainlyBlueColorLight),
-                                    SizedBox(height: state is RatingSummaryLoadingState?16:20),
-                                    TitleWidget(txt: 'اختر لوكيشن الكشتة'),
+                                    if (state is RatingSummaryLoadingState)
+                                      LinearProgressIndicator(
+                                          color: ColorManager.mainlyBlueColor,
+                                          backgroundColor: ColorManager
+                                              .mainlyBlueColorLight),
+                                    SizedBox(
+                                        height:
+                                            state is RatingSummaryLoadingState
+                                                ? 16
+                                                : 20),
+                                    TitleWidget(
+                                        txt: LocaleKeys.select_kashta_location
+                                            .tr()),
                                     Container(
                                       decoration: BoxDecoration(
                                         color: ColorManager.whiteColor,
@@ -152,31 +161,39 @@ class _RateScreenState extends State<RateScreen> {
                                           child: ButtonTheme(
                                             alignedDropdown: true,
                                             child: DropdownButton<String>(
-                                              value:cubit
-                                                  .providerCategoriesWithUnits.isEmpty?'': selectedCategory.name,
+                                              value: cubit
+                                                      .providerCategoriesWithUnits
+                                                      .isEmpty
+                                                  ? ''
+                                                  : selectedCategory.name,
                                               isExpanded: true,
                                               iconDisabledColor:
                                                   ColorManager.orangeColor,
                                               iconEnabledColor:
                                                   ColorManager.orangeColor,
-                                              items:cubit
-                                                  .providerCategoriesWithUnits.isEmpty?[]: cubit
-                                                  .providerCategoriesWithUnits
-                                                  .map((e) => e.name)
-                                                  .toList()
-                                                  .map<
-                                                          DropdownMenuItem<
-                                                              String>>(
-                                                      (String value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text(
-                                                    value,
-                                                    style: const TextStyle(
-                                                        fontSize: 14),
-                                                  ),
-                                                );
-                                              }).toList(),
+                                              items: cubit
+                                                      .providerCategoriesWithUnits
+                                                      .isEmpty
+                                                  ? []
+                                                  : cubit
+                                                      .providerCategoriesWithUnits
+                                                      .map((e) => e.name)
+                                                      .toList()
+                                                      .map<
+                                                              DropdownMenuItem<
+                                                                  String>>(
+                                                          (String value) {
+                                                      return DropdownMenuItem<
+                                                          String>(
+                                                        value: value,
+                                                        child: Text(
+                                                          value,
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 14),
+                                                        ),
+                                                      );
+                                                    }).toList(),
                                               onChanged: (String? newValue) {
                                                 setState(() {
                                                   selectedCategory = cubit
@@ -189,7 +206,8 @@ class _RateScreenState extends State<RateScreen> {
                                                           .units.first;
                                                 });
 
-                                                cubit.getRatingSummary(unitId: selectedUnit.id);
+                                                cubit.getRatingSummary(
+                                                    unitId: selectedUnit.id);
                                               },
                                             ),
                                           ),
@@ -198,7 +216,8 @@ class _RateScreenState extends State<RateScreen> {
                                     ),
                                     // DropDownWidget(values: cubit.providerCategoriesWithUnits.map((e) => e.name).toList(),onSelect: (){},),
                                     const SizedBox(height: 20),
-                                    const TitleWidget(txt: 'اختر الوحدة'),
+                                    TitleWidget(
+                                        txt: LocaleKeys.select_unit.tr()),
 
                                     Container(
                                       decoration: BoxDecoration(
@@ -277,9 +296,9 @@ class _RateScreenState extends State<RateScreen> {
                                     if (cubit.rates.isEmpty)
                                       Center(
                                         child: Text(
-                                          'لا يوجد لديك تقييمات حاليا',
+                                          LocaleKeys.no_ratings.tr(),
                                           style: TextStyle(
-                                            fontSize: FontSize.s12,
+                                            fontSize: FontSize.s14,
                                             fontWeight:
                                                 FontWeightManager.medium,
                                             color: ColorManager.darkGreyColor,
@@ -293,109 +312,116 @@ class _RateScreenState extends State<RateScreen> {
                                               NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
                                           itemCount: cubit.rates.length,
-                                          itemBuilder: (context, index) =>
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    bottom: 8.0),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      color: Colors.grey
-                                                          .withOpacity(0.2),
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                  ),
-                                                  child: Column(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(10.0),
-                                                        child: Row(
-                                                          children: [
-                                                            Text(
-                                                              cubit.rates[index].user?.name??'',
-                                                              style: const TextStyle(
-                                                                fontWeight: FontWeightManager.bold,
-                                                              ),
-                                                            ),
-                                                            const Spacer(),
-                                                            Text(
-                                                              cubit.rates[index]
-                                                                  .createdAt!
-                                                                  .split('T')
-                                                                  .first,
-                                                              style: const TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                          ],
+                                          itemBuilder:
+                                              (context, index) => Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 8.0),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.2),
                                                         ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(10.0),
-                                                        child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              for (int i = 0;
-                                                                  i < 5;
-                                                                  i++)
-                                                                Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                              .all(
-                                                                          0.0),
-                                                                  child: Icon(
-                                                                    Icons.star,
-                                                                    color: ((i +
-                                                                                1) >
-                                                                            cubit
-                                                                                .rates[
-                                                                                    index]
-                                                                                .rating!)
-                                                                        ? Colors
-                                                                            .grey
-                                                                        : ColorManager
-                                                                            .yellowColor,
-                                                                    size: 30,
-                                                                  ),
-                                                                ),
-                                                              const SizedBox(
-                                                                width: 20,
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .only(
-                                                                        top:
-                                                                            8.0),
-                                                                child: Text(
-                                                                  "${cubit.rates[index].rating!}/5",
+                                                      child: Column(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(10.0),
+                                                            child: Row(
+                                                              children: [
+                                                                Text(
+                                                                  cubit
+                                                                          .rates[
+                                                                              index]
+                                                                          .user
+                                                                          ?.name ??
+                                                                      '',
                                                                   style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        FontSize
-                                                                            .s20,
+                                                                      const TextStyle(
                                                                     fontWeight:
                                                                         FontWeightManager
                                                                             .bold,
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            ]),
+                                                                const Spacer(),
+                                                                Text(
+                                                                  cubit
+                                                                      .rates[
+                                                                          index]
+                                                                      .createdAt!
+                                                                      .split(
+                                                                          'T')
+                                                                      .first,
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(10.0),
+                                                            child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  for (int i =
+                                                                          0;
+                                                                      i < 5;
+                                                                      i++)
+                                                                    Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              0.0),
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .star,
+                                                                        color: ((i + 1) >
+                                                                                cubit.rates[index].rating!)
+                                                                            ? Colors.grey
+                                                                            : ColorManager.yellowColor,
+                                                                        size:
+                                                                            30,
+                                                                      ),
+                                                                    ),
+                                                                  const SizedBox(
+                                                                    width: 20,
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        top:
+                                                                            8.0),
+                                                                    child: Text(
+                                                                      "${cubit.rates[index].rating!}/5",
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontSize:
+                                                                            FontSize.s20,
+                                                                        fontWeight:
+                                                                            FontWeightManager.bold,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ]),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              )),
+                                                    ),
+                                                  )),
                                     // SizedBox(height: 100,),
                                   ],
                                 )),

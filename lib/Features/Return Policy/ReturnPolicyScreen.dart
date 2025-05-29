@@ -11,13 +11,14 @@ import 'package:kashtat/Features/More%20Screen/Widgets/ItemWidget.dart';
 import 'package:kashtat/translations/locale_keys.g.dart';
 
 class ReturnPolicyScreen extends StatefulWidget {
-  const ReturnPolicyScreen({Key? key,}) : super(key: key);
+  const ReturnPolicyScreen({
+    Key? key,
+  }) : super(key: key);
   @override
   State<ReturnPolicyScreen> createState() => _ReturnPolicyScreenState();
 }
 
 class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -68,7 +69,7 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        'سياسة الإلغاء و الاسترجاع',
+                        LocaleKeys.cancellation_and_return_policy.tr(),
                         style: TextStyle(
                           fontSize: FontSize.s34,
                           fontWeight: FontWeightManager.bold,
@@ -76,25 +77,26 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
                       ),
                       const SizedBox(height: 20),
                       Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: ColorManager.whiteColor,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
-                              spreadRadius: 3,
-                              blurRadius: 7,
-                              offset: const Offset(0, 0), // changes position of shadow
-                            ),
-
-                          ],
-                        ),
-                        child: SizedBox(
-                          height: 300,
-                          width: size.width,
-                        )
-                      ),
-                      SizedBox(height: 20,)
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: ColorManager.whiteColor,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 3,
+                                blurRadius: 7,
+                                offset: const Offset(
+                                    0, 0), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: SizedBox(
+                            height: 300,
+                            width: size.width,
+                          )),
+                      SizedBox(
+                        height: 20,
+                      )
                     ],
                   ),
                 ),

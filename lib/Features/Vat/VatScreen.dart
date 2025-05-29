@@ -13,13 +13,14 @@ import 'package:kashtat/Features/Request%20Details/Widgets/ShowModelBottomSheet.
 import 'package:kashtat/Features/Wallet%20Logs%20Screen/Widgets/WalletItemWidget.dart';
 import 'package:kashtat/Features/Widgets/DropDownMenuWidget.dart';
 import 'package:kashtat/Features/Widgets/kButton.dart';
+import 'package:kashtat/translations/locale_keys.g.dart';
 import '../../Core/Cubit/AppState.dart';
 import '../../Core/constants/ColorManager.dart';
 import '../../Core/constants/FontManager.dart';
 import '../Widgets/ItemScreenTitle.dart';
 
 class VatScreen extends StatefulWidget {
-  const VatScreen({Key? key,required this.category}) : super(key: key);
+  const VatScreen({Key? key, required this.category}) : super(key: key);
   final CategoryModel category;
 
   @override
@@ -32,11 +33,12 @@ class _VatScreenState extends State<VatScreen> {
   @override
   void initState() {
     setState(() {
-      controller.text = widget.category.tin??'';
-      selectedOption = widget.category.isApplicableForVat!? 1:0;
+      controller.text = widget.category.tin ?? '';
+      selectedOption = widget.category.isApplicableForVat! ? 1 : 0;
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -45,7 +47,7 @@ class _VatScreenState extends State<VatScreen> {
       appBar: AppBar(
         backgroundColor: ColorManager.mainlyBlueColor,
         title: Text(
-          'ضريبة القيمة المضافة',
+          LocaleKeys.vat_title.tr(),
           style: TextStyle(fontWeight: FontWeight.normal),
         ),
         centerTitle: true,
@@ -74,55 +76,83 @@ class _VatScreenState extends State<VatScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 50,),
-              if(controller.text.isNotEmpty)
+              SizedBox(
+                height: 50,
+              ),
+              if (controller.text.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child:Text('الرقم الضريبي',style: TextStyle(
+                  child: Text(
+                    LocaleKeys.tax_number.tr(),
+                    style: TextStyle(
                   fontSize: FontSize.s20,
                   fontWeight: FontWeightManager.bold,
-                ),),
+                    ),
+                  ),
               ),
-
-              SizedBox(height: 10,),
-              if(controller.text.isNotEmpty)
-                ContainerDecorated(content: Row(
+              SizedBox(
+                height: 10,
+              ),
+              if (controller.text.isNotEmpty)
+                ContainerDecorated(
+                  content: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(controller.text,style: TextStyle(
+                        child: Text(
+                          controller.text,
+                          style: TextStyle(
                         fontSize: FontSize.s18,
                         fontWeight: FontWeightManager.bold,
-                      ),),
+                          ),
+                        ),
                     ),
                   ],
-                ),addPadding: false,),
-
-              if(controller.text.isNotEmpty)
-              SizedBox(height: 10,),
+                  ),
+                  addPadding: false,
+                ),
+              if (controller.text.isNotEmpty)
+                SizedBox(
+                  height: 10,
+                ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: KButton(onTap: (){
-                  customBottomSheet(context, '', SizedBox(
+                child: KButton(
+                  onTap: () {
+                    customBottomSheet(
+                        context,
+                        '',
+                        SizedBox(
                     width: double.infinity,
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
-                      child: StatefulBuilder(builder: (context, innerSetState){
+                            child: StatefulBuilder(
+                                builder: (context, innerSetState) {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 20,),
-                              Text('هل أنت من الأشخاص الخاضعين لضريبة القيمة المضافة؟',style: TextStyle(
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    LocaleKeys.are_you_vat_applicable.tr(),
+                                    style: TextStyle(
                                 fontSize: FontSize.s20,
                                 fontWeight: FontWeightManager.bold,
-                              ),),
-                              SizedBox(height: 20,),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
                               ListTile(
-                                title: Text('لا معفي منها ( مبيعاتي السنوية أقل من 375 ألف ريال )',style: TextStyle(
+                                    title: Text(
+                                      LocaleKeys.exempt_from_vat.tr(),
+                                      style: TextStyle(
                                   fontSize: FontSize.s16,
                                   fontWeight: FontWeightManager.bold,
-                                ),),
+                                      ),
+                                    ),
                                 leading: Radio(
                                   value: 0,
                                   groupValue: selectedOption,
@@ -135,14 +165,16 @@ class _VatScreenState extends State<VatScreen> {
                                 ),
                               ),
                               ListTile(
-                                title: Text('نعم خاضع لها ( مبيعاتي السنوية أكثر من 375 الف ريال )',style: TextStyle(
+                                    title: Text(
+                                      LocaleKeys.subject_to_vat.tr(),
+                                      style: TextStyle(
                                   fontSize: FontSize.s16,
                                   fontWeight: FontWeightManager.bold,
-                                ),),
+                                      ),
+                                    ),
                                 leading: Radio(
                                   value: 1,
                                   groupValue: selectedOption,
-
                                   onChanged: (value) {
                                     innerSetState(() {
                                       selectedOption = value!;
@@ -151,31 +183,36 @@ class _VatScreenState extends State<VatScreen> {
                                   activeColor: ColorManager.mainlyBlueColor,
                                 ),
                               ),
-
-                              if(selectedOption==1)
-                              SizedBox(height: 20,),
-                              if(selectedOption==1)
-                              Text('الرقم الضريبي',style: TextStyle(
+                                  if (selectedOption == 1)
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                  if (selectedOption == 1)
+                                    Text(
+                                      LocaleKeys.tax_number.tr(),
+                                      style: TextStyle(
                                 fontSize: FontSize.s20,
                                 fontWeight: FontWeightManager.bold,
-                              ),),
-                              if(selectedOption==1)
-                              SizedBox(height: 10,),
-                              if(selectedOption==1)
+                                      ),
+                                    ),
+                                  if (selectedOption == 1)
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  if (selectedOption == 1)
                               Card(
                                 elevation: 5,
-
                                 child: TextField(
                                   controller: controller,
-                                  inputFormatters:[
+                                        inputFormatters: [
                                     // LengthLimitingTextInputFormatter(10),
                                   ],
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
                                       fontWeight: FontWeightManager.bold,
-                                      fontFamily: GoogleFonts.lato().fontFamily,
-                                      fontSize: FontSize.s14
-                                  ),
+                                            fontFamily:
+                                                GoogleFonts.lato().fontFamily,
+                                            fontSize: FontSize.s14),
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius:
@@ -183,63 +220,86 @@ class _VatScreenState extends State<VatScreen> {
                                       borderSide: BorderSide.none,
                                     ),
                                     filled: true,
-                                    hintStyle: TextStyle(color: Colors.grey[500]),
+                                          hintStyle: TextStyle(
+                                              color: Colors.grey[500]),
                                     fillColor: Colors.white70,
-                                    hintText: 'اكتب هنا الرقم الضريبي',
-                                    contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                                          hintText: LocaleKeys.tax_number.tr(),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 15),
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(right: 33.0,left: 15,top: 20),
-                                child: Text('بعد التحقق من الرقم الضريبي سيتم إضافة 15% على سعر الليلة وتحصيله من الضيف عنكم وتحويله لكم مع الحوالات',style: TextStyle(
+                                    padding: const EdgeInsets.only(
+                                        right: 33.0, left: 15, top: 20),
+                                    child: Text(
+                                      LocaleKeys.vat_verification_note.tr(),
+                                      style: TextStyle(
                                   fontSize: FontSize.s16,
                                   fontWeight: FontWeightManager.bold,
-                                  color: ColorManager.mainlyBlueColor
-                                ),),
+                                          color: ColorManager.mainlyBlueColor),
+                                    ),
                               ),
                               Spacer(),
                               BlocConsumer<AppBloc, AppState>(
                                 listener: (context, state) {
-                                  if(state is UpdateCategorySuccessState){
-                                    // Future.delayed(const Duration(milliseconds: 500),(){
+                                      if (state is UpdateCategorySuccessState) {
                                       Navigator.pop(context);
-                                    // });
-                                      if(selectedOption!=1){
+                                        if (selectedOption != 1) {
                                         setState(() {
                                           controller.clear();
                                         });
                                       }
                                     Fluttertoast.showToast(
-                                        msg: "تم تعديل الرقم الضريبي",
+                                            msg: LocaleKeys.tax_number_updated
+                                                .tr(),
                                         toastLength: Toast.LENGTH_SHORT,
                                         gravity: ToastGravity.BOTTOM,
                                         timeInSecForIosWeb: 1,
                                         backgroundColor: Colors.green,
                                         textColor: Colors.white,
-                                        fontSize: 16.0
-                                    );
+                                            fontSize: 16.0);
                                   }
                                 },
                                 builder: (context, state) {
-                                  return KButton(onTap: (){
-                                    Map<String,dynamic> body ={
-                                      "is_applicable_for_vat":selectedOption,
-                                      "_method":"PUT",
-                                      "vat":"15",
-                                      "tin":selectedOption==1?controller.text:''
+                                      return KButton(
+                                        onTap: () {
+                                          Map<String, dynamic> body = {
+                                            "is_applicable_for_vat":
+                                                selectedOption,
+                                            "_method": "PUT",
+                                            "vat": "15",
+                                            "tin": selectedOption == 1
+                                                ? controller.text
+                                                : ''
                                     };
-                                    cubit.updateCategory(categoryId: widget.category.id??-1, body: body);
-                                  }, title: 'حفظ',width: size.width,paddingV: 15,isLoading: state is UpdateCategoryLoadingState,);
+                                          cubit.updateCategory(
+                                              categoryId:
+                                                  widget.category.id ?? -1,
+                                              body: body);
+                                        },
+                                        title: LocaleKeys.save.tr(),
+                                        width: size.width,
+                                        paddingV: 15,
+                                        isLoading:
+                                            state is UpdateCategoryLoadingState,
+                                      );
                                 },
                               ),
                             ],
                           );
-                        }
-                      ),
+                            }),
                     ),
-                  ),true,size.height-200);
-                }, title:controller.text.isEmpty? "أضف رقم ضريبي للكشتة":"تعديل الرقم الضريبي للكشتة",width: size.width,paddingV: 16,),
+                        ),
+                        true,
+                        size.height - 200);
+                  },
+                  title: controller.text.isEmpty
+                      ? LocaleKeys.add_tax_number.tr()
+                      : LocaleKeys.edit_tax_number.tr(),
+                  width: size.width,
+                  paddingV: 16,
+                ),
               ),
             ],
           ),

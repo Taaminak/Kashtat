@@ -5,6 +5,8 @@ import '../../../../Core/constants/app_size.dart';
 import '../../../../Core/constants/style_manager.dart';
 import '../../../../Features/Widgets/custom_button.dart';
 import '../../../../Features/Widgets/custom_container.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:kashtat/translations/locale_keys.g.dart';
 
 class BuildCoponButton extends StatelessWidget {
   const BuildCoponButton({
@@ -36,7 +38,7 @@ class BuildCoponButton extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 6.0),
                     child: Text(
-                      "أنشئ كود خصم جديد",
+                      LocaleKeys.new_discount_code.tr(),
                       textAlign: TextAlign.center,
                       style: StyleManager.getBoldStyle(
                           fontSize: AppSize.sp14, color: ColorManager.white),

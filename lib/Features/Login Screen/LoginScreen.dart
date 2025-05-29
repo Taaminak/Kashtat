@@ -139,16 +139,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ImageManager.ksaLogo,
                                   width: 20,
                                 ),
-                                const Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 4.0, left: 5, right: 5),
-                                  child: Text(
-                                    '+966',
-                                    style: TextStyle(
-                                      fontWeight: FontWeightManager.bold,
-                                    ),
-                                  ),
-                                ),
+                                // const Padding(
+                                //   padding: const EdgeInsets.only(
+                                //       top: 4.0, left: 5, right: 5),
+                                //   child: Text(
+                                //     '+966',
+                                //     style: TextStyle(
+                                //       fontWeight: FontWeightManager.bold,
+                                //     ),
+                                //   ),
+                                // ),
                                 Expanded(
                                   child: TextField(
                                     controller: controller,
@@ -172,6 +172,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                           TextStyle(color: Colors.grey[800]),
                                       fillColor: Colors.white70,
                                       contentPadding: EdgeInsets.zero,
+                                      prefixIcon: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 8.0, right: 8, top: 17),
+                                        child: Text(
+                                          LocaleKeys.country_code.tr(),
+                                          style: TextStyle(
+                                            fontSize: FontSize.s16,
+                                            fontWeight: FontWeightManager.bold,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 )
@@ -188,7 +199,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       BlocConsumer<AuthBloc, AuthState>(
                         listener: (context, state) async {
                           if (state is LoginSuccess) {
-                            final SharedPreferences prefs = await SharedPreferences.getInstance();
+                            final SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
                             await prefs.setString('phone', controller.text);
                             Navigator.pop(context, ["otp"]);
                           }

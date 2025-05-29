@@ -7,6 +7,8 @@ import '../../../Core/constants/app_size.dart';
 import '../../../Core/constants/style_manager.dart';
 import '../../../Features/Widgets/custom_button.dart';
 import '../../../Features/Widgets/image_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:kashtat/translations/locale_keys.g.dart';
 
 class CouponsScreen extends StatefulWidget {
   const CouponsScreen({super.key});
@@ -52,7 +54,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
                   height: AppSize.h10,
                 ),
                 Text(
-                  " أكواد الخصم ",
+                  LocaleKeys.discount_codes.tr(),
                   textAlign: TextAlign.right,
                   style: StyleManager.getBoldStyle(
                       fontSize: AppSize.sp30, color: ColorManager.black),
@@ -80,7 +82,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
                   height: AppSize.h10,
                 ),
                 Text(
-                  "إنشاء كود خصم",
+                  LocaleKeys.create_discount_code.tr(),
                   textAlign: TextAlign.right,
                   style: StyleManager.getBoldStyle(
                       fontSize: AppSize.sp14, color: ColorManager.white),
@@ -103,7 +105,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              "حدد الكشتة / العقار او الوحدات التي ترغب بأن يطبق عليها الخصم",
+                              LocaleKeys.select_kashta_or_units.tr(),
                               textAlign: TextAlign.right,
                               style: StyleManager.getBoldStyle(
                                   fontSize: AppSize.sp18,
@@ -113,7 +115,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
                               height: AppSize.h50,
                             ),
                             Text(
-                              "اختر الكشتة",
+                              LocaleKeys.choose_kashta.tr(),
                               textAlign: TextAlign.right,
                               style: StyleManager.getBoldStyle(
                                   fontSize: AppSize.sp20,
@@ -131,7 +133,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
                         color: ColorManager.primaryColor,
                         child: Center(
                           child: Text(
-                            "التالى",
+                            LocaleKeys.next.tr(),
                             textAlign: TextAlign.center,
                             style: StyleManager.getBoldStyle(
                                 fontSize: AppSize.sp14,

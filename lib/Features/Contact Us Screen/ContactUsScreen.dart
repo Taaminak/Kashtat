@@ -7,9 +7,13 @@ import 'package:kashtat/Core/constants/ColorManager.dart';
 import 'package:kashtat/Core/constants/FontManager.dart';
 import 'package:kashtat/Core/constants/ImageManager.dart';
 import 'package:kashtat/Features/Widgets/kButton.dart';
+import 'package:kashtat/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ContactUsScreen extends StatefulWidget {
-  const ContactUsScreen({Key? key,}) : super(key: key);
+  const ContactUsScreen({
+    Key? key,
+  }) : super(key: key);
   @override
   State<ContactUsScreen> createState() => _ContactUsScreenState();
 }
@@ -72,7 +76,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'تواصل معنا',
+                              LocaleKeys.contact_us.tr(),
                               style: TextStyle(
                                 fontSize: FontSize.s34,
                                 fontWeight: FontWeightManager.bold,
@@ -88,61 +92,74 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                     color: Colors.grey.withOpacity(0.2),
                                     spreadRadius: 3,
                                     blurRadius: 7,
-                                    offset: const Offset(0, 0), // changes position of shadow
+                                    offset: const Offset(
+                                        0, 0), // changes position of shadow
                                   ),
-
                                 ],
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child:Column(
-                                  children: [
-                                    TextFormField(
-                                      controller: controller,
-                                      minLines: 15,
-                                      maxLines: 25,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Column(
+                                    children: [
+                                      TextFormField(
+                                        controller: controller,
+                                        minLines: 15,
+                                        maxLines: 25,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                        ),
+                                        cursorColor:
+                                            ColorManager.mainlyBlueColor,
+                                        onChanged: (String text) {
+                                          setState(() {
+                                            this.text = text;
+                                          });
+                                        },
                                       ),
-                                      cursorColor: ColorManager.mainlyBlueColor,
-                                      onChanged: (String text){
-                                        setState(() {
-                                          this.text = text;
-                                        });
-                                      },
-                                    ),
-                                    KButton(onTap: ()async{
-                                      if(controller.text.isEmpty)
-                                        return;
-                                      setState(() {
-                                        isLoading = true;
-                                      });
-                                      final cubit = BlocProvider.of<AppBloc>(context);
-                                      await cubit.createNewComplain(message: controller.text);
-                                      Fluttertoast.showToast(
-                                          msg: "Message Sent Successfully",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.BOTTOM,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.green,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0
-                                      );
-                                      setState(() {
-                                        isLoading = false;
-                                        controller.text = '';
-                                      });
-                                      // loading();
-                                    }, title: 'ارسال',width: 200,paddingV: 15,isLoading: isLoading,clr: text.isEmpty?Colors.grey:Color(0xff482383),)
-                                  ],
-                                )
-                              ),
+                                      KButton(
+                                        onTap: () async {
+                                          if (controller.text.isEmpty) return;
+                                          setState(() {
+                                            isLoading = true;
+                                          });
+                                          final cubit =
+                                              BlocProvider.of<AppBloc>(context);
+                                          await cubit.createNewComplain(
+                                              message: controller.text);
+                                          Fluttertoast.showToast(
+                                            msg: LocaleKeys
+                                                .message_sent_successfully
+                                                .tr(),
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.green,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0,
+                                          );
+                                          setState(() {
+                                            isLoading = false;
+                                            controller.text = '';
+                                          });
+                                        },
+                                        title: LocaleKeys.send.tr(),
+                                        width: 200,
+                                        paddingV: 15,
+                                        isLoading: isLoading,
+                                        clr: text.isEmpty
+                                            ? Colors.grey
+                                            : Color(0xff482383),
+                                      )
+                                    ],
+                                  )),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 20,)
+                    SizedBox(
+                      height: 20,
+                    )
                   ],
                 ),
               ),
@@ -152,24 +169,28 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       ),
     );
   }
+
   bool isLoading = false;
-  Future<void> loading()async{setState(() {
-    isLoading = true;
-  });
-    Future.delayed(Duration(seconds: 1),() {
-      Fluttertoast.showToast(
-          msg: "Message Sent Successfully",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );
-      setState(() {
-        isLoading = false;
-        controller.text = '';
-      });
-    },);
+  Future<void> loading() async {
+    setState(() {
+      isLoading = true;
+    });
+    Future.delayed(
+      Duration(seconds: 1),
+      () {
+        Fluttertoast.showToast(
+            msg: "Message Sent Successfully",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        setState(() {
+          isLoading = false;
+          controller.text = '';
+        });
+      },
+    );
   }
 }

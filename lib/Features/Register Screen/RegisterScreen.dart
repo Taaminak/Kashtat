@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,10 +13,6 @@ import 'dart:ui' as ui;
 
 import '../../Core/Cubit/AuthCubit.dart';
 import '../../Core/Cubit/AuthState.dart';
-import '../../Core/constants/APIsManager.dart';
-import '../../Core/constants/RoutesManager.dart';
-import '../../Core/models/AuthModels/LoginSuccess.dart';
-import '../../Core/models/AuthModels/RegistrationSuccess.dart';
 import '../Widgets/kButton.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -98,14 +91,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             style: TextStyle(
                               fontWeight: FontWeightManager.bold,
                               fontSize: FontSize.s36,
-
                             ),
                           ),
                           const Spacer(),
                         ],
                       ),
                       Text(
-                        LocaleKeys.create_your_account_to_benefit_from_Kashtat_services.tr().capitalize(),
+                        LocaleKeys
+                            .create_your_account_to_benefit_from_Kashtat_services
+                            .tr()
+                            .capitalize(),
                         style: TextStyle(
                           color: const Color(0xffA6A6A6),
                           fontWeight: FontWeightManager.bold,
@@ -146,9 +141,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     controller: phoneController,
                                     style: TextStyle(
                                         fontWeight: FontWeightManager.bold,
-                                        fontFamily: GoogleFonts.lato().fontFamily,
-                                        fontSize: FontSize.s14
-                                    ),
+                                        fontFamily:
+                                            GoogleFonts.lato().fontFamily,
+                                        fontSize: FontSize.s14),
                                     decoration: InputDecoration(
                                         border: OutlineInputBorder(
                                           borderRadius:
@@ -181,8 +176,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             style: TextStyle(
                                 fontWeight: FontWeightManager.bold,
                                 fontFamily: GoogleFonts.lato().fontFamily,
-                                fontSize: FontSize.s14
-                            ),
+                                fontSize: FontSize.s14),
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
@@ -203,7 +197,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Checkbox(
-                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
                             activeColor: const Color(0xffE8470A),
                             value: checked,
                             onChanged: (value) {
@@ -220,11 +215,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Padding(
                               padding: const EdgeInsets.only(top: 6.0),
                               child: Text(
-                                LocaleKeys.i_have_read_and_agree_to_the_terms_and_conditions_of_Kashtat.tr(),
+                                LocaleKeys
+                                    .i_have_read_and_agree_to_the_terms_and_conditions_of_Kashtat
+                                    .tr(),
                                 style: TextStyle(
-                                    color: const Color(0xff482383),
-                                    fontWeight: FontWeightManager.bold,
-                                    fontSize: FontSize.s14,
+                                  color: const Color(0xff482383),
+                                  fontWeight: FontWeightManager.bold,
+                                  fontSize: FontSize.s14,
                                 ),
                               ),
                             ),
@@ -236,33 +233,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         listener: (context, state) async {
                           if (state is RegisterSuccess) {
                             final SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                            await prefs.setString('phone', phoneController.text);
+                                await SharedPreferences.getInstance();
+                            await prefs.setString(
+                                'phone', phoneController.text);
                             Navigator.pop(context, ["otp"]);
                           }
                           if (state is RegisterFailed) {
                             final snackBar = SnackBar(
                               content: Text(state.msg.toString()),
                             );
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           }
                         },
                         builder: (context, state) {
                           return KButton(
-                            onTap: () {if(checked){
-                              if (phoneController.text.length < 8 || nameController.text.isEmpty) {
-                                return;
+                            onTap: () {
+                              if (checked) {
+                                if (phoneController.text.length < 8 ||
+                                    nameController.text.isEmpty) {
+                                  return;
+                                }
+                                final authCubit =
+                                    BlocProvider.of<AuthBloc>(context);
+                                authCubit.register(
+                                    phone: phoneController.text,
+                                    name: nameController.text);
+                              } else {
+                                final snackBar = SnackBar(
+                                  content:
+                                      Text(LocaleKeys.must_accept_terms.tr()),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
                               }
-                              final authCubit =
-                              BlocProvider.of<AuthBloc>(context);
-                              authCubit.register(phone: phoneController.text,name: nameController.text);
-                            }else{
-                              const snackBar = SnackBar(
-                                content: Text('يجب الموافقة علي الشروط اولا'),
-                              );
-                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                            }
-
                             },
                             title: LocaleKeys.register.tr().capitalize(),
                             width: size.width,

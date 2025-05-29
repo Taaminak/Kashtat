@@ -41,16 +41,15 @@ class _OTPScreenState extends State<OTPScreen> {
     super.initState();
   }
 
-  checkGuestUser()async{
+  checkGuestUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     phone = prefs.getString('phone') ?? '';
-    if(phone.contains('123456789')){
-      String code = prefs.getString('guest_otp') ??'';
+    if (phone.contains('123456789')) {
+      String code = prefs.getString('guest_otp') ?? '';
       controller.text = code;
     }
     setState(() {});
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +67,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 alignment: Alignment.centerLeft,
                 child: InkWell(
                   onTap: () {
-                      context.pop();
+                    context.pop();
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(16.0),
@@ -106,7 +105,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     children: [
                       const SizedBox(height: 35),
                       Text(
-                        LocaleKeys.login.tr(),
+                        LocaleKeys.enter_otp.tr(),
                         style: TextStyle(
                           fontWeight: FontWeightManager.bold,
                           fontSize: FontSize.s36,
@@ -161,8 +160,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       BlocConsumer<AuthBloc, AuthState>(
                         listener: (context, state) async {
                           if (state is OtpSuccess) {
-
-                            Navigator.pop(context,[true]);
+                            Navigator.pop(context, [true]);
                           }
                           if (state is OtpFailed) {
                             final snackBar = SnackBar(
@@ -174,13 +172,15 @@ class _OTPScreenState extends State<OTPScreen> {
                         },
                         builder: (context, state) {
                           return KButton(
-                            onTap: () async{
+                            onTap: () async {
                               if (controller.text.length < 6) {
                                 return;
                               }
 
-                              final authCubit = BlocProvider.of<AuthBloc>(context);
-                              authCubit.otpLogin(phone: phone,otpCode: controller.text);
+                              final authCubit =
+                                  BlocProvider.of<AuthBloc>(context);
+                              authCubit.otpLogin(
+                                  phone: phone, otpCode: controller.text);
                             },
                             title: LocaleKeys.login.tr().capitalize(),
                             width: size.width,

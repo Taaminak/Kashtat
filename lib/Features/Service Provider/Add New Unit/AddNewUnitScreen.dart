@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,9 +8,10 @@ import 'package:kashtat/Core/constants/FontManager.dart';
 import 'package:kashtat/Core/constants/ImageManager.dart';
 import 'package:kashtat/Features/Wallet%20Logs%20Screen/Widgets/WalletItemWidget.dart';
 import 'package:kashtat/Features/Widgets/Loader.dart';
+import 'package:kashtat/translations/locale_keys.g.dart';
 
 import '../../../Core/Cubit/AppCubit.dart';
-import '../../Add Name And DescriptionScreen/screen_51.dart';
+import '../../Add Name And DescriptionScreen/AddNameAndDescriptionScreen.dart';
 import '../../Widgets/kButton.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -77,7 +79,7 @@ class _AddNewUnitScreenState extends State<AddNewUnitScreen> {
                                 ),
                               ),
                               Text(
-                                'التسجيل',
+                                LocaleKeys.register.tr(),
                                 style: TextStyle(
                                   fontSize: FontSize.s34,
                                   fontWeight: FontWeightManager.bold,
@@ -87,7 +89,7 @@ class _AddNewUnitScreenState extends State<AddNewUnitScreen> {
                                 height: 10,
                               ),
                               Text(
-                                'معلومات الكشتة - الخدمة',
+                                LocaleKeys.kashta_service_information.tr(),
                                 style: TextStyle(
                                   fontSize: FontSize.s20,
                                   fontWeight: FontWeightManager.bold,
@@ -103,7 +105,8 @@ class _AddNewUnitScreenState extends State<AddNewUnitScreen> {
                                   Row(
                                     children: [
                                       Text(
-                                        'حدد التصنيف المناسب',
+                                        LocaleKeys.select_appropriate_category
+                                            .tr(),
                                         style: TextStyle(
                                           fontSize: FontSize.s16,
                                           fontWeight: FontWeightManager.bold,
@@ -155,15 +158,29 @@ class _AddNewUnitScreenState extends State<AddNewUnitScreen> {
                                                             .spaceEvenly,
                                                     children: [
                                                       CachedNetworkImage(
-                                                        imageUrl: cubit.allCreateUnitCategory[i].img,
+                                                        imageUrl: cubit
+                                                            .allCreateUnitCategory[
+                                                                i]
+                                                            .img,
                                                         height: 30,
                                                         width: 30,
                                                         fit: BoxFit.contain,
-                                                        color: selected == i ? Colors.white : ColorManager.mainlyBlueColor,
-                                                        placeholder: (context, url) => const Loader(),
-                                                        errorWidget: (context, url, error) => Icon(
-                                                          Icons.image_not_supported_outlined,
-                                                          color: selected == i ? Colors.white : ColorManager.greyColor,
+                                                        color: selected == i
+                                                            ? Colors.white
+                                                            : ColorManager
+                                                                .mainlyBlueColor,
+                                                        placeholder:
+                                                            (context, url) =>
+                                                                const Loader(),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(
+                                                          Icons
+                                                              .image_not_supported_outlined,
+                                                          color: selected == i
+                                                              ? Colors.white
+                                                              : ColorManager
+                                                                  .greyColor,
                                                         ),
                                                       ),
                                                       // Image.asset(icons[0],height: 30,color: selected ==i? Colors.white:ColorManager.mainlyBlueColor,),
@@ -206,12 +223,12 @@ class _AddNewUnitScreenState extends State<AddNewUnitScreen> {
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: KButton(
-                      onTap: () async{
-                        if (/*_controller.text.isEmpty || */selected == -1) {
+                      onTap: () async {
+                        if (selected == -1) {
                           final snackBar = SnackBar(
                             content: Center(
                                 child: Text(
-                              'ادخل اسم الكشتة',
+                              LocaleKeys.enter_kashta_name.tr(),
                               textAlign: TextAlign.center,
                             )),
                           );
@@ -221,19 +238,32 @@ class _AddNewUnitScreenState extends State<AddNewUnitScreen> {
 
                         final cubit = BlocProvider.of<AppBloc>(context);
                         cubit.updateNewUnitCategoryAndTitle(
-                          catId: cubit.allCreateUnitCategory[selected].categoryId,
-                          subCatId: cubit.allCreateUnitCategory[selected].subCategoryId??-1,
+                          catId:
+                              cubit.allCreateUnitCategory[selected].categoryId,
+                          subCatId: cubit.allCreateUnitCategory[selected]
+                                  .subCategoryId ??
+                              -1,
                         );
 
-                        if(widget.isUpdate){
-                          await cubit.updateUnitCategories(unitId: cubit.selectedUnit.id??-1);
+                        if (widget.isUpdate) {
+                          await cubit.updateUnitCategories(
+                              unitId: cubit.selectedUnit.id ?? -1);
                           Navigator.pop(context);
-                        }else{
-                          Navigator.push(context, MaterialPageRoute(builder: (context) =>  AddNameAndDescriptionScreen(serviceName: cubit.allCreateUnitCategory[selected].serviceText,)));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      AddNameAndDescriptionScreen(
+                                        serviceName: cubit
+                                            .allCreateUnitCategory[selected]
+                                            .serviceText,
+                                      )));
                         }
-
                       },
-                      title: widget.isUpdate?'تحديث':'التالي',
+                      title: widget.isUpdate
+                          ? LocaleKeys.update.tr()
+                          : LocaleKeys.next.tr(),
                       width: size.width,
                       paddingV: 18,
                     ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kashtat/Core/constants/ImageManager.dart';
 import 'package:kashtat/Core/Extentions/media_values.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:kashtat/translations/locale_keys.g.dart';
 import '../../../Core/constants/ColorManager.dart';
 import '../../../Core/constants/app_size.dart';
 import '../../../Core/constants/style_manager.dart';
@@ -49,7 +51,7 @@ class _UsageTermsScreenState extends State<UsageTermsScreen> {
                 height: AppSize.h10,
               ),
               Text(
-                "اتفاقية الاستخدام ",
+                LocaleKeys.usage_terms_title.tr(),
                 textAlign: TextAlign.right,
                 style: StyleManager.getBoldStyle(
                     fontSize: AppSize.sp30, color: ColorManager.black),

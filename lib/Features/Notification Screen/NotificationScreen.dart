@@ -10,17 +10,18 @@ import '../../Core/constants/FontManager.dart';
 import '../../Core/constants/ImageManager.dart';
 
 class NotificationsScreen extends StatelessWidget {
-  const NotificationsScreen({Key? key, this.fromDashboard = false}) : super(key: key);
+  const NotificationsScreen({Key? key, this.fromDashboard = false})
+      : super(key: key);
   final bool fromDashboard;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-
       appBar: AppBar(
-        backgroundColor: ColorManager.mainlyBlueColor,leading: SizedBox(),
-        title: Text('الاشعارات'),
+        backgroundColor: ColorManager.mainlyBlueColor,
+        leading: SizedBox(),
+        title: Text(LocaleKeys.notifications.tr()),
         centerTitle: true,
         actions: [
           InkWell(
@@ -38,40 +39,57 @@ class NotificationsScreen extends StatelessWidget {
           )
         ],
       ),
-      body: (true? Center(
-        child: Text('لا يوجد لديك اشعارات في الوقت الحالي',style: TextStyle(
-          color: ColorManager.darkerGreyColor,
-          fontWeight: FontWeight.w500,
-        ),),
-      ):ListView.builder(
-          itemCount: 5,
-          itemBuilder: (context,index){
-        return Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: ContainerDecorated(content: Column(
-            children: [
-              Text('للأسف لم يتم قبول طلب إضافة تعليمات الوصول بسبب الرجاء إضافة صورة البوابة الخارجية بشكل واضح',style: TextStyle(
-                color: ColorManager.mainlyBlueColor,
-                fontWeight: FontWeight.bold,
-              ),),
-              SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                Text('شاليهات القمر',style: TextStyle(
+      body: (true
+          ? Center(
+              child: Text(
+                LocaleKeys.no_notifications.tr(),
+                style: TextStyle(
                   color: ColorManager.darkerGreyColor,
                   fontWeight: FontWeight.w500,
-                ),),
-                Text('25 اكتوبر 2023',style: TextStyle(
-                  color: ColorManager.darkerGreyColor,
-                  fontWeight: FontWeight.w500,
-                ),),
-              ],)
-            ],
-          )),
-        );
-      })),
+                ),
+              ),
+            )
+          : ListView.builder(
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: ContainerDecorated(
+                      content: Column(
+                    children: [
+                      Text(
+                        LocaleKeys.arrival_instructions_rejected.tr(),
+                        style: TextStyle(
+                          color: ColorManager.mainlyBlueColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            LocaleKeys.moon_chalets.tr(),
+                            style: TextStyle(
+                              color: ColorManager.darkerGreyColor,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            LocaleKeys.date_format.tr(),
+                            style: TextStyle(
+                              color: ColorManager.darkerGreyColor,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  )),
+                );
+              })),
     );
   }
 }
-

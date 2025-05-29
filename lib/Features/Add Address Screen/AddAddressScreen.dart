@@ -16,6 +16,8 @@ import '../../../Core/models/CityModel.dart';
 import '../../../Features/Widgets/image_widget.dart';
 import '../../../Features/Widgets/kButton.dart';
 import '../Add New Unit Photos Screen/AddNewUnitPhotosScreen.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../translations/locale_keys.g.dart';
 
 class AddAddressScreen extends StatefulWidget {
   const AddAddressScreen({super.key, this.isUpdate = false});
@@ -37,17 +39,14 @@ class _Screen63State extends State<AddAddressScreen> {
 }
 
 class AddAddressWidget extends StatefulWidget {
-  const AddAddressWidget({
-    super.key, required this.isUpdate});
+  const AddAddressWidget({super.key, required this.isUpdate});
   final bool isUpdate;
-
 
   @override
   State<AddAddressWidget> createState() => _AddAddressWidgetState();
 }
 
 class _AddAddressWidgetState extends State<AddAddressWidget> {
-
   TextEditingController cityController = TextEditingController();
   TextEditingController controller = TextEditingController();
   int count = 5;
@@ -56,12 +55,11 @@ class _AddAddressWidgetState extends State<AddAddressWidget> {
   @override
   void initState() {
     setState(() {
-      if(BlocProvider.of<AppBloc>(context).allCities.isNotEmpty){
+      if (BlocProvider.of<AppBloc>(context).allCities.isNotEmpty) {
         selectedCity = BlocProvider.of<AppBloc>(context).allCities.first;
       }
-      if(selectedCity !=null){
-        if(selectedCity!.states.isNotEmpty){
-
+      if (selectedCity != null) {
+        if (selectedCity!.states.isNotEmpty) {
           selectedState = selectedCity!.states.first;
         }
       }
@@ -106,7 +104,9 @@ class _AddAddressWidgetState extends State<AddAddressWidget> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 60,),
+                              SizedBox(
+                                height: 60,
+                              ),
 
                               Align(
                                 alignment: Alignment.centerLeft,
@@ -128,28 +128,31 @@ class _AddAddressWidgetState extends State<AddAddressWidget> {
                                 height: AppSize.h20,
                               ),
                               Text(
-                                " العنوان ",
+                                LocaleKeys.address.tr(),
                                 textAlign: TextAlign.right,
                                 style: StyleManager.getBoldStyle(
-                                    fontSize: AppSize.sp30, color: ColorManager.black),
+                                    fontSize: AppSize.sp30,
+                                    color: ColorManager.black),
                               ),
                               SizedBox(
                                 height: AppSize.h10,
                               ),
                               Text(
-                                " أضف عنوانك ",
+                                LocaleKeys.add_your_address.tr(),
                                 textAlign: TextAlign.right,
                                 style: StyleManager.getBoldStyle(
-                                    fontSize: AppSize.sp20, color: ColorManager.black),
+                                    fontSize: AppSize.sp20,
+                                    color: ColorManager.black),
                               ),
                               SizedBox(
                                 height: AppSize.h10,
                               ),
                               Text(
-                                "المدينة",
+                                LocaleKeys.city.tr(),
                                 textAlign: TextAlign.right,
                                 style: StyleManager.getBoldStyle(
-                                    fontSize: AppSize.sp16, color: ColorManager.black),
+                                    fontSize: AppSize.sp16,
+                                    color: ColorManager.black),
                               ),
                               Container(
                                 decoration: BoxDecoration(
@@ -159,45 +162,64 @@ class _AddAddressWidgetState extends State<AddAddressWidget> {
                                       color: Colors.grey.withOpacity(0.2),
                                       spreadRadius: 3,
                                       blurRadius: 7,
-                                      offset: Offset(0, 0), // changes position of shadow
+                                      offset: Offset(
+                                          0, 0), // changes position of shadow
                                     ),
                                   ],
                                   borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(color: Colors.grey.withOpacity(0.2), width: 1),
+                                  border: Border.all(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      width: 1),
                                 ),
-                                child: (cubit.allCities.isEmpty || selectedCity ==null)? SizedBox(width:double.infinity,child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: Text('لا يوجد مدن'),
-                                )): DropdownButtonHideUnderline(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: ButtonTheme(
-                                      alignedDropdown: true,
-                                      child: DropdownButton<String>(
-                                        value: selectedCity!.name,
-                                        isExpanded: true,
-                                        iconDisabledColor: ColorManager.orangeColor,
-                                        iconEnabledColor: ColorManager.orangeColor,
-                                        items: cubit.allCities.map<DropdownMenuItem<String>>(( value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value.name,
-                                            child: Text(
-                                              value.name,
-                                              style: const TextStyle(fontSize: 14),
+                                child: (cubit.allCities.isEmpty ||
+                                        selectedCity == null)
+                                    ? SizedBox(
+                                        width: double.infinity,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(15.0),
+                                          child:
+                                              Text(LocaleKeys.no_cities.tr()),
+                                        ))
+                                    : DropdownButtonHideUnderline(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          child: ButtonTheme(
+                                            alignedDropdown: true,
+                                            child: DropdownButton<String>(
+                                              value: selectedCity!.name,
+                                              isExpanded: true,
+                                              iconDisabledColor:
+                                                  ColorManager.orangeColor,
+                                              iconEnabledColor:
+                                                  ColorManager.orangeColor,
+                                              items: cubit.allCities.map<
+                                                      DropdownMenuItem<String>>(
+                                                  (value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value.name,
+                                                  child: Text(
+                                                    value.name,
+                                                    style: const TextStyle(
+                                                        fontSize: 14),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                              onChanged: (String? newValue) {
+                                                City selected = cubit.allCities
+                                                    .firstWhere((element) =>
+                                                        element.name ==
+                                                        newValue);
+                                                setState(() {
+                                                  selectedCity = selected;
+                                                  selectedState = selectedCity!
+                                                      .states.first;
+                                                });
+                                              },
                                             ),
-                                          );
-                                        }).toList(),
-                                        onChanged: (String? newValue) {
-                                          City selected = cubit.allCities.firstWhere((element) => element.name == newValue);
-                                          setState(() {
-                                            selectedCity = selected;
-                                            selectedState = selectedCity!.states.first;
-                                          });
-                                        },
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ),
                               ),
 
                               // CustomTxtFlied(
@@ -216,44 +238,63 @@ class _AddAddressWidgetState extends State<AddAddressWidget> {
                                       color: Colors.grey.withOpacity(0.2),
                                       spreadRadius: 3,
                                       blurRadius: 7,
-                                      offset: Offset(0, 0), // changes position of shadow
+                                      offset: Offset(
+                                          0, 0), // changes position of shadow
                                     ),
                                   ],
                                   borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(color: Colors.grey.withOpacity(0.2), width: 1),
+                                  border: Border.all(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      width: 1),
                                 ),
-                                child: (selectedCity!.states.isEmpty || selectedCity ==null)?  SizedBox(width:double.infinity,child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: Text('لا يوجد حي'),
-                                )): DropdownButtonHideUnderline(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: ButtonTheme(
-                                      alignedDropdown: true,
-                                      child: DropdownButton<String>(
-                                        value: selectedState!.name,
-                                        isExpanded: true,
-                                        iconDisabledColor: ColorManager.orangeColor,
-                                        iconEnabledColor: ColorManager.orangeColor,
-                                        items: selectedCity!.states.map<DropdownMenuItem<String>>(( value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value.name,
-                                            child: Text(
-                                              value.name,
-                                              style: const TextStyle(fontSize: 14),
+                                child: (selectedCity!.states.isEmpty ||
+                                        selectedCity == null)
+                                    ? SizedBox(
+                                        width: double.infinity,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(15.0),
+                                          child: Text(
+                                              LocaleKeys.no_districts.tr()),
+                                        ))
+                                    : DropdownButtonHideUnderline(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          child: ButtonTheme(
+                                            alignedDropdown: true,
+                                            child: DropdownButton<String>(
+                                              value: selectedState!.name,
+                                              isExpanded: true,
+                                              iconDisabledColor:
+                                                  ColorManager.orangeColor,
+                                              iconEnabledColor:
+                                                  ColorManager.orangeColor,
+                                              items: selectedCity!.states.map<
+                                                      DropdownMenuItem<String>>(
+                                                  (value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value.name,
+                                                  child: Text(
+                                                    value.name,
+                                                    style: const TextStyle(
+                                                        fontSize: 14),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                              onChanged: (String? newValue) {
+                                                StateModel selected =
+                                                    selectedCity!.states
+                                                        .firstWhere((element) =>
+                                                            element.name ==
+                                                            newValue);
+                                                setState(() {
+                                                  selectedState = selected;
+                                                });
+                                              },
                                             ),
-                                          );
-                                        }).toList(),
-                                        onChanged: (String? newValue) {
-                                          StateModel selected = selectedCity!.states.firstWhere((element) => element.name == newValue);
-                                          setState(() {
-                                            selectedState = selected;
-                                          });
-                                        },
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ),
                               ),
 
                               // CustomTxtFlied(
@@ -261,96 +302,111 @@ class _AddAddressWidgetState extends State<AddAddressWidget> {
                               //   controller: widget.controller,
                               // ),
 
-                              if(!widget.isUpdate && cubit.unitBody.subCategoryId != 8)
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: AppSize.h15,
-                                  ),
-                                  Text(
-                                    "حدد موقعك على الخريطة",
-                                    textAlign: TextAlign.right,
-                                    style: StyleManager.getBoldStyle(
-                                        fontSize: AppSize.sp16, color: ColorManager.black),
-                                  ),
-                                  InkWell(
-                                    onTap: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>MapScreen()));
-                                    },
-                                    child: AssetImageWidget(
-                                      imgPath: ImageManager.location,
-                                      width: context.width,
-                                      height: 138.h,
+                              if (!widget.isUpdate &&
+                                  cubit.unitBody.subCategoryId != 8)
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: AppSize.h15,
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: AppSize.h15,
-                                  ),
-                                  Text(
-                                    "كم عدد الأشخاص الذين تسعهم الكشتة / العقار",
-                                    textAlign: TextAlign.right,
-                                    overflow: TextOverflow.visible,
-                                    style: StyleManager.getBoldStyle(
-                                        fontSize: AppSize.sp14, color: ColorManager.black),
-                                  ),
-                                  SizedBox(
-                                    height: AppSize.h10,
-                                  ),
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      InkWell(
-                                          onTap: (){
-
-                                            if(count <10){
-
-                                              setState(() {
-                                                count += 1;
-                                              });
-                                            }
-                                          },
-                                          child: const Icon(Icons.add, size: 25, color: ColorManager.black)),
-                                      Card(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8.r),
-                                          ),
-                                          child: Container(
-                                            // padding: EdgeInsets.symmetric(horizontal: 10.r),
-                                            height: 50.h,
-                                            width: 60.w,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(color: ColorManager.grey, width: 0.5.r),
-                                              borderRadius: BorderRadius.circular(8.r),
+                                    Text(
+                                      LocaleKeys.select_location_on_map.tr(),
+                                      textAlign: TextAlign.right,
+                                      style: StyleManager.getBoldStyle(
+                                          fontSize: AppSize.sp16,
+                                          color: ColorManager.black),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MapScreen()));
+                                      },
+                                      child: AssetImageWidget(
+                                        imgPath: ImageManager.location,
+                                        width: context.width,
+                                        height: 138.h,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: AppSize.h15,
+                                    ),
+                                    Text(
+                                      LocaleKeys.how_many_people.tr(),
+                                      textAlign: TextAlign.right,
+                                      overflow: TextOverflow.visible,
+                                      style: StyleManager.getBoldStyle(
+                                          fontSize: AppSize.sp14,
+                                          color: ColorManager.black),
+                                    ),
+                                    SizedBox(
+                                      height: AppSize.h10,
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                            onTap: () {
+                                              if (count < 10) {
+                                                setState(() {
+                                                  count += 1;
+                                                });
+                                              }
+                                            },
+                                            child: const Icon(Icons.add,
+                                                size: 25,
+                                                color: ColorManager.black)),
+                                        Card(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.r),
                                             ),
-                                            child: Center(
-                                                child: Text(
-                                                  count.toString(),
-                                                  textAlign: TextAlign.center,
-                                                  style: StyleManager.getBoldStyle(
-                                                      fontSize: AppSize.sp25, color: ColorManager.black),
-                                                )),
-                                          )),
-                                      InkWell(
-                                          onTap: (){
-                                            if(count >1){
-
-                                              setState(() {
-                                                count -= 1;
-                                              });
-                                            }
-                                          },
-                                          child: const Icon(Icons.remove, size: 25, color: ColorManager.black)),
-                                    ],
-                                  ),
-
-                                  SizedBox(
-                                    height: AppSize.h10,
-                                  ),
-
-                                ],
-                              )
+                                            child: Container(
+                                              // padding: EdgeInsets.symmetric(horizontal: 10.r),
+                                              height: 50.h,
+                                              width: 60.w,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: ColorManager.grey,
+                                                    width: 0.5.r),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.r),
+                                              ),
+                                              child: Center(
+                                                  child: Text(
+                                                count.toString(),
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    StyleManager.getBoldStyle(
+                                                        fontSize: AppSize.sp25,
+                                                        color:
+                                                            ColorManager.black),
+                                              )),
+                                            )),
+                                        InkWell(
+                                            onTap: () {
+                                              if (count > 1) {
+                                                setState(() {
+                                                  count -= 1;
+                                                });
+                                              }
+                                            },
+                                            child: const Icon(Icons.remove,
+                                                size: 25,
+                                                color: ColorManager.black)),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: AppSize.h10,
+                                    ),
+                                  ],
+                                )
                               // CustomConatiner(
                               //     height: AppSize.h450,
                               //     width: context.width,
@@ -366,70 +422,90 @@ class _AddAddressWidgetState extends State<AddAddressWidget> {
                       ),
                     ),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: BlocConsumer<AppBloc, AppState>(
-                      listener: (context, state) {
-                      },
+                      listener: (context, state) {},
                       builder: (context, state) {
                         return KButton(
-                      isLoading: state is UpdateUnitLoadingState,
-                      onTap: () async{
-                        final cubit = BlocProvider.of<AppBloc>(context);
-                        if(selectedState == null || selectedCity == null){
-                          const snackBar = SnackBar(
-                            content: Center(child: Text('من فضلك اختر المدينة والحي',textAlign: TextAlign.center,)),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          return;
-                        }
-                        if((cubit.unitBody.longitude == null || cubit.unitBody.longitude == null)&&!widget.isUpdate&&cubit.unitBody.subCategoryId != 8){
+                          isLoading: state is UpdateUnitLoadingState,
+                          onTap: () async {
+                            final cubit = BlocProvider.of<AppBloc>(context);
+                            if (selectedState == null || selectedCity == null) {
+                              final snackBar = SnackBar(
+                                content: Center(
+                                    child: Text(
+                                  LocaleKeys.please_select_city_and_district
+                                      .tr(),
+                                  textAlign: TextAlign.center,
+                                )),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                              return;
+                            }
+                            if ((cubit.unitBody.longitude == null ||
+                                    cubit.unitBody.longitude == null) &&
+                                !widget.isUpdate &&
+                                cubit.unitBody.subCategoryId != 8) {
+                              final snackBar = SnackBar(
+                                content: Center(
+                                    child: Text(
+                                  LocaleKeys.please_select_location.tr(),
+                                  textAlign: TextAlign.center,
+                                )),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                              return;
+                            }
+                            if (cubit.unitBody.subCategoryId == 8) {
+                              cubit.updateNewUnitLocation(
+                                  latitude: 0.0, longitude: 0.0);
+                            }
 
-                          const snackBar = SnackBar(
-                            content: Center(child: Text('من فضلك اختر مكانك علي الخريطة',textAlign: TextAlign.center,)),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          return;
-                        }
-                        if(cubit.unitBody.subCategoryId == 8){
-                          cubit.updateNewUnitLocation(latitude: 0.0, longitude: 0.0);
-                        }
-
-                        cubit.updateNewUnitStateAndCapacity(stateId: selectedState!.id, capacity: count);
-                        if(widget.isUpdate){
-                          await cubit.updateUnitCityAndState(unitId: cubit.selectedUnit.id??-1);
-                          Navigator.pop(context);
-                        }else{
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AddNewUnitPhotosScreen()));
-                        }
-                        // if (_controller.text.isEmpty || selected == -1) {
-                        //   final snackBar = SnackBar(
-                        //     content: Center(
-                        //         child: Text(
-                        //           'ادخل اسم الكشتة',
-                        //           textAlign: TextAlign.center,
-                        //         )),
-                        //   );
-                        //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        //   return;
-                        // }
-                        //
-                        // final cubit = BlocProvider.of<AppBloc>(context);
-                        // cubit.updateNewUnitCategoryAndTitle(
-                        //   catId: cubit.allCreateUnitCategory[selected].categoryId,
-                        //   subCatId: cubit.allCreateUnitCategory[selected].subCategoryId??-1,
-                        //   title: _controller.text,
-                        // );
-                        //
-                        // Navigator.push(context, MaterialPageRoute(builder: (context) => const Screen50()));
+                            cubit.updateNewUnitStateAndCapacity(
+                                stateId: selectedState!.id, capacity: count);
+                            if (widget.isUpdate) {
+                              await cubit.updateUnitCityAndState(
+                                  unitId: cubit.selectedUnit.id ?? -1);
+                              Navigator.pop(context);
+                            } else {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AddNewUnitPhotosScreen()));
+                            }
+                            // if (_controller.text.isEmpty || selected == -1) {
+                            //   final snackBar = SnackBar(
+                            //     content: Center(
+                            //         child: Text(
+                            //           'ادخل اسم الكشتة',
+                            //           textAlign: TextAlign.center,
+                            //         )),
+                            //   );
+                            //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            //   return;
+                            // }
+                            //
+                            // final cubit = BlocProvider.of<AppBloc>(context);
+                            // cubit.updateNewUnitCategoryAndTitle(
+                            //   catId: cubit.allCreateUnitCategory[selected].categoryId,
+                            //   subCatId: cubit.allCreateUnitCategory[selected].subCategoryId??-1,
+                            //   title: _controller.text,
+                            // );
+                            //
+                            // Navigator.push(context, MaterialPageRoute(builder: (context) => const Screen50()));
+                          },
+                          title: widget.isUpdate
+                              ? LocaleKeys.update.tr()
+                              : LocaleKeys.next.tr(),
+                          width: size.width,
+                          paddingV: 18,
+                        );
                       },
-                      title: widget.isUpdate?'تحديث':'التالي',
-                      width: size.width,
-                      paddingV: 18,
-                    );
-  },
-),
+                    ),
                   ),
                 ],
               ),

@@ -5,6 +5,9 @@ import '../../../../Core/constants/ColorManager.dart';
 import '../../../../Core/constants/app_size.dart';
 import '../../../../Features/Widgets/custom_dropdown_textfield.dart';
 import '../../../../Features/Widgets/image_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:kashtat/translations/locale_keys.g.dart';
+
 class DropMenuDwonWidget extends StatefulWidget {
   const DropMenuDwonWidget({super.key});
 
@@ -37,7 +40,7 @@ class _DropMenuDwonWidgetState extends State<DropMenuDwonWidget> {
             child: CustomDropDownFormField(
               fillColor: Colors.white,
               radius: AppSize.h15,
-              hintText: "اختر الكشتة",
+              hintText: LocaleKeys.choose_kashta.tr(),
               icon: AssetImageWidget(
                 height: AppSize.h15,
                 imgPath: ImageManager.dropButton,

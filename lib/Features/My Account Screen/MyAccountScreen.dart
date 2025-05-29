@@ -23,7 +23,13 @@ import '../Wallet Logs Screen/Widgets/WalletItemWidget.dart';
 import '../Widgets/Loader.dart';
 
 class MyAccountScreen extends StatefulWidget {
-  const MyAccountScreen({Key? key,required this.name, required this.phone, required this.avatar, required this.userType}) : super(key: key);
+  const MyAccountScreen(
+      {Key? key,
+      required this.name,
+      required this.phone,
+      required this.avatar,
+      required this.userType})
+      : super(key: key);
   final String name;
   final String avatar;
   final String phone;
@@ -98,7 +104,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        'الملف الشخصي',
+                        LocaleKeys.profile.tr(),
                         style: TextStyle(
                           fontSize: FontSize.s34,
                           fontWeight: FontWeightManager.bold,
@@ -107,190 +113,246 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       const SizedBox(height: 20),
                       ContainerDecorated(
                           content: Column(
-                            children: [
-                              if(widget.userType == "provider"&&cubit.userType == UserType.isProvider)
-
-                              SizedBox(height: 10),
-                              if(widget.userType == "provider"&&cubit.userType == UserType.isProvider)
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: Container(
-                                        width: 60,
-                                        height: 60,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(100),
-                                          border: Border.all(color: Colors.grey.withOpacity(0.8))
-                                        ),
-                                        child: image != null?
-                                    Image.file(
-                                File(image!.path), // You can access it with . operator and path property
-                            fit: BoxFit.cover,
-                            width: 100,
-                            height: 100,
-                          ): CachedNetworkImage(
-                                          imageUrl: avatar??'',
-                                          fit: BoxFit.cover,
-                                          placeholder: (context, url) => Loader(),
-                                          errorWidget: (context, url, error) => Icon(Icons.image_not_supported_outlined,color: Colors.grey,),
-
-                                        ))),
-                              ),
-                              // SizedBox(height: 17),
-                            if(edit && widget.userType == "provider"&&cubit.userType == UserType.isProvider)
-                              TextButton(onPressed: ()async{
-
-                                List<XFile> pickedImage = await cubit.pickImage(ImagePickerType.singleImage);
-                                if(pickedImage.isNotEmpty){
+                        children: [
+                          if (widget.userType == "provider" &&
+                              cubit.userType == UserType.isProvider)
+                            SizedBox(height: 10),
+                          if (widget.userType == "provider" &&
+                              cubit.userType == UserType.isProvider)
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: Container(
+                                      width: 60,
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          border: Border.all(
+                                              color: Colors.grey
+                                                  .withOpacity(0.8))),
+                                      child: image != null
+                                          ? Image.file(
+                                              File(image!
+                                                  .path), // You can access it with . operator and path property
+                                              fit: BoxFit.cover,
+                                              width: 100,
+                                              height: 100,
+                                            )
+                                          : CachedNetworkImage(
+                                              imageUrl: avatar ?? '',
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, url) =>
+                                                  Loader(),
+                                              errorWidget:
+                                                  (context, url, error) => Icon(
+                                                Icons
+                                                    .image_not_supported_outlined,
+                                                color: Colors.grey,
+                                              ),
+                                            ))),
+                            ),
+                          // SizedBox(height: 17),
+                          if (edit &&
+                              widget.userType == "provider" &&
+                              cubit.userType == UserType.isProvider)
+                            TextButton(
+                              onPressed: () async {
+                                List<XFile> pickedImage = await cubit
+                                    .pickImage(ImagePickerType.singleImage);
+                                if (pickedImage.isNotEmpty) {
                                   setState(() {
                                     image = pickedImage[0];
                                   });
                                 }
-
-                              }, child: const Text('تعديل الصورة الرمزية',
-                                style: TextStyle(
-                                    fontWeight: FontWeightManager.bold,
-                                    color: Color(0xff004CFF),
-                                fontSize: 12),)),
-                              SizedBox(height: 17),
-                              Row(
-                                children: [
-                                  SizedBox(width: 100,
-                                    child: Text("الاسم",
-                                      style: TextStyle(
-                                          fontWeight: FontWeightManager.bold,
-                                          color: Colors.black),),),
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey.withOpacity(0.3), width: 1),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                        child: TextField(
-                                          controller: nameController,
-                                          style: TextStyle(
-                                              fontWeight: FontWeightManager.bold,
-                                              fontFamily: GoogleFonts.lato().fontFamily,
-                                              fontSize: FontSize.s14
-                                          ),
-                                          decoration: InputDecoration(
-                                              border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(8.0),
-                                                borderSide: BorderSide.none,
-                                              ),
-                                              filled: true,
-                                              hintStyle: TextStyle(
-                                                  color: Colors.grey[800],
-                                                  fontSize: FontSize.s14),
-                                              fillColor: Colors.white70,
-                                              hintText: LocaleKeys.name.tr().capitalize(),
-                                              contentPadding: EdgeInsets.zero),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 17),
-                              Row(
-                                children: [
-                                  SizedBox(width: 100,
-                                    child: Text("رقم الموبايل",
-                                      style: TextStyle(
-                                          fontWeight: FontWeightManager.bold,
-                                      color: Colors.black),),),
-                                  Expanded(
-                                    child: Directionality(
-                                      textDirection: ui.TextDirection.ltr,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.grey.withOpacity(0.3), width: 1),
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                          const EdgeInsets.symmetric(horizontal: 8.0),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Image.asset(
-                                                ImageManager.ksaLogo,
-                                                width: 20,
-                                              ),
-                                              const Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 4.0, left: 5, right: 5),
-                                                child: Text(
-                                                  '+966',
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeightManager.bold),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: TextField(
-                                                  keyboardType: TextInputType.number,
-                                                  controller: phoneController,
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeightManager.bold,
-                                                      fontFamily: GoogleFonts.lato().fontFamily,
-                                                      fontSize: FontSize.s14
-                                                  ),
-                                                  decoration: InputDecoration(
-                                                      border: OutlineInputBorder(
-                                                        borderRadius:
-                                                        BorderRadius.circular(8.0),
-                                                        borderSide: BorderSide.none,
-                                                      ),
-                                                      filled: true,
-                                                      hintStyle:
-                                                      TextStyle(color: Colors.grey[800]),
-                                                      fillColor: Colors.white70,
-                                                      contentPadding: EdgeInsets.zero),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 40),
-                              if(!edit)
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    KButton(onTap: (){
-                                      setState(() {
-                                        edit = !edit;
-                                      });
-                                    }, title: "تعديل",),
-                                    KButton(onTap: (){}, title: "حذف"),
-                                  ],
+                              },
+                              child: Text(LocaleKeys.edit_avatar.tr(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeightManager.bold,
+                                      color: Color(0xff004CFF),
+                                      fontSize: 12)),
+                            ),
+                          SizedBox(height: 17),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 100,
+                                child: Text(
+                                  LocaleKeys.name.tr(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeightManager.bold,
+                                      color: Colors.black),
                                 ),
-                              if(edit)
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    KButton(onTap: (){
-                                      cubit.updateProfile(phone: "+966${phoneController.text}", name: nameController.text, avatar: image).then((value) => getData());
-                                    }, title: "حفظ",),
-                                    KButton(onTap: (){
-                                      setState(() {
-                                        edit = !edit;
-                                        image = null;
-                                      });
-                                    }, title: "إلغاء",clr: ColorManager.whiteColor,txtClr: ColorManager.mainlyBlueColor,),
-                                  ],
-                                )
+                              ),
+                              Expanded(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        width: 1),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: TextField(
+                                      controller: nameController,
+                                      style: TextStyle(
+                                          fontWeight: FontWeightManager.bold,
+                                          fontFamily:
+                                              GoogleFonts.lato().fontFamily,
+                                          fontSize: FontSize.s14),
+                                      decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          filled: true,
+                                          hintStyle: TextStyle(
+                                              color: Colors.grey[800],
+                                              fontSize: FontSize.s14),
+                                          fillColor: Colors.white70,
+                                          hintText:
+                                              LocaleKeys.name.tr().capitalize(),
+                                          contentPadding: EdgeInsets.zero),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
-                          )
-                      ),
-                      SizedBox(height: 20,)
+                          ),
+                          SizedBox(height: 17),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 100,
+                                child: Text(
+                                  LocaleKeys.mobile_number.tr(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeightManager.bold,
+                                      color: Colors.black),
+                                ),
+                              ),
+                              Expanded(
+                                child: Directionality(
+                                  textDirection: ui.TextDirection.ltr,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.grey.withOpacity(0.3),
+                                          width: 1),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            ImageManager.ksaLogo,
+                                            width: 20,
+                                          ),
+                                          const Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 4.0, left: 5, right: 5),
+                                            child: Text(
+                                              '+966',
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      FontWeightManager.bold),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: TextField(
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              controller: phoneController,
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      FontWeightManager.bold,
+                                                  fontFamily: GoogleFonts.lato()
+                                                      .fontFamily,
+                                                  fontSize: FontSize.s14),
+                                              decoration: InputDecoration(
+                                                  border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                    borderSide: BorderSide.none,
+                                                  ),
+                                                  filled: true,
+                                                  hintStyle: TextStyle(
+                                                      color: Colors.grey[800]),
+                                                  fillColor: Colors.white70,
+                                                  contentPadding:
+                                                      EdgeInsets.zero),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 40),
+                          if (!edit)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                KButton(
+                                  onTap: () {
+                                    setState(() {
+                                      edit = !edit;
+                                    });
+                                  },
+                                  title: LocaleKeys.edit.tr(),
+                                ),
+                                KButton(
+                                  onTap: () {},
+                                  title: LocaleKeys.delete.tr(),
+                                ),
+                              ],
+                            ),
+                          if (edit)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                KButton(
+                                  onTap: () {
+                                    cubit
+                                        .updateProfile(
+                                            phone:
+                                                "+966${phoneController.text}",
+                                            name: nameController.text,
+                                            avatar: image)
+                                        .then((value) => getData());
+                                  },
+                                  title: LocaleKeys.save.tr(),
+                                ),
+                                KButton(
+                                  onTap: () {
+                                    setState(() {
+                                      edit = !edit;
+                                      image = null;
+                                    });
+                                  },
+                                  title: LocaleKeys.cancel.tr(),
+                                  clr: ColorManager.whiteColor,
+                                  txtClr: ColorManager.mainlyBlueColor,
+                                ),
+                              ],
+                            )
+                        ],
+                      )),
+                      SizedBox(
+                        height: 20,
+                      )
                     ],
                   ),
                 ),
@@ -303,10 +365,10 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   }
 
   String avatar = '';
-  Future<void> getData()async{
+  Future<void> getData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      avatar = prefs.getString('avatar') ?? '' ;
+      avatar = prefs.getString('avatar') ?? '';
       edit = !edit;
     });
   }

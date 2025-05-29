@@ -17,6 +17,7 @@ import '../../../../Core/models/UnitModel.dart';
 import '../../../../Features/Request Details/Widgets/ShowModelBottomSheet.dart';
 import '../widget/codes_container.dart';
 import '../widget/copon_button.dart';
+import 'package:kashtat/translations/locale_keys.g.dart';
 
 class CouponScreen extends StatefulWidget {
   const CouponScreen({super.key});
@@ -48,9 +49,7 @@ class _CouponScreenState extends State<CouponScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery
-        .of(context)
-        .size;
+    final size = MediaQuery.of(context).size;
     final cubit = BlocProvider.of<AppBloc>(context);
     return Scaffold(
       backgroundColor: ColorManager.grey3,
@@ -80,10 +79,7 @@ class _CouponScreenState extends State<CouponScreen> {
                       children: [
                         SizedBox(
                             height:
-                            MediaQuery
-                                .of(context)
-                                .viewPadding
-                                .top + 15),
+                                MediaQuery.of(context).viewPadding.top + 15),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: InkWell(
@@ -116,7 +112,7 @@ class _CouponScreenState extends State<CouponScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "اكواد الخصم",
+                                    LocaleKeys.discount_codes.tr(),
                                     style: TextStyle(
                                       fontSize: 34,
                                       fontWeight: FontWeightManager.bold,
@@ -126,7 +122,7 @@ class _CouponScreenState extends State<CouponScreen> {
                                     height: AppSize.h10,
                                   ),
                                   Text(
-                                    "بإمكانك إنشاء كود خصم خاص لك ومشاركته مع ضيوفك لتشجيعهم على الحجز",
+                                    LocaleKeys.share_with_guests.tr(),
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeightManager.medium,
@@ -144,7 +140,7 @@ class _CouponScreenState extends State<CouponScreen> {
                                     height: AppSize.h20,
                                   ),
                                   Text(
-                                    "اكواد الخصم المنشئة",
+                                    LocaleKeys.created_discount_codes.tr(),
                                     style: StyleManager.getBoldStyle(
                                         fontSize: AppSize.sp25,
                                         color: ColorManager.black),
@@ -153,7 +149,7 @@ class _CouponScreenState extends State<CouponScreen> {
                                     height: AppSize.h10,
                                   ),
                                   Text(
-                                    "اضغط على الكود لنسخه",
+                                    LocaleKeys.tap_to_copy.tr(),
                                     textAlign: TextAlign.right,
                                     style: StyleManager.getBoldStyle(
                                         fontSize: AppSize.sp16,
@@ -178,7 +174,6 @@ class _CouponScreenState extends State<CouponScreen> {
                                           ],
                                         );
                                       }),
-
                                 ],
                               ),
                             ),
@@ -209,18 +204,17 @@ class _CouponScreenState extends State<CouponScreen> {
 
     customBottomSheet(context, '',
         StatefulBuilder(builder: (context, innerSetState) {
-          return Column(
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              if (!isContinue)
-                Expanded(child: _buildSelectUnitWidget(context, innerSetState)),
-              if (isContinue) Expanded(
-                  child: _buildCreateCouponWidget(context)),
-            ],
-          );
-        }), true, 600);
+      return Column(
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          if (!isContinue)
+            Expanded(child: _buildSelectUnitWidget(context, innerSetState)),
+          if (isContinue) Expanded(child: _buildCreateCouponWidget(context)),
+        ],
+      );
+    }), true, 600);
   }
 
   _buildSelectUnitWidget(BuildContext context, Function innerSetState) =>
@@ -228,8 +222,8 @@ class _CouponScreenState extends State<CouponScreen> {
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
-            const Text(
-              "حدد الكشتة / العقار او الوحدات التي ترغب بأن يطبق عليها الخصم",
+            Text(
+              LocaleKeys.select_kashta_or_units.tr(),
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeightManager.medium,
@@ -259,8 +253,8 @@ class _CouponScreenState extends State<CouponScreen> {
                       ),
                       isDense: true,
                       errorStyle:
-                      TextStyle(color: Colors.redAccent, fontSize: 16.0),
-                      hintText: 'اختر الكشتة',
+                          TextStyle(color: Colors.redAccent, fontSize: 16.0),
+                      hintText: LocaleKeys.select_kashta.tr(),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                           borderSide: BorderSide(
@@ -285,12 +279,13 @@ class _CouponScreenState extends State<CouponScreen> {
                           Icons.keyboard_arrow_down_outlined,
                           size: 25,
                         ),
-                        items: (BlocProvider
-                            .of<AppBloc>(context)
-                            .allProviderUnits
-                            .isEmpty? [UnitModel()] : BlocProvider
-                            .of<AppBloc>(context)
-                            .allProviderUnits).map((UnitModel? value) {
+                        items: (BlocProvider.of<AppBloc>(context)
+                                    .allProviderUnits
+                                    .isEmpty
+                                ? [UnitModel()]
+                                : BlocProvider.of<AppBloc>(context)
+                                    .allProviderUnits)
+                            .map((UnitModel? value) {
                           return DropdownMenuItem<UnitModel>(
                             value: value ?? UnitModel(),
                             child: Text(value?.name ?? ''),
@@ -313,10 +308,7 @@ class _CouponScreenState extends State<CouponScreen> {
                 });
               },
               title: 'التالي',
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
+              width: MediaQuery.of(context).size.width,
               paddingV: 20,
             ),
             // SizedBox(height: 15,),
@@ -324,8 +316,7 @@ class _CouponScreenState extends State<CouponScreen> {
         ),
       );
 
-  _buildCreateCouponWidget(BuildContext context) =>
-      Padding(
+  _buildCreateCouponWidget(BuildContext context) => Padding(
         padding: const EdgeInsets.all(15.0),
         child: ListView(
           children: [
@@ -366,7 +357,7 @@ class _CouponScreenState extends State<CouponScreen> {
                         ),
                         filled: true,
                         hintStyle:
-                        TextStyle(color: Colors.grey[400], fontSize: 14),
+                            TextStyle(color: Colors.grey[400], fontSize: 14),
                         fillColor: Colors.white30,
                         hintText: 'مثال : كشتات'),
                   ),
@@ -477,7 +468,7 @@ class _CouponScreenState extends State<CouponScreen> {
                         ),
                         filled: true,
                         hintStyle:
-                        TextStyle(color: Colors.grey[400], fontSize: 14),
+                            TextStyle(color: Colors.grey[400], fontSize: 14),
                         fillColor: Colors.white30,
                         hintText: '1/1/2024'),
                   ),
@@ -522,7 +513,7 @@ class _CouponScreenState extends State<CouponScreen> {
                         ),
                         filled: true,
                         hintStyle:
-                        TextStyle(color: Colors.grey[400], fontSize: 14),
+                            TextStyle(color: Colors.grey[400], fontSize: 14),
                         fillColor: Colors.white30,
                         hintText: '7'),
                   ),
@@ -538,7 +529,7 @@ class _CouponScreenState extends State<CouponScreen> {
               },
               builder: (context, state) {
                 return KButton(
-                  onTap: ()async {
+                  onTap: () async {
                     // print(_selectedUnit!.id);
                     //
                     // return;
@@ -551,22 +542,24 @@ class _CouponScreenState extends State<CouponScreen> {
                     }
 
                     print({
-                      "code":codeController.text,
-                      "expires_at":dateController.text,
-                      "discount":percentageController.text,
-                      "[]units_ids":[_selectedUnit!.id],
-                      "usage_limit":usageController.text,
+                      "code": codeController.text,
+                      "expires_at": dateController.text,
+                      "discount": percentageController.text,
+                      "[]units_ids": [_selectedUnit!.id],
+                      "usage_limit": usageController.text,
                     });
                     final formData = FormData.fromMap({
-                      "code":codeController.text,
-                      "expires_at":dateController.text,
-                      "discount":double.parse(percentageController.text)/100,
-                      "units_ids[0]":_selectedUnit!.id,
-                      "usage_limit":usageController.text,
+                      "code": codeController.text,
+                      "expires_at": dateController.text,
+                      "discount": double.parse(percentageController.text) / 100,
+                      "units_ids[0]": _selectedUnit!.id,
+                      "usage_limit": usageController.text,
                     });
 
-                    await BlocProvider.of<AppBloc>(context).createCoupon(body: formData).then((value){
-                      if(value){
+                    await BlocProvider.of<AppBloc>(context)
+                        .createCoupon(body: formData)
+                        .then((value) {
+                      if (value) {
                         Navigator.pop(context);
                         Fluttertoast.showToast(
                             msg: "تم اضافة كود الخصم بنجاح",
@@ -575,9 +568,8 @@ class _CouponScreenState extends State<CouponScreen> {
                             timeInSecForIosWeb: 1,
                             backgroundColor: Colors.green,
                             textColor: Colors.white,
-                            fontSize: 16.0
-                        );
-                      }else{
+                            fontSize: 16.0);
+                      } else {
                         Fluttertoast.showToast(
                             msg: "لم يتم انشاء كود الخصم",
                             toastLength: Toast.LENGTH_SHORT,
@@ -585,17 +577,12 @@ class _CouponScreenState extends State<CouponScreen> {
                             timeInSecForIosWeb: 1,
                             backgroundColor: Colors.red,
                             textColor: Colors.white,
-                            fontSize: 16.0
-                        );
+                            fontSize: 16.0);
                       }
                     });
-
                   },
                   title: 'أنشئ كود الخصم',
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   paddingV: 20,
                   isLoading: state is CreateCouponLoadingState,
                 );
@@ -605,7 +592,6 @@ class _CouponScreenState extends State<CouponScreen> {
           ],
         ),
       );
-
 
   DateTime expireDate = DateTime.now();
 
@@ -623,5 +609,4 @@ class _CouponScreenState extends State<CouponScreen> {
       });
     }
   }
-
 }

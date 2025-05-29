@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kashtat/Features/Dashboard%20Screen/DashboardScreen.dart';
 import 'package:kashtat/Features/Widgets/ScreenTemplateWidget.dart';
 import 'package:kashtat/Features/Widgets/kButton.dart';
+import 'package:kashtat/translations/locale_keys.g.dart';
 import '../../Core/Cubit/AppCubit.dart';
 import '../../Core/Cubit/AppState.dart';
 import '../../Core/constants/ColorManager.dart';
@@ -25,7 +27,7 @@ class _PricingScreenState extends State<PricingScreen> {
 
   @override
   void initState() {
-    if(!widget.isCreateUnit){
+    if (!widget.isCreateUnit) {
       final cubit = BlocProvider.of<AppBloc>(context);
       controller1.text = cubit.selectedUnit.price!.others!;
       controller2.text = cubit.selectedUnit.price!.thursday!;
@@ -45,13 +47,17 @@ class _PricingScreenState extends State<PricingScreen> {
         children: [
           Expanded(
             child: ScreenTemplateWidget(
-              title: 'الاسعار',
+              title: LocaleKeys.prices.tr(),
               content: Column(
                 children: [
-                  PriceItem(title: "وسط الأسبوع", controller: controller1),
-                  PriceItem(title: "الخميس", controller: controller2),
-                  PriceItem(title: "الجمعة", controller: controller3),
-                  PriceItem(title: "السبت", controller: controller4),
+                  PriceItem(
+                      title: LocaleKeys.mid_week.tr(), controller: controller1),
+                  PriceItem(
+                      title: LocaleKeys.thursday.tr(), controller: controller2),
+                  PriceItem(
+                      title: LocaleKeys.friday.tr(), controller: controller3),
+                  PriceItem(
+                      title: LocaleKeys.saturday.tr(), controller: controller4),
                 ],
               ),
             ),
@@ -89,10 +95,10 @@ class _PricingScreenState extends State<PricingScreen> {
                             controller2.text.isEmpty ||
                             controller3.text.isEmpty ||
                             controller4.text.isEmpty) {
-                          const snackBar = SnackBar(
+                          final snackBar = SnackBar(
                             content: Center(
                                 child: Text(
-                              'من فضلك ادخل الاسعار',
+                              LocaleKeys.please_enter_prices.tr(),
                               textAlign: TextAlign.center,
                             )),
                           );
@@ -109,17 +115,20 @@ class _PricingScreenState extends State<PricingScreen> {
                     : () {
                         FocusManager.instance.primaryFocus?.unfocus();
                         cubit.updateNewUnitPricing(
-                            priceOfOthers: int.parse(controller1.text),
-                            priceThursday: int.parse(controller2.text),
-                            priceFriday: int.parse(controller3.text),
-                            priceSaturday: int.parse(controller4.text),
+                          priceOfOthers: int.parse(controller1.text),
+                          priceThursday: int.parse(controller2.text),
+                          priceFriday: int.parse(controller3.text),
+                          priceSaturday: int.parse(controller4.text),
                         );
                         cubit.updateUnitPricing();
                       },
-                title: widget.isCreateUnit ? 'خلصنا' : "تعديل",
+                title: widget.isCreateUnit
+                    ? LocaleKeys.done.tr()
+                    : LocaleKeys.update.tr(),
                 width: size.width,
                 paddingV: 18,
-                isLoading:  state is UpdateUnitLoadingState || state is LoadingCreateNewUnitState,
+                isLoading: state is UpdateUnitLoadingState ||
+                    state is LoadingCreateNewUnitState,
               ),
             ),
           ),
@@ -194,7 +203,7 @@ class _PricingScreenState extends State<PricingScreen> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 30),
               child: Text(
-                'يوجد لديك طلب إضافة كشتة بانتظار الموافقة',
+                LocaleKeys.pending_kashta_approval.tr(),
                 style: TextStyle(
                     fontSize: FontSize.s18, fontWeight: FontWeightManager.bold),
               ),
@@ -205,7 +214,7 @@ class _PricingScreenState extends State<PricingScreen> {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                title: 'موافق',
+                title: LocaleKeys.confirm.tr(),
                 width: MediaQuery.of(context).size.width,
                 paddingV: 20,
               ),

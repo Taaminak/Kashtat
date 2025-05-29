@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,23 +10,25 @@ import '../../Core/Cubit/AppState.dart';
 import '../../Core/constants/ColorManager.dart';
 import '../../Core/constants/FontManager.dart';
 import '../Widgets/kButton.dart';
+import 'package:kashtat/translations/locale_keys.g.dart';
 
 class CancellationAndReturnPolicyScreen extends StatefulWidget {
   const CancellationAndReturnPolicyScreen({Key? key}) : super(key: key);
 
   @override
-  State<CancellationAndReturnPolicyScreen> createState() => _CancellationAndReturnPolicyScreenState();
+  State<CancellationAndReturnPolicyScreen> createState() =>
+      _CancellationAndReturnPolicyScreenState();
 }
 
-class _CancellationAndReturnPolicyScreenState extends State<CancellationAndReturnPolicyScreen> {
-
+class _CancellationAndReturnPolicyScreenState
+    extends State<CancellationAndReturnPolicyScreen> {
   TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
     final cubit = BlocProvider.of<AppBloc>(context);
     setState(() {
-      controller.text = cubit.selectedUnit.cancellationPolicy??'';
+      controller.text = cubit.selectedUnit.cancellationPolicy ?? '';
     });
     super.initState();
   }
@@ -36,17 +39,24 @@ class _CancellationAndReturnPolicyScreenState extends State<CancellationAndRetur
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorManager.mainlyBlueColor,
-        title: Text('سياسة الالغاء والاسترجاع',style: TextStyle(fontWeight: FontWeight.normal),),
+        title: Text(
+          LocaleKeys.cancellation_policy.tr(),
+          style: TextStyle(fontWeight: FontWeight.normal),
+        ),
         centerTitle: true,
         leading: SizedBox(),
         actions: [
           InkWell(
-            onTap: (){
+            onTap: () {
               context.pop();
             },
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: const FaIcon(FontAwesomeIcons.chevronLeft,size:20,color: Colors.white,),
+              child: const FaIcon(
+                FontAwesomeIcons.chevronLeft,
+                size: 20,
+                color: Colors.white,
+              ),
             ),
           )
         ],
@@ -55,15 +65,19 @@ class _CancellationAndReturnPolicyScreenState extends State<CancellationAndRetur
         width: size.width,
         height: size.height,
         child: Padding(
-          padding: const EdgeInsets.only(left: 15.0,right: 15.0,top: 15.0),
+          padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 20,),
-                TitleWidget(txt: 'اكتب سياسة الالغاء والاسترجاع'),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
+                TitleWidget(txt: LocaleKeys.write_cancellation_policy.tr()),
+                SizedBox(
+                  height: 20,
+                ),
                 Container(
                   decoration: BoxDecoration(
                     color: ColorManager.whiteColor,
@@ -79,8 +93,7 @@ class _CancellationAndReturnPolicyScreenState extends State<CancellationAndRetur
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
-                    child:
-                    Container(
+                    child: Container(
                       decoration: BoxDecoration(
                         border: Border.all(
                             color: const Color(0xffDDDDDD), width: 1),
@@ -94,42 +107,51 @@ class _CancellationAndReturnPolicyScreenState extends State<CancellationAndRetur
                           controller: controller,
                           style: TextStyle(
                               fontWeight: FontWeightManager.bold,
-                              fontSize: FontSize.s14
-                          ),
-
+                              fontSize: FontSize.s14),
                           decoration: InputDecoration(
-
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8.0),
                                 borderSide: BorderSide.none,
                               ),
                               filled: true,
-
                               hintStyle: TextStyle(
                                   color: Colors.grey[400],
                                   fontSize: FontSize.s14),
                               fillColor: Colors.white30,
-                              hintText: 'ادخل سياسة الالغاء والاسترجاع'),
+                              hintText:
+                                  LocaleKeys.enter_cancellation_policy.tr()),
                         ),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 100,),
+                const SizedBox(
+                  height: 100,
+                ),
                 BlocConsumer<AppBloc, AppState>(
                   listener: (context, state) {
                     // TODO: implement listener
                   },
                   builder: (context, state) {
-                    return KButton(onTap:controller.text.isEmpty? (){} : (){
-                                final cubit = BlocProvider.of<AppBloc>(context);
-                                cubit.updateNewUnitCancellation(cancellation: controller.text);
-                                cubit.updateUnitReturnAndCancellationPolicy();
-                            }, title: 'اضافة',width: size.width,paddingV: 15,isLoading: state is UpdateUnitLoadingState,);
+                    return KButton(
+                      onTap: controller.text.isEmpty
+                          ? () {}
+                          : () {
+                              final cubit = BlocProvider.of<AppBloc>(context);
+                              cubit.updateNewUnitCancellation(
+                                  cancellation: controller.text);
+                              cubit.updateUnitReturnAndCancellationPolicy();
+                            },
+                      title: LocaleKeys.add.tr(),
+                      width: size.width,
+                      paddingV: 15,
+                      isLoading: state is UpdateUnitLoadingState,
+                    );
                   },
                 ),
-                const SizedBox(height: 40,),
-
+                const SizedBox(
+                  height: 40,
+                ),
               ],
             ),
           ),

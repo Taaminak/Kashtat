@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kashtat/Core/constants/ColorManager.dart';
 
 class FilterButton extends StatelessWidget {
-  const FilterButton({Key? key, required this.onTap, required this.title}) : super(key: key);
+  const FilterButton({Key? key, required this.onTap, required this.title})
+      : super(key: key);
   final Function() onTap;
   final String title;
 
@@ -19,13 +21,17 @@ class FilterButton extends StatelessWidget {
           padding: const EdgeInsets.all(7.0),
           child: Row(
             children: [
-              Text(title,style: TextStyle(
+              Text(
+                title,
+                style: TextStyle(
+                    color: ColorManager.whiteColor,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold),
+              ),
+              Icon(
+                Icons.arrow_drop_down,
                 color: ColorManager.whiteColor,
-                fontSize: 12,
-                fontWeight: FontWeight.bold
-              ),),
-              Icon(Icons.arrow_drop_down,
-                color: ColorManager.whiteColor,),
+              ),
             ],
           ),
         ),
